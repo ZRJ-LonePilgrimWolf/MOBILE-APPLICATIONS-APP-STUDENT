@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="700dp"
+    android:background="@color/p"
+    android:visibility="visible"
+    tools:context=".MainActivity"
+    tools:visibility="visible"
+    android:layout_gravity="center_vertical"
+    android:orientation="vertical"
+
+    >
+
+    <LinearLayout
+        android:layout_width="410dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="0dp"
+        android:background="@drawable/custom_edittext"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/mulogo" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:text="Registration"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textFontWeight="2000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/Roll"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+            android:drawablePadding="12dp"
+            android:hint="Select Role"
+            android:inputType="textEmailAddress"
+            android:layoutDirection="rtl"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="12dp" />
+
+
+        <EditText
+            android:id="@+id/Email"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_numbers_24"
+            android:drawablePadding="12dp"
+            android:hint="Student Number"
+            android:inputType="number"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="12dp" />
+
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_lock_24"
+            android:drawablePadding="12dp"
+            android:hint="@string/Password"
+            android:inputType="numberPassword"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="12dp" />
+
+        <EditText
+            android:id="@+id/dropdown_menu"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+            android:drawablePadding="12dp"
+            android:hint="Select program"
+            android:inputType="none"
+            android:layoutDirection="rtl"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="12dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
+            android:background="@color/purple"
+            android:cardElevation="6dp"
+            android:text="REGISTER"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:backgroundTint="#2563EB"
+            app:cornerRadius="12dp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="12dp"
+            android:text="If you already have an account click here"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+
+</LinearLayout>
