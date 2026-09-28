@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="700dp"
+    android:layout_height="match_parent"
     android:background="@color/p"
     android:visibility="visible"
     tools:context=".MainActivity"
     tools:visibility="visible"
     android:layout_gravity="center_vertical"
     android:orientation="vertical"
-
+    android:paddingTop="100dp"
     >
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:background="@drawable/custom_edittext"
             android:drawableStart="@drawable/baseline_arrow_drop_down_24"
             android:drawablePadding="12dp"
-            android:hint="Select Role"
+            android:hint="@string/Select_Role"
             android:inputType="textEmailAddress"
             android:layoutDirection="rtl"
             android:padding="20dp"

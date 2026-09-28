@@ -37,6 +37,25 @@
             android:textFontWeight="2000"
             android:textStyle="bold"/>
 
+
+
+        <EditText
+            android:id="@+id/Roll"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+            android:drawablePadding="12dp"
+            android:hint="@string/Select_Role"
+            android:inputType="textEmailAddress"
+            android:layoutDirection="rtl"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="12dp" />
+
         <EditText
             android:id="@+id/Username"
             android:layout_width="match_parent"
@@ -50,6 +69,7 @@
             android:padding="8dp"
             android:textColor="@color/white"
             android:textColorHighlight="@color/white" />
+
 
         <EditText
             android:id="@+id/Password"
@@ -65,20 +85,7 @@
             android:textColor="@color/white"
             android:textColorHighlight="@color/white"
             app:cornerRadius="12dp" />
-        <EditText
-            android:id="@+id/Email"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_email_24"
-            android:drawablePadding="12dp"
-            android:hint="@string/Email"
-            android:inputType="textEmailAddress"
-            android:padding="8dp"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/white"
-            app:cornerRadius="12dp" />
+
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
