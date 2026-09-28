@@ -4,39 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image1"
+    android:layout_gravity="center_vertical"
+    android:background="@color/p"
+    android:orientation="vertical"
+    android:paddingTop="100dp"
     android:visibility="visible"
     tools:context=".MainActivity"
     tools:visibility="visible">
+
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_width="410dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_margin="30dp"
-        android:orientation="vertical"
-        android:padding="10dp"
+        android:layout_margin="0dp"
+        android:background="@drawable/custom_edittext"
         android:backgroundTint="@color/white"
-        android:background="@drawable/custom_edittext">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
-            android:background="@drawable/mulogo"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginStart="110dp"
-            android:layout_marginBottom="60dp"
-            />
+            android:layout_marginLeft="150dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/mulogo" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
-            android:text="@string/Login"
+            android:text="Registration"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textStyle="bold"/>
-
-
+            android:textFontWeight="2000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/Roll"
@@ -55,6 +59,7 @@
             android:textSize="20sp"
             app:cornerRadius="12dp" />
 
+
         <EditText
             android:id="@+id/number"
             android:layout_width="match_parent"
@@ -63,14 +68,13 @@
             android:background="@drawable/custom_edittext"
             android:drawableStart="@drawable/baseline_numbers_24"
             android:drawablePadding="12dp"
-            android:hint="@string/student_number"
+            android:hint="@string/Select_Number"
             android:inputType="number"
             android:padding="20dp"
             android:textColor="@color/black"
             android:textColorHighlight="@color/white"
             android:textSize="20sp"
             app:cornerRadius="12dp" />
-
 
         <EditText
             android:id="@+id/Password"
@@ -82,31 +86,56 @@
             android:drawablePadding="12dp"
             android:hint="@string/Password"
             android:inputType="numberPassword"
-            android:padding="8dp"
-            android:textColor="@color/white"
+            android:padding="20dp"
+            android:textColor="@color/black"
             android:textColorHighlight="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="12dp" />
+
+        <EditText
+            android:id="@+id/dropdown_menu"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_edittext"
+            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+            android:drawablePadding="12dp"
+            android:hint="@string/select_Program"
+            android:inputType="none"
+            android:layoutDirection="rtl"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/white"
+            android:textSize="20sp"
             app:cornerRadius="12dp" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp"
             android:background="@color/purple"
-            android:text="@string/Login"
+            android:text="@string/register"
+            android:textAlignment="center"
             android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:backgroundTint="#2563EB"
-            app:cornerRadius="12dp"
-            android:layout_marginBottom="15dp"
-            />
+            app:cornerRadius="12dp" />
+
         <TextView
 
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@string/if_you_don_t_have_an_account_click_here"
-            android:textColor="@color/black"
-            android:textAllCaps="true"
+            android:padding="12dp"
+            android:text="@string/if_you_already_have_an_account_click_here"
             android:textAlignment="center"
-            android:padding="12dp"/>
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+
+            />
     </LinearLayout>
+
 </LinearLayout>

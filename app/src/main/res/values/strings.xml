@@ -8,5 +8,11 @@
     <string name="Welcome">Welcome</string>
     <string name="Email">Email</string>
     <string name="Select_Role">Select_Role</string>
+    <string name="Select_Number">Student_Number</string>
+    <string name="select_Program">Select_Program</string>
+    <string name="register">REGISTER</string>
+    <string name="if_you_already_have_an_account_click_here">If you already have an account click here</string>
+    <string name="student_number">Student_Number</string>
+    <string name="if_you_don_t_have_an_account_click_here">If you don\'t have an account click here</string>
 
 </resources>
