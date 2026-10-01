@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,29 +8,107 @@
     android:visibility="visible"
     tools:context=".MainActivity"
     tools:visibility="visible"
-    android:layout_gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingTop="100dp"
     >
 
 
-    <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="0dp"
-        android:background="@drawable/custom_edittext"
-        android:backgroundTint="@color/white"
-        android:orientation="vertical"
-        android:padding="8dp">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:text="@string/Welcome"
+    android:textColor="@color/purple"
+    android:gravity="center"
+    android:textSize="30sp"
+    android:background="@drawable/dash"
+    />
     <TextView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/baseline_person_24"
-        
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="MY COURSES"
+        android:textSize="30sp"
+        android:layout_marginTop="230dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="295dp"
+        android:layout_marginEnd="0dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/W"
+
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:background="@drawable/custom_edittext"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:gravity="center"/>
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TIME TABLE"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:layout_marginTop="437dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="500dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/custom_edittext"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_edittext"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+       android:layout_alignParentBottom="true"
+        android:background="@color/p"
+        android:gravity="center">
+        <View
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/t"
+            android:gravity="center"
+            android:layout_marginStart="6dp"
+            />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/images"
+            android:gravity="center"
+            android:layout_marginStart="6dp"/>
+        <View
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:background="@drawable/y"
+            android:gravity="center"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+</RelativeLayout>
+
+
