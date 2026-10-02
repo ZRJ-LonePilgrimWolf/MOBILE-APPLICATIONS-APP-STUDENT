@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">LOGIN</string>
+    <string name="app_name">STUDENT COMPANION APP</string>
     <string name="Password">Password</string>
     <string name="Button">Button</string>
     <string name="Username">Username</string>
     <string name="Registration">Registration</string>
     <string name="Login">Login</string>
     <string name="Email">Email</string>
+    <string name="Em">My Courses</string>
     <string name="Select_Role">Select_Role</string>
     <string name="Select_Number">Student_Number</string>
     <string name="select_Program">Select_Program</string>
