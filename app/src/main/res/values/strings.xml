@@ -14,7 +14,10 @@
     <string name="student_number">Student_Number</string>
     <string name="if_you_don_t_have_an_account_click_here">If you don\'t have an account click here</string>
     <string name="Welcome">welcome back!</string>
+    <string name="Module">Module Links \n \nSemester one modules\nSemester two modules</string>
     <string name="W">ICT_361 \n Course completion 75%\nview course---></string>
+    <string name="school">MULUNGUSHI UNIVERSITY \n welcome back!</string>
+    <string name="Board">Dash Board</string>
 
 
 </resources>

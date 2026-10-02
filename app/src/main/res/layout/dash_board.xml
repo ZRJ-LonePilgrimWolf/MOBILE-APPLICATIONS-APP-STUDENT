@@ -10,7 +10,6 @@
     tools:visibility="visible"
     >
 
-
 <TextView
     android:layout_width="match_parent"
     android:layout_height="230dp"
@@ -43,12 +42,13 @@
             android:textStyle="bold"
             android:textSize="30sp"
             android:background="@drawable/custom_edittext"/>
+
         <View
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="262dp"
             android:layout_weight="1"
             android:background="@drawable/custom_edittext"
-            android:gravity="center"/>
+            android:gravity="center" />
     </LinearLayout>
 
     <TextView
