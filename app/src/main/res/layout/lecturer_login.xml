@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/L_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FActivity"
+    android:paddingTop="100dp"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:cardElevation="2dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="650dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="2dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/registration_login">
+
+            <TextView
+                android:background="@drawable/mulogo"
+                android:layout_width="100dp"
+                android:layout_gravity="center"
+                android:layout_height="100dp"
+                android:layout_marginBottom="50dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:text="@string/Login"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
+
+
+
+            <EditText
+                android:id="@+id/Roll"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/Select_Role"
+                android:textColorHint="@color/purple"
+                android:layoutDirection="rtl"
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp"
+                android:cursorVisible="false"/>
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_numbers_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/lecturer_id"
+                android:textColorHint="@color/purple"
+                android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp"
+                android:cursorVisible="true"/>
+
+
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/Password"
+                android:textColorHint="@color/purple"
+                android:inputType="numberPassword"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                app:cornerRadius="12dp"
+                android:cursorVisible="true"/>
+
+            <Button
+                android:id="@+id/lec_button"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/purple"
+                android:text="@string/Login"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:backgroundTint="#2563EB"
+                app:cornerRadius="12dp"
+                android:layout_marginBottom="15dp"
+                />
+            <TextView
+                android:id="@+id/Lec_buttonPanel"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="@string/if_you_don_t_have_an_account_click_here"
+                android:textColor="@color/black"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:padding="12dp"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</LinearLayout>
