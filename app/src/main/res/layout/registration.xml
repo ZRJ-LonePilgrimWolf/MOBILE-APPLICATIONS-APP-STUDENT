@@ -3,139 +3,153 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/r_main"
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical"
-    android:background="@color/p"
+   android:background="#F5F5F5"
     android:orientation="vertical"
     android:paddingTop="100dp"
     android:visibility="visible"
     tools:context=".MainActivity"
-    tools:visibility="visible">
+    tools:visibility="visible"
+    android:layout_marginTop="0dp">
 
-    <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="0dp"
-        android:background="@drawable/custom_edittext"
-        android:backgroundTint="@color/white"
-        android:orientation="vertical"
-        android:padding="8dp">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="350dp"
+        android:layout_height="655dp"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="2dp"
+        app:strokeColor="#E2E8F0"
+        app:strokeWidth="1dp"
+        android:layout_gravity="center"
+        android:padding="10dp">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginBottom="50dp"
-            android:background="@drawable/mulogo" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp"
-            android:text="@string/Registration"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textFontWeight="1"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="0dp"
+            android:background="@drawable/registration_login"
+            android:backgroundTint="@color/white"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-        <EditText
-            android:id="@+id/Roll"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
-            android:drawablePadding="12dp"
-            android:hint="@string/Select_Role"
-            android:inputType="textEmailAddress"
-            android:layoutDirection="rtl"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/white"
-            android:textSize="20sp"
-            app:cornerRadius="12dp" />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/mulogo" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:text="@string/Registration"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textFontWeight="1"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/Roll"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/Select_Role"
+                android:inputType="textEmailAddress"
+                android:layoutDirection="rtl"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp" />
 
 
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_numbers_24"
-            android:drawablePadding="12dp"
-            android:hint="@string/Select_Number"
-            android:inputType="number"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/white"
-            android:textSize="20sp"
-            app:cornerRadius="12dp" />
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_numbers_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/Select_Number"
+                android:inputType="number"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp" />
 
-        <EditText
-            android:id="@+id/Password"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_lock_24"
-            android:drawablePadding="12dp"
-            android:hint="@string/Password"
-            android:inputType="numberPassword"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/white"
-            android:textSize="20sp"
-            app:cornerRadius="12dp" />
+            <EditText
+                android:id="@+id/Password"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_lock_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/Password"
+                android:inputType="numberPassword"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp" />
 
-        <EditText
-            android:id="@+id/dropdown_menu"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/custom_edittext"
-            android:drawableStart="@drawable/baseline_arrow_drop_down_24"
-            android:drawablePadding="12dp"
-            android:hint="@string/select_Program"
-            android:inputType="none"
-            android:layoutDirection="rtl"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/white"
-            android:textSize="20sp"
-            app:cornerRadius="12dp" />
+            <EditText
+                android:id="@+id/dropdown_menu"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableStart="@drawable/baseline_arrow_drop_down_24"
+                android:drawablePadding="12dp"
+                android:hint="@string/select_Program"
+                android:inputType="none"
+                android:layoutDirection="rtl"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/white"
+                android:textSize="20sp"
+                app:cornerRadius="12dp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="15dp"
-            android:background="@color/purple"
-            android:text="@string/register"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:backgroundTint="#2563EB"
-            app:cornerRadius="12dp" />
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/purple"
+                android:text="@string/register"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:backgroundTint="#2563EB"
+                app:cornerRadius="12dp" />
 
-        <TextView
+            <TextView
+                android:id="@+id/butt"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:padding="12dp"
+                android:text="@string/if_you_already_have_an_account_click_here"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
 
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:padding="12dp"
-            android:text="@string/if_you_already_have_an_account_click_here"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-
-            />
-    </LinearLayout>
+                />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
