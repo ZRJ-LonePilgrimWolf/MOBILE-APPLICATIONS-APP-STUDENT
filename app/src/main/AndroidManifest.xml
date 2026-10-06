@@ -31,6 +31,9 @@
             android:name=".Profile"
             android:exported="false" />
         <activity
+            android:name=".LecturerRosterActivity"
+            android:exported="false" />
+        <activity
             android:name=".lecture_registration"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

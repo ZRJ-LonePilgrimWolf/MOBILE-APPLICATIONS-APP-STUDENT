@@ -465,6 +465,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/prof"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -472,10 +473,10 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/profile"
+                android:id="@+id/profil"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Profile"
+                android:contentDescription="@string/profil"
                 android:src="@drawable/baseline_person_24"
                 app:tint="#64748B" />
 
@@ -483,7 +484,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Profile"
+                android:text="@string/profile"
                 android:textColor="#64748B"
                 android:textSize="11sp" />
         </LinearLayout>

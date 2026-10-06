@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -22,7 +23,7 @@ public class FActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        TextView reg = findViewById(R.id.profile);
+        ImageView reg = findViewById(R.id.profil);
         reg.setOnClickListener(v -> {
             Intent intent = new Intent(FActivity.this, Profile.class);
             startActivity(intent);

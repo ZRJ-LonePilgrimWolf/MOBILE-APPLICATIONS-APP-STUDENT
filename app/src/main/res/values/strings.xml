@@ -34,6 +34,9 @@
     <string name="_60_done">60% Done</string>
     <string name="_3_active">3 Active</string>
     <string name="lecturer_id">Lecturer_id</string>
+    <string name="profile">Profile</string>
+    <string name="profil">Profile</string>
+    <string name="personal_details">PERSONAL_DETA</string>
 
 
 </resources>

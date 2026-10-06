@@ -5,277 +5,562 @@
     android:id="@+id/f_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#F8FAFC"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Profile">
 
-
+    <!-- Header Banner Area -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/header_bg"
-        >
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="28dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="24dp">
+
+        <!-- Top Action Bar -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Back"
+                android:focusable="true"
+                android:padding="4dp"
+                android:src="@drawable/baseline_arrow_back_24"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Student Profile"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/edit"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Edit"
+                android:focusable="true"
+                android:src="@drawable/baseline_draw_24"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
+        <!-- Profile Avatar & User Quick Info -->
         <LinearLayout
-            android:id="@+id/back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/baseline_arrow_back_24"
-            android:layout_marginTop="50dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="48dp"
+                app:cardElevation="6dp"
+                app:strokeColor="#93C5FD"
+                app:strokeWidth="3dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/baseline_person_24"
+                    app:tint="#1E3A5F" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="JOHN PHIRI"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Student ID: 20210001"
+                android:textColor="#93C5FD"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/badge_bg"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="ACTIVE STUDENT"
+                android:textColor="#2563EB"
+                android:textSize="11sp"
+                android:textStyle="bold" />
         </LinearLayout>
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
-            android:layout_marginStart="130dp"
-            >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/baseline_person_24"
-            />
-    </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
+    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
         android:padding="16dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F5F5F5"
-        android:layout_marginTop="0dp"
-        android:padding="20dp"
-        android:elevation="8dp"
-        android:orientation="vertical">
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/stud"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="STUDENT_DETAILS"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                />
-            <TextView
-                android:id="@+id/info"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Edit"
-                android:textStyle="bold"
-                android:paddingStart="150dp"
-                android:textSize="20sp"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
+            android:orientation="vertical">
 
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#E2E8F0"
-            app:strokeWidth="1dp"
-            android:layout_marginTop="20dp"
-            >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Student_ID  :XXXXXX"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="PROGRAM    : COMPUTER SCIENCE"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="DEPARTMENT : COMPUTER SCIENCE"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="YEAR OF STUDY : 3rd"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="STATUS : ACTIVE"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"/>
-        </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:id="@+id/stud"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:text="PERSONAL_DETAILS"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                />
-            <TextView
-                android:id="@+id/edit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Edit"
-                android:textStyle="bold"
-                android:paddingStart="150dp"
-                android:textSize="20sp"
-                android:layout_weight="1"
-                />
-        </LinearLayout>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#E2E8F0"
-            app:strokeWidth="1dp"
-            android:layout_marginTop="20dp"
-            >
-            <LinearLayout
+            <!-- Academic Details Card -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="FULL_Name        : JOHN PHIRI"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="DATE OF BIRTH : xx/xx/xxxx"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="GENDER            : MALE"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"/>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="EMAIL               : ____@.com"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="PHONE NUMBER : +260 _____"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="NATIONALITY : ZAMBIAN"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@color/white"
-                android:elevation="8dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="GROUP CHANGE"
-                    android:layout_weight="1"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    />
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeWidth="100dp"
-                >
-                <ImageView
-                    android:id="@+id/change"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/baseline_add_24"
-                    />
-            </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
 
-    </LinearLayout>
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/stud"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Academic Details"
+                            android:textColor="#1E293B"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:textColor="#2563EB"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#F1F5F9" />
+
+                    <!-- Student ID -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Student ID"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="20210001"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Program -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Program"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="BSc. Computer Science"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Department -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Department"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Computer Science"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Year of Study -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Year of Study"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="3rd Year"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Status -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Status"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Active"
+                            android:textColor="#16A34A"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Personal Details Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/student"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Personal Details"
+                            android:textColor="#1E293B"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:textColor="#2563EB"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="#F1F5F9" />
+
+                    <!-- Full Name -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Full Name"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="John Phiri"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Date of Birth -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Date of Birth"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="15 Aug 2001"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Gender -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Gender"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Male"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="j.phiri@student.mu.ac.zm"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Phone Number -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Phone Number"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="+260 971 234 567"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Nationality -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:text="Nationality"
+                            android:textColor="#64748B"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Zambian"
+                            android:textColor="#1E293B"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Group Request Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Group Change Request"
+                            android:textColor="#1E293B"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Request to switch project group"
+                            android:textColor="#64748B"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        app:cardBackgroundColor="#EFF6FF"
+                        app:cardCornerRadius="22dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="#2563EB"
+                        app:strokeWidth="1dp">
+
+                        <ImageView
+                            android:id="@+id/change"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="Request Change"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/baseline_add_24"
+                            app:tint="#2563EB" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
