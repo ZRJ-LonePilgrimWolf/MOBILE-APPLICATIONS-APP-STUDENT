@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/L_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".FActivity">
 
     <!-- Top Header Banner -->
     <LinearLayout
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Student Companion"
+            android:text="Lecturer Portal"
             android:textColor="@color/white"
             android:textSize="22sp"
             android:textStyle="bold" />
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Student Login"
+                    android:text="Lecturer Login"
                     android:textAlignment="center"
                     android:textColor="#1E293B"
                     android:textSize="22sp"
@@ -113,12 +113,12 @@
                     android:textColorHint="#94A3B8"
                     android:textSize="15sp" />
 
-                <!-- Student Number -->
+                <!-- Lecturer ID -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
-                    android:text="Student Number"
+                    android:text="Lecturer ID"
                     android:textColor="#475569"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -132,7 +132,7 @@
                     android:cursorVisible="true"
                     android:drawableStart="@drawable/baseline_numbers_24"
                     android:drawablePadding="12dp"
-                    android:hint="@string/student_number"
+                    android:hint="@string/lecturer_id"
                     android:inputType="number"
                     android:paddingHorizontal="16dp"
                     android:textColor="#1E293B"
@@ -167,7 +167,7 @@
 
                 <!-- Login Button -->
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/lec_button"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="16dp"
@@ -181,7 +181,7 @@
 
                 <!-- Register Link -->
                 <TextView
-                    android:id="@+id/buttonPanel"
+                    android:id="@+id/Lec_buttonPanel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"

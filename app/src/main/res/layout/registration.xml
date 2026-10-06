@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/r_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8FAFC"
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Student Login"
+                    android:text="Student Registration"
                     android:textAlignment="center"
                     android:textColor="#1E293B"
                     android:textSize="22sp"
@@ -129,11 +129,37 @@
                     android:layout_height="56dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/custom_edittext"
-                    android:cursorVisible="true"
                     android:drawableStart="@drawable/baseline_numbers_24"
                     android:drawablePadding="12dp"
-                    android:hint="@string/student_number"
+                    android:hint="@string/Select_Number"
                     android:inputType="number"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="#1E293B"
+                    android:textColorHint="#94A3B8"
+                    android:textSize="15sp" />
+
+                <!-- Program -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Program"
+                    android:textColor="#475569"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                    android:drawablePadding="12dp"
+                    android:focusable="false"
+                    android:hint="@string/select_Program"
+                    android:inputType="none"
                     android:paddingHorizontal="16dp"
                     android:textColor="#1E293B"
                     android:textColorHint="#94A3B8"
@@ -155,7 +181,6 @@
                     android:layout_height="56dp"
                     android:layout_marginBottom="24dp"
                     android:background="@drawable/custom_edittext"
-                    android:cursorVisible="true"
                     android:drawableStart="@drawable/baseline_lock_24"
                     android:drawablePadding="12dp"
                     android:hint="@string/Password"
@@ -165,30 +190,30 @@
                     android:textColorHint="#94A3B8"
                     android:textSize="15sp" />
 
-                <!-- Login Button -->
+                <!-- Register Button -->
                 <Button
                     android:id="@+id/button"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="#2563EB"
-                    android:text="@string/Login"
+                    android:text="@string/register"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
-                <!-- Register Link -->
+                <!-- Login Link -->
                 <TextView
-                    android:id="@+id/buttonPanel"
+                    android:id="@+id/butt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="8dp"
-                    android:text="@string/if_you_don_t_have_an_account_click_here"
+                    android:text="@string/if_you_already_have_an_account_click_here"
                     android:textAlignment="center"
                     android:textColor="#2563EB"
                     android:textSize="13sp"

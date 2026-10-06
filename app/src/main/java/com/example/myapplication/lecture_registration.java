@@ -13,13 +13,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class lecture_registration extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        setContentView(R.layout.lecturer_registration);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.R_main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
+            roleAutoComplete.setText("Lecturer", false);
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
@@ -38,23 +40,27 @@ public class MainActivity extends AppCompatActivity {
             });
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
                 String selectedRole = (String) parent.getItemAtPosition(position);
-                if ("Lecturer".equalsIgnoreCase(selectedRole)) {
-                    Intent intent = new Intent(MainActivity.this, lecturer_login.class);
+                if ("Student".equalsIgnoreCase(selectedRole)) {
+                    Intent intent = new Intent(lecture_registration.this, Registration.class);
                     startActivity(intent);
                 }
             });
         }
 
-        Button loginButton = findViewById(R.id.button);
-        loginButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, FActivity.class);
-            startActivity(intent);
-        });
+        Button loginButton = findViewById(R.id.lec_button);
+        if (loginButton != null) {
+            loginButton.setOnClickListener(v -> {
+                Intent intent = new Intent(lecture_registration.this, FActivity.class);
+                startActivity(intent);
+            });
+        }
 
-        TextView reg = findViewById(R.id.buttonPanel);
-        reg.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Registration.class);
-            startActivity(intent);
-        });
+        TextView reg = findViewById(R.id.Lec_buttonPanel);
+        if (reg != null) {
+            reg.setOnClickListener(v -> {
+                Intent intent = new Intent(lecture_registration.this, lecturer_login.class);
+                startActivity(intent);
+            });
+        }
     }
 }
