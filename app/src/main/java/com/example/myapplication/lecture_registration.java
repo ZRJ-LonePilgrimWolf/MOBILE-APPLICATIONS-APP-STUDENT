@@ -50,7 +50,7 @@ public class lecture_registration extends AppCompatActivity {
         Button loginButton = findViewById(R.id.lec_button);
         if (loginButton != null) {
             loginButton.setOnClickListener(v -> {
-                Intent intent = new Intent(lecture_registration.this, FActivity.class);
+                Intent intent = new Intent(lecture_registration.this, LecturerRosterActivity.class);
                 startActivity(intent);
             });
         }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,7 +17,6 @@ import androidx.core.view.WindowInsetsCompat;
 public class LecturerRosterActivity extends AppCompatActivity {
 
     private EditText etStudentSearch;
-    private Button btnSearchStudent;
     private TextView tvStudentName, tvStudentNumber, tvStudentStatus, tvStudentProgram, tvStudentYear, tvStudentCourses;
 
     @Override
@@ -35,8 +35,24 @@ public class LecturerRosterActivity extends AppCompatActivity {
             backButton.setOnClickListener(v -> finish());
         }
 
+        TextView tvActionNeededBadge = findViewById(R.id.tvActionNeededBadge);
+        if (tvActionNeededBadge != null) {
+            tvActionNeededBadge.setOnClickListener(v -> {
+                Intent intent = new Intent(LecturerRosterActivity.this, ActionNeededActivity.class);
+                startActivity(intent);
+            });
+        }
+
+        Button btnGoToActionNeeded = findViewById(R.id.btnGoToActionNeeded);
+        if (btnGoToActionNeeded != null) {
+            btnGoToActionNeeded.setOnClickListener(v -> {
+                Intent intent = new Intent(LecturerRosterActivity.this, ActionNeededActivity.class);
+                startActivity(intent);
+            });
+        }
+
         etStudentSearch = findViewById(R.id.etStudentSearch);
-        btnSearchStudent = findViewById(R.id.btnSearchStudent);
+        Button btnSearchStudent = findViewById(R.id.btnSearchStudent);
         tvStudentName = findViewById(R.id.tvStudentName);
         tvStudentNumber = findViewById(R.id.tvStudentNumber);
         tvStudentStatus = findViewById(R.id.tvStudentStatus);
@@ -64,6 +80,22 @@ public class LecturerRosterActivity extends AppCompatActivity {
             tvStudentYear.setText("3rd Year");
             tvStudentCourses.setText("ICT 361, ICT 351, ICT 341");
             Toast.makeText(this, "Student found: John Phiri", Toast.LENGTH_SHORT).show();
+        } else if (query.contains("sarah") || query.contains("20210004") || query.contains("tembo")) {
+            tvStudentName.setText("SARAH TEMBO");
+            tvStudentNumber.setText("Student ID: 20210004");
+            tvStudentStatus.setText("Pending Registration");
+            tvStudentProgram.setText("BSc. Information Technology");
+            tvStudentYear.setText("1st Year");
+            tvStudentCourses.setText("Pending Registration Approval");
+            Toast.makeText(this, "Student found: Sarah Tembo (Pending)", Toast.LENGTH_SHORT).show();
+        } else if (query.contains("david") || query.contains("20210005") || query.contains("lungu")) {
+            tvStudentName.setText("DAVID LUNGU");
+            tvStudentNumber.setText("Student ID: 20210005");
+            tvStudentStatus.setText("Unassigned Group");
+            tvStudentProgram.setText("BSc. Computer Science");
+            tvStudentYear.setText("3rd Year");
+            tvStudentCourses.setText("ICT 361, ICT 351 (No Group)");
+            Toast.makeText(this, "Student found: David Lungu (Unassigned)", Toast.LENGTH_SHORT).show();
         } else if (query.contains("mary") || query.contains("20210002") || query.contains("banda")) {
             tvStudentName.setText("MARY BANDA");
             tvStudentNumber.setText("Student ID: 20210002");
@@ -72,14 +104,6 @@ public class LecturerRosterActivity extends AppCompatActivity {
             tvStudentYear.setText("2nd Year");
             tvStudentCourses.setText("ICT 241, ICT 251, ICT 261");
             Toast.makeText(this, "Student found: Mary Banda", Toast.LENGTH_SHORT).show();
-        } else if (query.contains("peter") || query.contains("20210003") || query.contains("mulenga")) {
-            tvStudentName.setText("PETER MULENGA");
-            tvStudentNumber.setText("Student ID: 20210003");
-            tvStudentStatus.setText("Active");
-            tvStudentProgram.setText("BSc. Software Engineering");
-            tvStudentYear.setText("4th Year");
-            tvStudentCourses.setText("ICT 461, ICT 451, ICT 441");
-            Toast.makeText(this, "Student found: Peter Mulenga", Toast.LENGTH_SHORT).show();
         } else {
             tvStudentName.setText(query.toUpperCase() + " (FOUND)");
             tvStudentNumber.setText("Student ID: 2021" + Math.abs(query.hashCode() % 9000 + 1000));

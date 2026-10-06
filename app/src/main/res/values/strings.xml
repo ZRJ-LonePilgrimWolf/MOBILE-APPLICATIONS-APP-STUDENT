@@ -37,6 +37,21 @@
     <string name="profile">Profile</string>
     <string name="profil">Profile</string>
     <string name="personal_details">PERSONAL_DETA</string>
+    <string name="action_needed">Action Needed</string>
+    <string name="back">Back</string>
+    <string name="_2_items">2 Items</string>
+    <string name="pending_approvals_amp_assignments"><![CDATA[Pending Approvals & Assignments]]></string>
+    <string name="mulungushi_uni">MULUNGUSHI UNIVERSITY</string>
+    <string name="approve">Approve</string>
+    <string name="reject">Reject</string>
+    <string name="student_id_20210005_bsc_cs_3rd_year">Student ID: 20210005 • BSc. CS (3rd Year)</string>
+    <string name="assign_to_project_group">Assign to Project Group:</string>
+    <string name="assign_student_to_group">Assign Student to Group</string>
+    <string name="select_group_e_g_group_a">Select Group (e.g. Group A)...</string>
+    <string name="student_id_20210004_bsc_it_1st_year">Student ID: 20210004 • BSc. IT (1st Year)</string>
+    <string name="sarah_tembo">SARAH TEMBO</string>
+    <string name="pending">PENDING</string>
+    <string name="registration_approval">Registration Approval</string>
 
 
 </resources>
