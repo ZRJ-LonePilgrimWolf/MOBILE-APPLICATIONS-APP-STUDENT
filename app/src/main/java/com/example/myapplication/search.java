@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,9 @@ public class search extends AppCompatActivity {
             return insets;
         });
 
-
+        ImageView backButton = findViewById(R.id.back);
+        if (backButton != null) {
+            backButton.setOnClickListener(v -> finish());
+        }
     }
 }
