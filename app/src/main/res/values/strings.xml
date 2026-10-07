@@ -52,6 +52,10 @@
     <string name="sarah_tembo">SARAH TEMBO</string>
     <string name="pending">PENDING</string>
     <string name="registration_approval">Registration Approval</string>
+    <string name="name_or_student_id">Name or Student ID...</string>
+    <string name="search">Search</string>
+    <string name="chat">CHAT</string>
+    <string name="student_id_20210001">Student ID: 20210001</string>
 
 
 </resources>

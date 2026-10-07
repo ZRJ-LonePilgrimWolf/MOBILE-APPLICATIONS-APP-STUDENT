@@ -28,5 +28,10 @@ public class FActivity extends AppCompatActivity {
             Intent intent = new Intent(FActivity.this, Profile.class);
             startActivity(intent);
         });
+        ImageView search = findViewById(R.id.search);
+        search.setOnClickListener(v -> {
+            Intent intent = new Intent(FActivity.this, search.class);
+            startActivity(intent);
+        });
     }
 }

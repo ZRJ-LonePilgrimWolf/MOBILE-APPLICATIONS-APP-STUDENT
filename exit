@@ -1,0 +1,127 @@
+[33mcommit c18105ee53c4e15105c89d025949774e6ae91b95[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mteam/ui-ux[m[33m)[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Wed Oct 7 00:11:56 2026 +0200
+
+    all is well
+
+[33mcommit 94af5ba47a1b5e4cc295bd8c58bdb3aebff056c9[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Wed Oct 7 00:11:27 2026 +0200
+
+    Merge remote-tracking branch 'origin/team/ui-ux' into team/ui-ux
+
+[33mcommit a7360801d2f4f5dc1d09d80ebbd1b2454c949445[m[33m ([m[1;31morigin/team/ui-ux[m[33m)[m
+Merge: dab6aac e496b1a
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 20:19:29 2026 +0200
+
+    Merge remote-tracking branch 'origin/master' into team/ui-ux
+
+[33mcommit dab6aac9805589d52b11750986f5492ac322898d[m
+Merge: eece810 a3397ee
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 20:14:22 2026 +0200
+
+    Merge remote-tracking branch 'origin/team/ui-ux' into team/ui-ux
+
+[33mcommit eece8104f6ad020361d62a944a96a0cd78d2b65f[m
+Merge: 9921d69 1993084
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 20:12:33 2026 +0200
+
+    Merge remote-tracking branch 'origin/team/ui-ux' into team/ui-ux
+
+[33mcommit a3397eefc079934acc501a631c655bb136eef69f[m
+Merge: 9921d69 1993084
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 20:12:33 2026 +0200
+
+    Merge remote-tracking branch 'origin/team/ui-ux' into team/ui-ux
+
+[33mcommit 9921d694161745f8028130985c9357c10557cad8[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 19:38:09 2026 +0200
+
+    well
+
+[33mcommit e496b1ad00b115d1140ea521a8567fde3b59f355[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: 2ab894f 1993084
+Author: ZRJ-LonePilgrimWolf <eustarckhiouscekasongo@gmail.com>
+Date:   Tue Oct 6 19:43:04 2026 +0200
+
+    Merge pull request #2 from ZRJ-LonePilgrimWolf/team/ui-ux
+    
+    team/ui-ux
+
+[33mcommit 1993084629b14621845003accbefd8e9365d1097[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 19:38:09 2026 +0200
+
+    well
+
+[33mcommit d4e4e44f83b5227e744662058879fb7d3b40bac2[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Tue Oct 6 19:27:47 2026 +0200
+
+    Dropdown menu not working properly
+
+[33mcommit c5d9b1d762a802b4927dd89b030e90f04bc79ad9[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Mon Oct 5 11:46:11 2026 +0200
+
+    Dropdown menu not working properly
+
+[33mcommit 8b678b03cbdf7e448916745a0cbeeb0ab39cacd0[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Mon Oct 5 11:44:05 2026 +0200
+
+    making the lecturer's login form
+
+[33mcommit 50a3f55df818072386d2efd50091c4b3a2f02c2e[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Fri Oct 2 14:04:27 2026 +0200
+
+    loaded the login page on my phone
+
+[33mcommit e5a04e14cd232de86a7c3376861bb42b6b5dc875[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Fri Oct 2 02:10:48 2026 +0200
+
+    worked on the dash board
+
+[33mcommit dc55dda646dc151af3790130c7a1bc31700a7e1d[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Fri Oct 2 02:10:21 2026 +0200
+
+    worked on the dash board
+
+[33mcommit 3e9cf266ca6f059faef328e4c6614be0977c49e7[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Thu Oct 1 09:48:17 2026 +0200
+
+    worked on the dash board
+
+[33mcommit 35703031a713ce1b2056cb04a7834f57a51d1e39[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Mon Sep 28 11:12:35 2026 +0200
+
+    made so adjustments to the layout
+
+[33mcommit f13a4f447e67fe81e584b4b382f7ab54426603c3[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Mon Sep 28 10:32:13 2026 +0200
+
+    made some changes
+
+[33mcommit 8a662f2d0019d6bb617d3bef5f7c340ed4e3adbe[m
+Author: JAY <gondwegeraldjay@gmail.com>
+Date:   Sun Sep 27 20:35:42 2026 +0200
+
+    adjusted the height of the main
+    layout
+
+[33mcommit 2ab894f9a9c0687e213861162deb53a5e04e64a8[m[33m ([m[1;31morigin/team/testing-integration[m[33m, [m[1;31morigin/team/local-storage[m[33m)[m
+Author: ZRJ-LonePilgrimWolf <eustarckhiouscekasongo@gmail.com>
+Date:   Wed Sep 9 13:54:03 2026 +0200
+
+    Initial commit
