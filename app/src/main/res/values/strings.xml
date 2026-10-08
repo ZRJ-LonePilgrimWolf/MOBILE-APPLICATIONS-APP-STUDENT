@@ -56,6 +56,7 @@
     <string name="search">Search</string>
     <string name="chat">CHAT</string>
     <string name="student_id_20210001">Student ID: 20210001</string>
+    <string name="you_are_offline">you are offline</string>
 
 
 </resources>
