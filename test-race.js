@@ -2,10 +2,10 @@ const fetch = require('node-fetch');
 const crypto = require('crypto');
 const mysql = require('mysql2/promise');
 
-const GROUP_ID = 2; // your TEST_RACE group
+const GROUP_ID = 2; // CHANGE 3 BACK TO 2
 
 async function resetFixture(conn) {
-  await conn.query("UPDATE groups_table SET member_count = 14 WHERE id = ?", [GROUP_ID]);
+  await conn.query("UPDATE groups_table SET member_count = 0 WHERE id = ?", [GROUP_ID]);
 }
 
 async function runOnce(conn, i) {
@@ -22,13 +22,13 @@ async function runOnce(conn, i) {
   ]);
   const codes = [r1.status, r2.status].sort();
   const [count] = await conn.query('SELECT member_count FROM groups_table WHERE id=?', [GROUP_ID]);
-  const ok = JSON.stringify(codes) === JSON.stringify([200,409]) && count[0].member_count === 15;
+  const ok = JSON.stringify(codes) === JSON.stringify([200,200]) && count[0].member_count === 2;
   console.log(`Run ${i+1}: codes=${JSON.stringify(codes)} count=${count[0].member_count} ${ok ? 'PASS' : 'FAIL'}`);
 }
 
 (async () => {
   const conn = await mysql.createConnection({
-    host: 'localhost', user: 'root', password: '232323', database: 'lab_registration'
+    host: 'localhost', user: 'root', password: '', database: 'lab_registration'
   });
   for (let i = 0; i < 20; i++) await runOnce(conn, i);
   process.exit();

@@ -16,7 +16,7 @@ router.post('/students/:id/edit', async (req, res) => {
   try {
     await conn.beginTransaction();
 
-    const [existing] = await conn.query('SELECT * FROM operations WHERE operation_id = ?', [operationId]);
+    const [existing] = await conn.query('SELECT * FROM operations WHERE operation_id = ?FOR UPDATE', [operationId]);
     if (existing.length > 0) {
       if (existing[0].payload_hash !== incomingHash) {
         await conn.rollback();
