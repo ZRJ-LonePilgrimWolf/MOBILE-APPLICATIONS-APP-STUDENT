@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                     roleAutoComplete.showDropDown();
                 }
             });
+
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
                 String selectedRole = (String) parent.getItemAtPosition(position);
                 if ("Lecturer".equalsIgnoreCase(selectedRole)) {

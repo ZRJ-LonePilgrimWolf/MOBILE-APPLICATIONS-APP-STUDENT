@@ -57,6 +57,11 @@
     <string name="chat">CHAT</string>
     <string name="student_id_20210001">Student ID: 20210001</string>
     <string name="you_are_offline">you are offline</string>
+    <string name="name">NAME</string>
+    <string name="Back">Back</string>
+    <string name="student_profile">Student Profile</string>
+    <string name="john_phiri">JOHN PHIRI</string>
+    <string name="t">Student ID: 20210001</string>
 
 
 </resources>
