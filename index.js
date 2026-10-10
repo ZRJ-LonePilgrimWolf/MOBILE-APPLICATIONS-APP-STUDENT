@@ -5,6 +5,7 @@ require('dotenv').config();
 const authRoutes = require('./auth');
 const passwordResetRoutes = require('./passwordReset');
 const studentRoutes = require('./students');
+const studentsSafe = require('./studentsSafe');
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use('/api', authRoutes);
 
 app.use('/api', passwordResetRoutes);
 
+// Must come BEFORE studentRoutes so the safe POST /students wins
+app.use('/api', studentsSafe);
 app.use('/api', studentRoutes);
 
 
