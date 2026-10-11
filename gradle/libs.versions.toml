@@ -22,6 +22,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
+volley = { group = "com.android.volley", name = "volley", version = "1.2.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -52,6 +52,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/badge_bg"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/dashboard"
+                    android:textColor="#2563EB"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/mulungushi_university"
                     android:textColor="#93C5FD"
                     android:textSize="12sp"
@@ -67,17 +79,25 @@
                     android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/badge_bg"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp"
-                android:text="@string/dashboard"
-                android:textColor="#2563EB"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                <AutoCompleteTextView
+                    android:id="@+id/rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/baseline_format_align_justify_24"
+                    android:contentDescription="@string/settings"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
         </LinearLayout>
     </LinearLayout>
 

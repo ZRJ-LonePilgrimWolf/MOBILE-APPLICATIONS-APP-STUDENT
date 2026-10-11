@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -22,6 +24,7 @@ public class lecturer_login extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
             roleAutoComplete.setText("Lecturer", false);
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#1E293B")));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
