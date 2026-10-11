@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".LecturerRosterActivity">
 
-    <!-- Top Header Banner -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-        <!-- Subtitle and Summary stats -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Day Selector Row -->
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -114,7 +114,6 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="#2563EB"
                 android:text="Monday"
-                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -190,7 +189,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Student Search Card for Lecturers -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -258,7 +256,6 @@
                             app:cornerRadius="12dp" />
                     </LinearLayout>
 
-                    <!-- Student Result Display -->
                     <LinearLayout
                         android:id="@+id/studentResultLayout"
                         android:layout_width="match_parent"
