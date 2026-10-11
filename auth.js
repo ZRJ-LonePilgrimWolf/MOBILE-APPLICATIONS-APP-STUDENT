@@ -479,3 +479,10 @@ router.post(
 
 
 module.exports = router;
+// LOGOUT
+
+router.post('/logout', (req, res) => {
+res.status(200).json({
+message: 'Logout successful. Please remove your token from the client.'
+});
+});
