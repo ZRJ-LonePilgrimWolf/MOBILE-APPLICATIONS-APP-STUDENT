@@ -1,6 +1,8 @@
 // Safe "create student": fixes Challenge 1 (last place) and Challenge 2 (retry).
 // Mounted BEFORE students.js in index.js, so it handles POST /api/students instead of the old route.
 const express = require('express');
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const db = require('./database');
 const {
     nameRegex, studentNumberRegex, MAX_LAB_GROUP_MEMBERS,
@@ -24,7 +26,7 @@ async function findOperation(conn, operationId) {
 router.post('/students', authenticateToken, requireRole('lecturer'), async (req, res) => {
     const { operation_id, account_id, student_name, student_number, program_id, lab_group_id } = req.body;
 
-    if (!account_id || !student_name || !student_number || !program_id || !lab_group_id) {
+    if (!student_name || !student_number || !program_id || !lab_group_id) {
         return res.status(400).json({ code: 'VALIDATION', message: 'Please provide all required fields' });
     }
     if (!nameRegex.test(student_name)) {
@@ -60,10 +62,19 @@ router.post('/students', authenticateToken, requireRole('lecturer'), async (req,
 
             // 3. Insert. UNIQUE(student_number) in the database is the final guard against duplicates.
             try {
+                // Lecturer added a student with no account yet: create a locked account (random password).
+                // The student claims it later by registering.
+                let accId = account_id;
+                if (!accId) {
+                    const [a] = await conn.query(
+                        "INSERT INTO accounts (username, password, email, role) VALUES (?, ?, ?, 'student')",
+                        [student_number, await bcrypt.hash(crypto.randomUUID(), 8), `${student_number}@pending.local`]);
+                    accId = a.insertId;
+                }
                 const [r] = await conn.query(
                     `INSERT INTO students (account_id, student_name, student_number, program_id, lab_group_id)
                      VALUES (?, ?, ?, ?, ?)`,
-                    [account_id, student_name, student_number, program_id, lab_group_id]);
+                    [accId, student_name, student_number, program_id, lab_group_id]);
                 status = 201;
                 body = { message: 'Student created successfully', student_id: r.insertId, version: 1 };
             } catch (e) {
