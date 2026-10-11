@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class lecturer_login extends AppCompatActivity {
 
@@ -38,10 +44,41 @@ public class lecturer_login extends AppCompatActivity {
         }
 
         Button loginButton = findViewById(R.id.lec_button);
+        EditText etNumber = findViewById(R.id.number);
+        EditText etPassword = findViewById(R.id.Password);
+
         if (loginButton != null) {
             loginButton.setOnClickListener(v -> {
-                Intent intent = new Intent(lecturer_login.this, LecturerRosterActivity.class);
-                startActivity(intent);
+                String numberStr = etNumber != null ? etNumber.getText().toString().trim() : "";
+                String passwordStr = etPassword != null ? etPassword.getText().toString().trim() : "";
+
+                if (numberStr.isEmpty() || passwordStr.isEmpty()) {
+                    Toast.makeText(this, "Please enter lecturer ID and password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ApiService apiService = ApiClient.getClient().create(ApiService.class);
+                LoginRequest request = new LoginRequest(numberStr, passwordStr, "Lecturer");
+
+                apiService.login(request).enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                            Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
+                            Toast.makeText(lecturer_login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(lecturer_login.this, LecturerRosterActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(lecturer_login.this, "Login Failed: Invalid credentials or server error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+                        Toast.makeText(lecturer_login.this, "Network Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             });
         }
 
