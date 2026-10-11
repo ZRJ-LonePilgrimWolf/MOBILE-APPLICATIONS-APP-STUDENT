@@ -64,6 +64,10 @@ public class lecturer_login extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                            if (!"lecturer".equalsIgnoreCase(response.body().getRole())) {
+                                Toast.makeText(lecturer_login.this, "This is not a lecturer account. Use the Student login.", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
                             Toast.makeText(lecturer_login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(lecturer_login.this, LecturerRosterActivity.class);

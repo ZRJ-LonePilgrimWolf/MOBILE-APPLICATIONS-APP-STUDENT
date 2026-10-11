@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                        if (!"student".equalsIgnoreCase(response.body().getRole())) {
+                            Toast.makeText(MainActivity.this, "This is not a student account. Use the Lecturer login.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
                         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, FActivity.class);
                         startActivity(intent);
