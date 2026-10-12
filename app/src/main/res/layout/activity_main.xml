@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -82,7 +82,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="Student Login"
                     android:textAlignment="center"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Role"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -109,15 +109,17 @@
                     android:hint="@string/Select_Role"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
+
+                <!-- Student Number -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Student Number"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -133,8 +135,8 @@
                     android:hint="@string/student_number"
                     android:inputType="number"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Password -->
@@ -143,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Password"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -159,8 +161,8 @@
                     android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Login Button -->
@@ -177,11 +179,26 @@
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
+                <TextView
+                    android:id="@+id/Lec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="150dp"
+                    android:text="Forgot password?"
+                    android:textAlignment="center"
+                    android:textColor="@color/form_text_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
                 <!-- Register Link -->
                 <TextView
                     android:id="@+id/buttonPanel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"

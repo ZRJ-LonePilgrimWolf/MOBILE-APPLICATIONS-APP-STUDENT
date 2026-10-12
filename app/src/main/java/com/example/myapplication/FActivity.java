@@ -65,8 +65,14 @@ public class FActivity extends AppCompatActivity {
                 // Prevent displaying the selected text inside the AutoCompleteTextView icon
                 roleAutoComplete.post(() -> roleAutoComplete.setText("", false));
 
-                if ("PROFILE".equalsIgnoreCase(selectedItem)) {
+                if ("THEME".equalsIgnoreCase(selectedItem)) {
+                    Intent intent = new Intent(FActivity.this, ThemeActivity.class);
+                    startActivity(intent);
+                } else if ("PROFILE".equalsIgnoreCase(selectedItem)) {
                     Intent intent = new Intent(FActivity.this, Profile.class);
+                    startActivity(intent);
+                } else if ("SETTINGS".equalsIgnoreCase(selectedItem)) {
+                    Intent intent = new Intent(FActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 } else if ("LOGOUT".equalsIgnoreCase(selectedItem)) {
                     Intent intent = new Intent(FActivity.this, MainActivity.class);
