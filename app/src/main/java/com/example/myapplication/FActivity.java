@@ -40,7 +40,7 @@ public class FActivity extends AppCompatActivity {
             roleAutoComplete.setAdapter(adapter);
 
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(
-                    Color.parseColor("#1E293B")
+                    Color.parseColor("#FFFFFF")
             ));
             roleAutoComplete.setDropDownWidth(
                     (int) (200 * getResources().getDisplayMetrics().density)
