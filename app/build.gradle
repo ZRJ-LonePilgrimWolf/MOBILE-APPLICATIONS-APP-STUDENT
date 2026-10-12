@@ -39,6 +39,7 @@ dependencies {
     implementation libs.fragment
     implementation libs.material
     implementation libs.recyclerview
+    implementation libs.volley
     implementation libs.retrofit
     implementation libs.converter.gson
     implementation "androidx.room:room-runtime:2.6.1"

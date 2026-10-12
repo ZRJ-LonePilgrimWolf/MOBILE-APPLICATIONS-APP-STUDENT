@@ -5,7 +5,7 @@
     android:id="@+id/r_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -82,7 +82,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="Student Registration"
                     android:textAlignment="center"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Role"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -109,8 +109,8 @@
                     android:hint="@string/Select_Role"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Full Name -->
@@ -193,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Student Number"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -208,8 +208,8 @@
                     android:hint="@string/Select_Number"
                     android:inputType="number"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Program -->
@@ -218,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Program"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -235,8 +235,8 @@
                     android:hint="@string/select_Program"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Lab Group -->
@@ -271,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Password"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -286,8 +286,8 @@
                     android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Register Button -->

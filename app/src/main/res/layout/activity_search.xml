@@ -5,7 +5,7 @@
     android:id="@+id/search_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".ActionNeededActivity"
     android:paddingTop="0dp">
@@ -72,8 +72,8 @@
                 android:drawablePadding="10dp"
                 android:hint="@string/name_or_student_id"
                 android:paddingHorizontal="14dp"
-                android:textColor="#1E293B"
-                android:textColorHint="#94A3B8"
+                android:textColor="@color/form_text_color"
+                android:textColorHint="@color/form_hint_color"
                 android:textSize="14sp" />
 
             <Button
@@ -89,8 +89,6 @@
                 app:cornerRadius="12dp" />
         </LinearLayout>
 
-
-
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +102,7 @@
             android:id="@+id/studentResultLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F8FAFC"
+            android:background="@color/white"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -142,7 +140,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="JOHN PHIRI"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -152,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
                         android:text="@string/student_id_20210001"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
                 </LinearLayout>
 
@@ -186,7 +184,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:text="Program:"
-                    android:textColor="#64748B"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
 
                 <TextView
@@ -195,11 +193,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="BSc. Computer Science"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,7 +208,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:text="Year of Study:"
-                    android:textColor="#64748B"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
 
                 <TextView
@@ -220,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="3rd Year"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -234,7 +231,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:text="Courses:"
-                    android:textColor="#64748B"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
 
                 <TextView

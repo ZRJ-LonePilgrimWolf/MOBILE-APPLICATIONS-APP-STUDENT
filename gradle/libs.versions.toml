@@ -25,6 +25,7 @@ recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+volley = { group = "com.android.volley", name = "volley", version = "1.2.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

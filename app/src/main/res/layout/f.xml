@@ -5,7 +5,7 @@
     android:id="@+id/f_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".FActivity"
     android:padding="0dp">
@@ -52,6 +52,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/badge_bg"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/dashboard"
+                    android:textColor="#2563EB"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/mulungushi_university"
                     android:textColor="#93C5FD"
                     android:textSize="12sp"
@@ -68,19 +80,26 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/badge_bg"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp"
-                android:text="@string/dashboard"
-                android:textColor="#2563EB"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/baseline_format_align_justify_24"
+                    android:contentDescription="@string/settings"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
     </LinearLayout>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -114,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/module_links"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -124,7 +143,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="16dp"
                         android:text="Access your semester course modules"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <LinearLayout
@@ -177,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/my_courses"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -185,11 +204,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_3_active"
-                    android:textColor="#64748B"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
             </LinearLayout>
 
-
+            <!-- Course Card 1 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_361"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -238,7 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/mobile_application_development"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -261,7 +280,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
+            <!-- Course Card 2 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -289,7 +308,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_351"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -310,7 +329,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/software_engineering"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -333,6 +352,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Course Card 3 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -360,7 +380,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_341"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -381,7 +401,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/database_systems"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -406,8 +426,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"

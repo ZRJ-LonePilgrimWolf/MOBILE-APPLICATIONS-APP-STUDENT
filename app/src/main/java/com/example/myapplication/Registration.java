@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,6 +23,7 @@ public class Registration extends AppCompatActivity {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8FAFC")));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
@@ -47,6 +50,7 @@ public class Registration extends AppCompatActivity {
             };
             ArrayAdapter<String> programAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, programs);
             programAutoComplete.setAdapter(programAdapter);
+            programAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8FAFC")));
             programAutoComplete.setOnClickListener(v -> programAutoComplete.showDropDown());
             programAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {

@@ -1,12 +1,10 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class edit1 extends AppCompatActivity {
 
@@ -14,5 +12,13 @@ public class edit1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit);
+
+        Button saveButton = findViewById(R.id.editing);
+        if (saveButton != null) {
+            saveButton.setOnClickListener(v -> {
+                Toast.makeText(this, "Academic details updated!", Toast.LENGTH_SHORT).show();
+                finish();
+            });
+        }
     }
 }

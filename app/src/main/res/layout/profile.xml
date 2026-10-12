@@ -5,7 +5,7 @@
     android:id="@+id/f_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".Profile">
 
@@ -84,7 +84,7 @@
                     android:padding="16dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/baseline_person_24"
-                    app:tint="#1E3A5F"/>
+                    app:tint="#1E3A5F" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -158,7 +158,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Academic Details"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -190,7 +190,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Student ID"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="20210001"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -214,7 +214,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Program"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -222,7 +222,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="BSc. Computer Science"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -238,7 +238,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Department"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -246,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Computer Science"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -262,7 +262,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Year of Study"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -270,7 +270,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="3rd Year"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -285,7 +285,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Status"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -329,7 +329,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Personal Details"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -361,7 +361,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Full Name"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -369,7 +369,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="John Phiri"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -385,7 +385,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Date of Birth"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -393,7 +393,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="15 Aug 2001"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -409,7 +409,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Gender"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -417,7 +417,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Male"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -433,7 +433,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Email"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -441,7 +441,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="j.phiri@student.mu.ac.zm"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -457,7 +457,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Phone Number"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -465,7 +465,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="+260 971 234 567"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -480,7 +480,7 @@
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:text="Nationality"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
@@ -488,7 +488,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Zambian"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -523,7 +523,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="17dp"
                             android:text="Group Change Request"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -532,7 +532,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="Request to switch project group"
-                            android:textColor="#64748B"
+                            android:textColor="@color/form_label_color"
                             android:textSize="12sp" />
                     </LinearLayout>
 
