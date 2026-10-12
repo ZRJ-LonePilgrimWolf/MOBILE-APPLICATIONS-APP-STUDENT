@@ -1,44 +1,31 @@
 const express = require('express');
-
 require('dotenv').config();
-
+const registerSafe = require('./registerSafe');
 const authRoutes = require('./auth');
 const passwordResetRoutes = require('./passwordReset');
-const studentRoutes = require('./students');
 const studentsSafe = require('./studentsSafe');
-
+const studentsUpdateSafe = require('./studentsUpdateSafe');
+const studentRoutes = require('./students');
 const app = express();
-
 
 // =====================================================
 // MIDDLEWARE
 // =====================================================
-
 app.use(express.json());
 
-
 // =====================================================
-// ROUTES
+// ROUTES  (the "Safe" files must come BEFORE the old ones so they win)
 // =====================================================
-
+app.use('/api', registerSafe);
 app.use('/api', authRoutes);
-
 app.use('/api', passwordResetRoutes);
-
-// Must come BEFORE studentRoutes so the safe POST /students wins
 app.use('/api', studentsSafe);
+app.use('/api', studentsUpdateSafe);
 app.use('/api', studentRoutes);
-
 
 // =====================================================
 // SERVER
 // =====================================================
-
-app.listen(
-    3000,
-    () => {
-        console.log(
-            'Server running on port 3000'
-        );
-    }
-);
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});

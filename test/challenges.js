@@ -24,10 +24,11 @@ async function newAccount() {                       // fake student account, cre
 let num = 900000000;
 const nextNumber = () => String(++num);
 async function reset(groupId, fill) {               // wipe test students, then fill group with `fill` students
-    await db.query("DELETE FROM students WHERE student_number >= '900000000'");
+    await db.query("DELETE FROM students WHERE student_number BETWEEN '900000000' AND '909999999'");   // test numbers only
     await db.query("DELETE FROM operations WHERE operation_id LIKE 'test-%'");
-    await db.query("DELETE FROM accounts WHERE username LIKE 'T%' AND role='student'");
-    for (let i = 0; i < fill; i++) {
+    await db.query("DELETE FROM accounts WHERE username LIKE 'T1%' AND role='student'");   // test accounts only
+    const real = (await db.query('SELECT COUNT(*) n FROM students WHERE lab_group_id=? AND is_deleted=0', [groupId]))[0][0].n;   // students already there
+    for (let i = 0; i < Math.max(0, fill - real); i++) {
         await db.query('INSERT INTO students (account_id,student_name,student_number,program_id,lab_group_id) VALUES (?,?,?,1,?)',
             [await newAccount(), 'Seed Student', nextNumber(), groupId]);
     }

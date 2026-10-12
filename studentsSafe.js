@@ -4,6 +4,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const db = require('./database');
+const receipts = require('./receipts');
 const {
     nameRegex, studentNumberRegex, MAX_LAB_GROUP_MEMBERS,
     authenticateToken, requireRole
@@ -36,13 +37,12 @@ router.post('/students', authenticateToken, requireRole('lecturer'), async (req,
         return res.status(400).json({ code: 'VALIDATION', message: 'Student number must contain exactly 9 digits' });
     }
 
+    const reqHash = receipts.hashOf({ account_id: account_id || null, student_name, student_number, program_id, lab_group_id });
     const conn = await pool.getConnection();
     try {
         // Retry of an operation we already finished? Give back the SAME answer, do nothing new.
-        if (operation_id) {
-            const seen = await findOperation(conn, operation_id);
-            if (seen) return res.status(seen.http_status).json(JSON.parse(seen.response_body));
-        }
+        const replay = await receipts.replay(conn, operation_id, reqHash);
+        if (replay) return res.status(replay.status).json(replay.body);
 
         await conn.beginTransaction();
         let status, body;
@@ -95,7 +95,7 @@ router.post('/students', authenticateToken, requireRole('lecturer'), async (req,
         if (operation_id) {
             await conn.query(
                 'INSERT INTO operations (operation_id, account_id, http_status, response_body) VALUES (?, ?, ?, ?)',
-                [operation_id, req.user.account_id, status, JSON.stringify(body)]);
+                [operation_id, req.user.account_id, status, receipts.pack(body, reqHash)]);
         }
         await conn.commit();
         return res.status(status).json(body);
@@ -103,8 +103,8 @@ router.post('/students', authenticateToken, requireRole('lecturer'), async (req,
         try { await conn.rollback(); } catch (_) {}
         // Two copies of the SAME operation arrived at once: the loser lands here. Return the winner's answer.
         if (e.code === 'ER_DUP_ENTRY' && operation_id) {
-            const seen = await findOperation(conn, operation_id);
-            if (seen) return res.status(seen.http_status).json(JSON.parse(seen.response_body));
+            const again = await receipts.replay(conn, operation_id, reqHash);
+            if (again) return res.status(again.status).json(again.body);
         }
         console.error('create student failed:', e.message);
         return res.status(500).json({ code: 'SERVER_ERROR', message: 'Could not create student' });

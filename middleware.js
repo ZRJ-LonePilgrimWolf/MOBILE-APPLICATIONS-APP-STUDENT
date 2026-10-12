@@ -11,7 +11,7 @@ const SECRET = process.env.JWT_SECRET;
 // VALIDATION
 // =====================================================
 
-const nameRegex = /^[A-Za-z\s]+$/;
+   const nameRegex = /^\p{L}[\p{L}\p{M} .'’-]{1,99}$/u;
 const studentNumberRegex = /^\d{9}$/;
 
 
