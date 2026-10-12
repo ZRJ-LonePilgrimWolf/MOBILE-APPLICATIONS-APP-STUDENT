@@ -62,6 +62,9 @@
     <string name="student_profile">Student Profile</string>
     <string name="john_phiri">JOHN PHIRI</string>
     <string name="t">Student ID: 20210001</string>
+    <string name="reset_password">RESET PASSWORD</string>
+    <string name="mulungushi_universit">MULUNGUSHI UNIVERSITY</string>
+    <string name="student_name">STUDENT NAME</string>
 
 
 </resources>
