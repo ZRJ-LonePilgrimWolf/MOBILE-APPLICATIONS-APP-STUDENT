@@ -47,6 +47,28 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/baseline_format_align_justify_24"
+                    android:contentDescription="@string/settings"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
         </RelativeLayout>
 
 

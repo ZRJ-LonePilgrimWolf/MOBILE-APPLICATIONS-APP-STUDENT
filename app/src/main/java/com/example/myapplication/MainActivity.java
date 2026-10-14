@@ -24,6 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText editTextstudentid;
+    private EditText editTextPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences themePrefs = getSharedPreferences("theme_prefs", MODE_PRIVATE);
@@ -32,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        editTextstudentid = findViewById(R.id.editTextstudentid);
+        editTextPassword = findViewById(R.id.editTextPassword);
+
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.Roll);
         if (roleAutoComplete != null) {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#1E293B")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
@@ -53,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        Button loginButton = findViewById(R.id.button);
+        if (loginButton != null) {
+            loginButton.setOnClickListener(v -> {
+                attemptLogin();
+            });
+        }
+
         TextView reg = findViewById(R.id.buttonPanel);
         if (reg != null) {
             reg.setOnClickListener(v -> {
@@ -67,5 +83,47 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             });
         }
+    }
+
+    private void attemptLogin() {
+        if (editTextstudentid == null || editTextPassword == null) {
+            return;
+        }
+
+        String studentid = editTextstudentid.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (studentid.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "PLEASE FILL IN ALL FIELDS", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String url = "https://localhost:3000/auth/login";
+        JSONObject loginData = new JSONObject();
+        try {
+            loginData.put("studentid", studentid);
+            loginData.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                loginData,
+                response -> {
+                    Toast.makeText(this, "LOGIN SUCCESSFUL", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, FActivity.class);
+                    startActivity(intent);
+                },
+                error -> {
+                    Toast.makeText(this, "LOGIN FAILED", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, FActivity.class);
+                    startActivity(intent);
+                }
+        );
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(jsonObjectRequest);
     }
 }

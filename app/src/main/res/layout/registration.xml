@@ -138,6 +138,31 @@
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
+                <!-- Email Address -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Email Address"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/emailField"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/baseline_email_24"
+                    android:drawablePadding="12dp"
+                    android:hint="Student Email (e.g. name@student.mu.ac.zm)"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
                 <!-- Program -->
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,6 +184,33 @@
                     android:drawablePadding="12dp"
                     android:focusable="false"
                     android:hint="@string/select_Program"
+                    android:inputType="none"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
+                <!-- Group Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Select Group"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/groupDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                    android:drawablePadding="12dp"
+                    android:focusable="false"
+                    android:hint="Select Group (e.g. G1)"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
                     android:textColor="@color/form_text_color"
