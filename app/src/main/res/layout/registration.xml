@@ -7,52 +7,73 @@
     android:layout_height="match_parent"
     android:background="@color/p"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Registration">
 
-    <!-- Top Header Banner -->
-    <LinearLayout
+    <!-- Top Header Banner (FrameLayout so the back arrow can sit on top of it) -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_bg"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="36dp"
-        android:paddingBottom="28dp">
+        android:background="@drawable/header_bg">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:cardCornerRadius="36dp"
-            app:cardElevation="6dp"
-            app:strokeWidth="0dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mulogo" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:letterSpacing="0.05"
-            android:text="MULUNGUSHI UNIVERSITY"
-            android:textColor="#93C5FD"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="36dp"
+            android:paddingBottom="28dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Student Companion"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mulogo" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:letterSpacing="0.05"
+                android:text="MULUNGUSHI UNIVERSITY"
+                android:textColor="#93C5FD"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Student Companion"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- NEW: back arrow (item 11). Placed last so it is drawn on top and receives taps. -->
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/back"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -163,7 +184,7 @@
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
-                <!-- Email -->
+                <!-- Email (the ONLY email field now - item 6) -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,12 +202,13 @@
                     android:background="@drawable/custom_edittext"
                     android:drawableStart="@drawable/baseline_email_24"
                     android:drawablePadding="12dp"
-                    android:hint="Email address"
+                    android:hint="e.g. name@student.mu.ac.zm"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="16dp"
                     android:textColor="@color/form_text_color"
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
+
                 <!-- Student Number -->
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,31 +229,7 @@
                     android:drawablePadding="12dp"
                     android:hint="@string/Select_Number"
                     android:inputType="number"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="@color/form_text_color"
-                    android:textColorHint="@color/form_hint_color"
-                    android:textSize="15sp" />
-
-                <!-- Email Address -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:text="Email Address"
-                    android:textColor="@color/form_label_color"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/emailField"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/custom_edittext"
-                    android:drawableStart="@drawable/baseline_email_24"
-                    android:drawablePadding="12dp"
-                    android:hint="Student Email (e.g. name@student.mu.ac.zm)"
-                    android:inputType="textEmailAddress"
+                    android:maxLength="9"
                     android:paddingHorizontal="16dp"
                     android:textColor="@color/form_text_color"
                     android:textColorHint="@color/form_hint_color"
@@ -264,34 +262,7 @@
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
-                <!-- Group Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:text="Select Group"
-                    android:textColor="@color/form_label_color"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <AutoCompleteTextView
-                    android:id="@+id/groupDropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/custom_edittext"
-                    android:cursorVisible="false"
-                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
-                    android:drawablePadding="12dp"
-                    android:focusable="false"
-                    android:hint="Select Group (e.g. G1)"
-                    android:inputType="none"
-                    android:paddingHorizontal="16dp"
-                    android:textColor="@color/form_text_color"
-                    android:textColorHint="@color/form_hint_color"
-                    android:textSize="15sp" />
-
-                <!-- Lab Group -->
+                <!-- Lab Group (the ONLY group field now - item 10) -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -317,6 +288,7 @@
                     android:textColor="@color/form_text_color"
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
+
                 <!-- Password -->
                 <TextView
                     android:layout_width="wrap_content"

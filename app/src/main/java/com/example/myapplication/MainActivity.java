@@ -42,6 +42,10 @@ public class MainActivity extends BaseActivity {
         editTextstudentid = findViewById(R.id.editTextstudentid);
         editTextPassword = findViewById(R.id.editTextPassword);
 
+        // Coming back from Registration: put the new student number in the box.
+        String fromRegistration = getIntent().getStringExtra("student_number");
+        if (fromRegistration != null) editTextstudentid.setText(fromRegistration);
+
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.Roll);
         if (roleAutoComplete != null) {
             String[] roles = new String[]{"Student", "Lecturer"};

@@ -24,4 +24,8 @@ public interface ApiService {
 
     @POST("api/register/lecturer")
     Call<ResponseBody> registerLecturer(@Body RegisterLecturerRequest body);
+
+    // ---- Programmes + lab groups for the registration screen (reference.js) ----
+    @GET("api/reference")
+    Call<ReferenceResponse> getReference();
 }
