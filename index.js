@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const registerSafe = require('./registerSafe');
    const reference = require('./reference');
+      const chat = require('./chat');
 const authRoutes = require('./auth');
 const passwordResetRoutes = require('./passwordReset');
 const studentsSafe = require('./studentsSafe');
@@ -19,6 +20,7 @@ app.use(express.json());
 // =====================================================
 app.use('/api', registerSafe);
    app.use('/api', reference);
+      app.use('/api', chat);
 app.use('/api', authRoutes);
 app.use('/api', passwordResetRoutes);
 app.use('/api', studentsSafe);
