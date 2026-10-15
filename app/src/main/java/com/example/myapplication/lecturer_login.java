@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class lecturer_login extends AppCompatActivity {
+public class lecturer_login extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +30,11 @@ public class lecturer_login extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
             roleAutoComplete.setText("Lecturer", false);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {

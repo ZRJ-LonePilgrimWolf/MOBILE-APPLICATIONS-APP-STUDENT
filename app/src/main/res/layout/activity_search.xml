@@ -80,7 +80,7 @@
                 android:id="@+id/btnSearchStudent"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:backgroundTint="#2563EB"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="@string/search"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -93,16 +93,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/card_bg_color"
             app:cardCornerRadius="16dp"
             app:cardElevation="3dp"
-            app:strokeColor="#E2E8F0"
+            app:strokeColor="@color/card_stroke_color"
             app:strokeWidth="1dp">
         <LinearLayout
             android:id="@+id/studentResultLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/card_bg_color"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -172,7 +172,7 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:background="#E2E8F0" />
+                android:background="@color/card_stroke_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -240,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="ICT 361, ICT 351, ICT 341"
-                    android:textColor="#2563EB"
+                    android:textColor="?attr/accentTextColor"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 

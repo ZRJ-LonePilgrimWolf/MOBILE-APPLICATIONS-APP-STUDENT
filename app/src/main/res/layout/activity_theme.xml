@@ -84,10 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -107,7 +107,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Appearance Mode"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -118,7 +118,7 @@
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
                             android:text="Theme"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="11sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -129,7 +129,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="16dp"
                         android:text="Switch between light and dark modes"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <RadioGroup
@@ -142,10 +142,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            app:cardBackgroundColor="#F8FAFC"
+                            app:cardBackgroundColor="@color/soft_bg"
                             app:cardCornerRadius="12dp"
                             app:cardElevation="0dp"
-                            app:strokeColor="#E2E8F0"
+                            app:strokeColor="@color/card_stroke_color"
                             app:strokeWidth="1dp">
 
                             <RadioButton
@@ -155,7 +155,7 @@
                                 android:checked="true"
                                 android:padding="12dp"
                                 android:text="Light Theme"
-                                android:textColor="#1E293B"
+                                android:textColor="@color/form_text_color"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </com.google.android.material.card.MaterialCardView>
@@ -176,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="12dp"
                                 android:text="Dark Theme"
-                                android:textColor="#F8FAFC"
+                                android:textColor="@color/form_text_color"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </com.google.android.material.card.MaterialCardView>
@@ -184,10 +184,10 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardBackgroundColor="#F1F5F9"
+                            app:cardBackgroundColor="@color/soft_bg"
                             app:cardCornerRadius="12dp"
                             app:cardElevation="0dp"
-                            app:strokeColor="#E2E8F0"
+                            app:strokeColor="@color/card_stroke_color"
                             app:strokeWidth="1dp">
 
                             <RadioButton
@@ -196,7 +196,7 @@
                                 android:layout_height="wrap_content"
                                 android:padding="12dp"
                                 android:text="System Default"
-                                android:textColor="#1E293B"
+                                android:textColor="@color/form_text_color"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
                         </com.google.android.material.card.MaterialCardView>
@@ -209,10 +209,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -225,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Primary Accent Color"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -235,7 +235,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="16dp"
                         android:text="Select primary brand color for highlights"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <LinearLayout
@@ -249,7 +249,7 @@
                             android:layout_height="48dp"
                             android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:backgroundTint="#1E3A5F"
+                            android:backgroundTint="@color/accent_navy"
                             android:text="Navy"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -263,7 +263,7 @@
                             android:layout_height="48dp"
                             android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:backgroundTint="#2563EB"
+                            android:backgroundTint="@color/accent_blue"
                             android:text="Blue"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -277,7 +277,7 @@
                             android:layout_height="48dp"
                             android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:backgroundTint="#8692f7"
+                            android:backgroundTint="@color/accent_purple"
                             android:text="Purple"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -290,7 +290,7 @@
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_weight="1"
-                            android:backgroundTint="#00796B"
+                            android:backgroundTint="@color/accent_teal"
                             android:text="Teal"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -306,7 +306,7 @@
                 android:id="@+id/btnApplyTheme"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:backgroundTint="#2563EB"
+                android:backgroundTint="?attr/colorPrimary"
                 android:text="Apply Theme Changes"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

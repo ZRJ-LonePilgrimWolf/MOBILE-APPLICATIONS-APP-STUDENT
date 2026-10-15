@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ActionNeededActivity extends AppCompatActivity {
+public class ActionNeededActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class ActionNeededActivity extends AppCompatActivity {
             actvGroupSelect.setOnClickListener(v -> actvGroupSelect.showDropDown());
             actvGroupSelect.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    actvGroupSelect.showDropDown();
+                    actvGroupSelect.post(() -> { if (actvGroupSelect.getWindowToken() != null) actvGroupSelect.showDropDown(); });
                 }
             });
         }

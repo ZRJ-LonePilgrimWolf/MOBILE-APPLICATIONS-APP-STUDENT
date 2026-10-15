@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class FActivity extends AppCompatActivity {
+public class FActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class FActivity extends AppCompatActivity {
             roleAutoComplete.setAdapter(adapter);
 
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(
-                    Color.parseColor("#FFFFFF")
+                    androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)
             ));
             roleAutoComplete.setDropDownWidth(
                     (int) (200 * getResources().getDisplayMetrics().density)
@@ -88,7 +88,7 @@ public class FActivity extends AppCompatActivity {
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 

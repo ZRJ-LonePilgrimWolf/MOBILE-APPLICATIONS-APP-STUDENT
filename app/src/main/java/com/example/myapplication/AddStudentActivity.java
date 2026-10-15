@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.UUID;
 
 // Lecturer adds a student. Saved on the phone FIRST (Room), then sent to the server.
-public class AddStudentActivity extends AppCompatActivity {
+public class AddStudentActivity extends BaseActivity {
     private TextView list;
 
     private EditText field(String hint) {

@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class changegroup extends AppCompatActivity {
+public class changegroup extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

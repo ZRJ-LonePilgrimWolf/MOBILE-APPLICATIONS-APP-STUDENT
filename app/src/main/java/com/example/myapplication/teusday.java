@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class teusday extends AppCompatActivity {
+public class teusday extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class teusday extends AppCompatActivity {
             roleAutoComplete.setAdapter(adapter);
 
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(
-                    Color.parseColor("#F8FAFC")
+                    androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)
             ));
             roleAutoComplete.setDropDownWidth((int) (200 * getResources().getDisplayMetrics().density));
             roleAutoComplete.setDropDownVerticalOffset((int) (20 * getResources().getDisplayMetrics().density));
@@ -38,7 +38,7 @@ public class teusday extends AppCompatActivity {
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 

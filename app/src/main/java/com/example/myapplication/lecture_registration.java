@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class lecture_registration extends AppCompatActivity {
+public class lecture_registration extends BaseActivity {
 
     private EditText numberInput, emailInput, passwordInput, codeInput;
     private Button registerButton;
@@ -39,7 +39,7 @@ public class lecture_registration extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
             roleAutoComplete.setText("Lecturer", false);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
                 if ("Student".equalsIgnoreCase((String) parent.getItemAtPosition(position))) {

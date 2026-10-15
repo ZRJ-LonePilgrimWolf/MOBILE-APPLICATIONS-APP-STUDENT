@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Registration extends AppCompatActivity {
+public class Registration extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,11 @@ public class Registration extends AppCompatActivity {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
@@ -50,11 +50,11 @@ public class Registration extends AppCompatActivity {
             };
             ArrayAdapter<String> programAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, programs);
             programAutoComplete.setAdapter(programAdapter);
-            programAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            programAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             programAutoComplete.setOnClickListener(v -> programAutoComplete.showDropDown());
             programAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    programAutoComplete.showDropDown();
+                    programAutoComplete.post(() -> { if (programAutoComplete.getWindowToken() != null) programAutoComplete.showDropDown(); });
                 }
             });
         }
@@ -64,11 +64,11 @@ public class Registration extends AppCompatActivity {
             String[] groups = new String[]{"G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"};
             ArrayAdapter<String> groupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, groups);
             groupAutoComplete.setAdapter(groupAdapter);
-            groupAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            groupAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             groupAutoComplete.setOnClickListener(v -> groupAutoComplete.showDropDown());
             groupAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    groupAutoComplete.showDropDown();
+                    groupAutoComplete.post(() -> { if (groupAutoComplete.getWindowToken() != null) groupAutoComplete.showDropDown(); });
                 }
             });
         }

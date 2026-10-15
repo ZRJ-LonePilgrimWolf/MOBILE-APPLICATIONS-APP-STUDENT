@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class search extends AppCompatActivity {
+public class search extends BaseActivity {
 
     private EditText etStudentSearch;
     private TextView tvStudentName, tvStudentNumber, tvStudentProgram, tvStudentYear, tvStudentCourses, chatButton;

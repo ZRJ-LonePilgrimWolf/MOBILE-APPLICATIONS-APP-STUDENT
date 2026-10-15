@@ -11,9 +11,24 @@
     <color name="p">#F8FAFC</color>
     <color name="r">#1E3A5F</color>
     <color name="I">#00796B</color>
+
+    <!-- surfaces and text: these change in dark mode -->
     <color name="form_text_color">#1E293B</color>
     <color name="form_label_color">#475569</color>
     <color name="form_hint_color">#94A3B8</color>
     <color name="card_bg_color">#FFFFFF</color>
     <color name="card_stroke_color">#E2E8F0</color>
+    <color name="soft_bg">#F1F5F9</color>
+
+    <!-- the 4 theme colours (headers, buttons, status bar) -->
+    <color name="accent_navy">#1E3A5F</color>
+    <color name="accent_blue">#2563EB</color>
+    <color name="accent_purple">#8692F7</color>
+    <color name="accent_teal">#00796B</color>
+
+    <!-- the same colours for TEXT on cards (readable on white) -->
+    <color name="accent_navy_text">#1E3A5F</color>
+    <color name="accent_blue_text">#2563EB</color>
+    <color name="accent_purple_text">#5B63D3</color>
+    <color name="accent_teal_text">#00796B</color>
 </resources>

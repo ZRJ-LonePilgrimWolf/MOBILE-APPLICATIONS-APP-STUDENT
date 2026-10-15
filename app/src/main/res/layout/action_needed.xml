@@ -5,7 +5,7 @@
     android:id="@+id/action_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".ActionNeededActivity">
 
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
                 app:strokeColor="#FEF3C7"
@@ -155,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/sarah_tembo"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="@string/student_id_20210004_bsc_it_1st_year"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <View
@@ -172,7 +172,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="14dp"
                         android:layout_marginBottom="14dp"
-                        android:background="#F1F5F9" />
+                        android:background="@color/soft_bg" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="3dp"
                 app:strokeColor="#FEE2E2"
@@ -261,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="DAVID LUNGU"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -270,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:text="@string/student_id_20210005_bsc_cs_3rd_year"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <TextView
@@ -279,7 +279,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="6dp"
                         android:text="@string/assign_to_project_group"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -296,15 +296,15 @@
                         android:hint="@string/select_group_e_g_group_a"
                         android:inputType="none"
                         android:paddingHorizontal="14dp"
-                        android:textColor="#1E293B"
-                        android:textColorHint="#94A3B8"
+                        android:textColor="@color/form_text_color"
+                        android:textColorHint="@color/form_hint_color"
                         android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/btnAssignGroup"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:backgroundTint="#2563EB"
+                        android:backgroundTint="?attr/colorPrimary"
                         android:text="@string/assign_student_to_group"
                         android:textAllCaps="false"
                         android:textColor="@color/white"

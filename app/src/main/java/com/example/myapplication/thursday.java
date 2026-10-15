@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class thursday extends AppCompatActivity {
+public class thursday extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class thursday extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
 
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8FAFC")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setDropDownWidth((int) (200 * getResources().getDisplayMetrics().density));
             roleAutoComplete.setDropDownVerticalOffset((int) (20 * getResources().getDisplayMetrics().density));
             roleAutoComplete.setDropDownHeight((int) (300 * getResources().getDisplayMetrics().density));
@@ -36,7 +36,7 @@ public class thursday extends AppCompatActivity {
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 

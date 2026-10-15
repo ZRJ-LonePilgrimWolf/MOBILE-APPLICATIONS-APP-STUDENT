@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class edit1 extends AppCompatActivity {
+public class edit1 extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

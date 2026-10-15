@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class chatbot extends AppCompatActivity {
+public class chatbot extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

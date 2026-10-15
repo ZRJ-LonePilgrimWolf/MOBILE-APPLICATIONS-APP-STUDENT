@@ -5,7 +5,7 @@
     android:id="@+id/settings_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
@@ -84,10 +84,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -100,7 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Notifications"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:background="#F1F5F9" />
+                        android:background="@color/soft_bg" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchReminders"
@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="Class &amp; Lecture Reminders"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="14sp" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
@@ -127,7 +127,7 @@
                         android:layout_marginTop="8dp"
                         android:checked="true"
                         android:text="Assignment &amp; Exam Alerts"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -137,10 +137,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -153,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Account &amp; Security"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -162,7 +162,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:background="#F1F5F9" />
+                        android:background="@color/soft_bg" />
 
                     <LinearLayout
                         android:id="@+id/rowChangePassword"
@@ -179,14 +179,14 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Reset Password"
-                            android:textColor="#1E293B"
+                            android:textColor="@color/form_text_color"
                             android:textSize="15sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="→"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -198,10 +198,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -214,7 +214,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="About Application"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -223,13 +223,13 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:background="#F1F5F9" />
+                        android:background="@color/soft_bg" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mulungushi Student Companion v1.0.0"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

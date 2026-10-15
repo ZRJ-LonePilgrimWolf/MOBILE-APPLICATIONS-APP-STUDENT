@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

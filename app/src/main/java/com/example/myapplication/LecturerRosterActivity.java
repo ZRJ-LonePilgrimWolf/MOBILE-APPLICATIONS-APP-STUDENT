@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LecturerRosterActivity extends AppCompatActivity {
+public class LecturerRosterActivity extends BaseActivity {
     private EditText etStudentSearch;
     private TextView tvStudentName, tvStudentNumber, tvStudentStatus, tvStudentProgram, tvStudentYear, tvStudentCourses;
 
@@ -38,7 +38,7 @@ public class LecturerRosterActivity extends AppCompatActivity {
             roleAutoComplete.setAdapter(adapter);
 
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(
-                    Color.parseColor("#F8FAFC")
+                    androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)
             ));
             roleAutoComplete.setDropDownWidth(
                     (int) (200 * getResources().getDisplayMetrics().density)
@@ -53,7 +53,7 @@ public class LecturerRosterActivity extends AppCompatActivity {
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 

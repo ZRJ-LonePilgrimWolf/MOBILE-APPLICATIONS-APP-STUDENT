@@ -27,16 +27,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private EditText editTextstudentid;
     private EditText editTextPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences themePrefs = getSharedPreferences("theme_prefs", MODE_PRIVATE);
-        int savedNightMode = themePrefs.getInt("night_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        AppCompatDelegate.setDefaultNightMode(savedNightMode);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -49,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 
@@ -67,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Button loginButton = findViewById(R.id.button);
-        EditText etNumber = findViewById(R.id.number);
-        EditText etPassword = findViewById(R.id.Password);
+        EditText etNumber = editTextstudentid;
+        EditText etPassword = editTextPassword;
 
         loginButton.setOnClickListener(v -> {
             String numberStr = etNumber != null ? etNumber.getText().toString().trim() : "";

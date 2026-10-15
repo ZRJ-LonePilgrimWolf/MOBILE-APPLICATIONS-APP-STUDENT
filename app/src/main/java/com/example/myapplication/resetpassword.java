@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class resetpassword extends AppCompatActivity {
+public class resetpassword extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
