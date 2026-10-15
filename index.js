@@ -1,6 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const registerSafe = require('./registerSafe');
+   const reference = require('./reference');
 const authRoutes = require('./auth');
 const passwordResetRoutes = require('./passwordReset');
 const studentsSafe = require('./studentsSafe');
@@ -17,6 +18,7 @@ app.use(express.json());
 // ROUTES  (the "Safe" files must come BEFORE the old ones so they win)
 // =====================================================
 app.use('/api', registerSafe);
+   app.use('/api', reference);
 app.use('/api', authRoutes);
 app.use('/api', passwordResetRoutes);
 app.use('/api', studentsSafe);

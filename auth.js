@@ -384,16 +384,20 @@ router.post(
         }
 
 
+                // Accept the username OR the student number (students log in with their number).
         const sql = `
-            SELECT *
-            FROM accounts
-            WHERE username = ?
+            SELECT a.*
+            FROM accounts a
+            LEFT JOIN students s ON s.account_id = a.account_id
+            WHERE a.username = ? OR s.student_number = ?
+            ORDER BY (a.username = ?) DESC
+            LIMIT 1
         `;
 
 
         db.query(
             sql,
-            [username],
+            [username, username, username],
             async (err, results) => {
 
                 if (err) {
