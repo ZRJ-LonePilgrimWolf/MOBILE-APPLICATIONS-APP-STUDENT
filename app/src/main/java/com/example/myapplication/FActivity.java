@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,38 @@ public class FActivity extends AppCompatActivity {
         if (search != null) {
             search.setOnClickListener(v -> {
                 Intent intent = new Intent(FActivity.this, search.class);
+                startActivity(intent);
+            });
+        }
+
+        Button btnStudentTue = findViewById(R.id.btnStudentTue);
+        if (btnStudentTue != null) {
+            btnStudentTue.setOnClickListener(v -> {
+                Intent intent = new Intent(FActivity.this, teusday.class);
+                startActivity(intent);
+            });
+        }
+
+        Button btnStudentWed = findViewById(R.id.btnStudentWed);
+        if (btnStudentWed != null) {
+            btnStudentWed.setOnClickListener(v -> {
+                Intent intent = new Intent(FActivity.this, wednesday.class);
+                startActivity(intent);
+            });
+        }
+
+        Button btnStudentThu = findViewById(R.id.btnStudentThu);
+        if (btnStudentThu != null) {
+            btnStudentThu.setOnClickListener(v -> {
+                Intent intent = new Intent(FActivity.this, thursday.class);
+                startActivity(intent);
+            });
+        }
+
+        Button btnStudentFri = findViewById(R.id.btnStudentFri);
+        if (btnStudentFri != null) {
+            btnStudentFri.setOnClickListener(v -> {
+                Intent intent = new Intent(FActivity.this, friday.class);
                 startActivity(intent);
             });
         }

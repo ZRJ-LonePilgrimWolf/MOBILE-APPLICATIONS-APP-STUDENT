@@ -96,10 +96,10 @@ public class lecturer_login extends AppCompatActivity {
                 startActivity(intent);
             });
         }
-        TextView forgotPassword=findViewById(R.id.Lec);
-        if (forgotPassword !=null) {
-            forgotPassword.setOnClickListener(v ->{
-                Intent intent=new Intent(lecturer_login.this,resetpassword.class);
+        TextView forgotPassword = findViewById(R.id.Lec);
+        if (forgotPassword != null) {
+            forgotPassword.setOnClickListener(v -> {
+                Intent intent = new Intent(lecturer_login.this, resetpassword.class);
                 startActivity(intent);
             });
         }

@@ -23,7 +23,7 @@ public class Registration extends AppCompatActivity {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8FAFC")));
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
@@ -50,11 +50,25 @@ public class Registration extends AppCompatActivity {
             };
             ArrayAdapter<String> programAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, programs);
             programAutoComplete.setAdapter(programAdapter);
-            programAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8FAFC")));
+            programAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
             programAutoComplete.setOnClickListener(v -> programAutoComplete.showDropDown());
             programAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
                     programAutoComplete.showDropDown();
+                }
+            });
+        }
+
+        AutoCompleteTextView groupAutoComplete = findViewById(R.id.groupDropdown);
+        if (groupAutoComplete != null) {
+            String[] groups = new String[]{"G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "G10"};
+            ArrayAdapter<String> groupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, groups);
+            groupAutoComplete.setAdapter(groupAdapter);
+            groupAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+            groupAutoComplete.setOnClickListener(v -> groupAutoComplete.showDropDown());
+            groupAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    groupAutoComplete.showDropDown();
                 }
             });
         }
