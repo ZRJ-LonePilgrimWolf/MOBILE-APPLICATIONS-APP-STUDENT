@@ -68,7 +68,7 @@ public class FActivity extends BaseActivity {
 
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.rol);
         if (roleAutoComplete != null) {
-            String[] roles = new String[]{"THEME", "PROFILE", "MY COURSES", "SETTINGS", "LOGOUT"};
+            String[] roles = new String[]{"CHAT", "THEME", "PROFILE", "MY COURSES", "SETTINGS", "LOGOUT"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
 
@@ -88,7 +88,10 @@ public class FActivity extends BaseActivity {
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
+                    roleAutoComplete.post(() -> {
+                        if (roleAutoComplete.getWindowToken() != null)
+                            roleAutoComplete.showDropDown();
+                    });
                 }
             });
 
@@ -98,7 +101,9 @@ public class FActivity extends BaseActivity {
                 // Prevent displaying the selected text inside the AutoCompleteTextView icon
                 roleAutoComplete.post(() -> roleAutoComplete.setText("", false));
 
-                if ("THEME".equalsIgnoreCase(selectedItem)) {
+                if ("CHAT".equalsIgnoreCase(selectedItem)) {
+                    startActivity(new Intent(FActivity.this, chatbot.class));
+                } else if ("THEME".equalsIgnoreCase(selectedItem)) {
                     Intent intent = new Intent(FActivity.this, ThemeActivity.class);
                     startActivity(intent);
                 } else if ("PROFILE".equalsIgnoreCase(selectedItem)) {

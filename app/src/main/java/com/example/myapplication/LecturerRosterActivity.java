@@ -14,7 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,27 +35,22 @@ public class LecturerRosterActivity extends BaseActivity {
 
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.rol);
         if (roleAutoComplete != null) {
-            String[] roles = new String[]{"THEME", "SETTINGS", "LOGOUT"};
+            String[] roles = new String[]{"CHAT", "THEME", "SETTINGS", "LOGOUT"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
 
-            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(
-                    androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)
-            ));
-            roleAutoComplete.setDropDownWidth(
-                    (int) (200 * getResources().getDisplayMetrics().density)
-            );
-            roleAutoComplete.setDropDownVerticalOffset(
-                    (int) (20 * getResources().getDisplayMetrics().density)
-            );
-            roleAutoComplete.setDropDownHeight(
-                    (int) (300 * getResources().getDisplayMetrics().density)
-            );
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
+            roleAutoComplete.setDropDownWidth((int) (200 * getResources().getDisplayMetrics().density));
+            roleAutoComplete.setDropDownVerticalOffset((int) (20 * getResources().getDisplayMetrics().density));
+            roleAutoComplete.setDropDownHeight((int) (300 * getResources().getDisplayMetrics().density));
 
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
+                    roleAutoComplete.post(() -> {
+                        if (roleAutoComplete.getWindowToken() != null)
+                            roleAutoComplete.showDropDown();
+                    });
                 }
             });
 
@@ -63,7 +60,9 @@ public class LecturerRosterActivity extends BaseActivity {
                 // Prevent displaying the selected text inside the AutoCompleteTextView icon
                 roleAutoComplete.post(() -> roleAutoComplete.setText("", false));
 
-                if ("THEME".equalsIgnoreCase(selectedItem)) {
+                if ("CHAT".equalsIgnoreCase(selectedItem)) {
+                    startActivity(new Intent(LecturerRosterActivity.this, chatbot.class));
+                } else if ("THEME".equalsIgnoreCase(selectedItem)) {
                     Intent intent = new Intent(LecturerRosterActivity.this, ThemeActivity.class);
                     startActivity(intent);
                 } else if ("SETTINGS".equalsIgnoreCase(selectedItem)) {
@@ -114,13 +113,11 @@ public class LecturerRosterActivity extends BaseActivity {
 
         TextView tvActionNeededBadge = findViewById(R.id.tvActionNeededBadge);
         if (tvActionNeededBadge != null) {
-            tvActionNeededBadge.setOnClickListener(v ->
-                    startActivity(new Intent(LecturerRosterActivity.this, ActionNeededActivity.class)));
+            tvActionNeededBadge.setOnClickListener(v -> startActivity(new Intent(LecturerRosterActivity.this, ActionNeededActivity.class)));
         }
         Button btnGoToActionNeeded = findViewById(R.id.btnGoToActionNeeded);
         if (btnGoToActionNeeded != null) {
-            btnGoToActionNeeded.setOnClickListener(v ->
-                    startActivity(new Intent(LecturerRosterActivity.this, ActionNeededActivity.class)));
+            btnGoToActionNeeded.setOnClickListener(v -> startActivity(new Intent(LecturerRosterActivity.this, ActionNeededActivity.class)));
         }
 
         etStudentSearch = findViewById(R.id.etStudentSearch);
@@ -138,9 +135,7 @@ public class LecturerRosterActivity extends BaseActivity {
         // "+ Add student" button floating at the bottom right (added in code, no XML change needed)
         Button add = new Button(this);
         add.setText("+ Add student");
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.BOTTOM | Gravity.END);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.END);
         lp.setMargins(0, 0, 32, 32);
         ((ViewGroup) findViewById(android.R.id.content)).addView(add, lp);
         add.setOnClickListener(v -> startActivity(new Intent(this, AddStudentActivity.class)));
@@ -153,36 +148,33 @@ public class LecturerRosterActivity extends BaseActivity {
             Toast.makeText(this, "Please enter a student name or number", Toast.LENGTH_SHORT).show();
             return;
         }
-        ApiClient.getClient().create(ApiService.class).getStudents(Session.bearer())
-                .enqueue(new Callback<StudentsResponse>() {
-                    @Override
-                    public void onResponse(Call<StudentsResponse> call, Response<StudentsResponse> response) {
-                        if (!response.isSuccessful() || response.body() == null || response.body().students == null) {
-                            Toast.makeText(LecturerRosterActivity.this,
-                                    "Server said " + response.code() + " - log in again?", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        for (StudentItem s : response.body().students) {
-                            boolean nameHit = s.student_name != null && s.student_name.toLowerCase().contains(q);
-                            boolean numHit = s.student_number != null && s.student_number.contains(q);
-                            if (nameHit || numHit) {
-                                tvStudentName.setText(s.student_name.toUpperCase());
-                                tvStudentNumber.setText("Student number: " + s.student_number);
-                                tvStudentStatus.setText("Active");
-                                tvStudentProgram.setText(s.program_name);
-                                tvStudentYear.setText("Group " + s.group_name);
-                                tvStudentCourses.setText("");
-                                return;
-                            }
-                        }
-                        Toast.makeText(LecturerRosterActivity.this, "No student found", Toast.LENGTH_SHORT).show();
+        ApiClient.getClient().create(ApiService.class).getStudents(Session.bearer()).enqueue(new Callback<StudentsResponse>() {
+            @Override
+            public void onResponse(Call<StudentsResponse> call, Response<StudentsResponse> response) {
+                if (!response.isSuccessful() || response.body() == null || response.body().students == null) {
+                    Toast.makeText(LecturerRosterActivity.this, "Server said " + response.code() + " - log in again?", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                for (StudentItem s : response.body().students) {
+                    boolean nameHit = s.student_name != null && s.student_name.toLowerCase().contains(q);
+                    boolean numHit = s.student_number != null && s.student_number.contains(q);
+                    if (nameHit || numHit) {
+                        tvStudentName.setText(s.student_name.toUpperCase());
+                        tvStudentNumber.setText("Student number: " + s.student_number);
+                        tvStudentStatus.setText("Active");
+                        tvStudentProgram.setText(s.program_name);
+                        tvStudentYear.setText("Group " + s.group_name);
+                        tvStudentCourses.setText("");
+                        return;
                     }
+                }
+                Toast.makeText(LecturerRosterActivity.this, "No student found", Toast.LENGTH_SHORT).show();
+            }
 
-                    @Override
-                    public void onFailure(Call<StudentsResponse> call, Throwable t) {
-                        Toast.makeText(LecturerRosterActivity.this,
-                                "Offline - cannot search the server: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
+            @Override
+            public void onFailure(Call<StudentsResponse> call, Throwable t) {
+                Toast.makeText(LecturerRosterActivity.this, "Offline - cannot search the server: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

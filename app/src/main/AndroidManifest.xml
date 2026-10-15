@@ -49,6 +49,10 @@
             android:name=".chatbot"
             android:exported="false" />
         <activity
+            android:name=".ChatRoomActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ThemeActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
