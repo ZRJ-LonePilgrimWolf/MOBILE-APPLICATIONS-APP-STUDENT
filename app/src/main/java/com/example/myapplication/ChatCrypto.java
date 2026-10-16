@@ -24,11 +24,11 @@ import javax.crypto.spec.SecretKeySpec;
 
 /**
  * End-to-end encryption for private messages.
- *
+ * <p>
  * Each account gets an RSA key pair ON THIS PHONE, inside the Android Keystore.
- *  - The PUBLIC key is uploaded to the server so others can lock messages for you.
- *  - The PRIVATE key can never be read out of the Keystore, so only this phone can unlock them.
- *
+ * - The PUBLIC key is uploaded to the server so others can lock messages for you.
+ * - The PRIVATE key can never be read out of the Keystore, so only this phone can unlock them.
+ * <p>
  * Sending: a fresh random AES-256 key encrypts the text (AES-GCM). That AES key is then locked twice
  * with RSA: once for the recipient (k_to) and once for the sender (k_from). The server only ever sees
  * these locked values.
@@ -41,13 +41,16 @@ public final class ChatCrypto {
             "SHA-256", "MGF1", MGF1ParameterSpec.SHA1, PSource.PSpecified.DEFAULT);
     private static final SecureRandom RANDOM = new SecureRandom();
 
-    private ChatCrypto() { }
+    private ChatCrypto() {
+    }
 
     private static String alias(int accountId) {
         return "chat_e2e_" + accountId;
     }
 
-    /** Creates this account's key pair on this phone if needed, and returns the PUBLIC key (Base64). */
+    /**
+     * Creates this account's key pair on this phone if needed, and returns the PUBLIC key (Base64).
+     */
     public static synchronized String ensureKeyPair(int accountId) throws Exception {
         KeyStore ks = KeyStore.getInstance(KEYSTORE);
         ks.load(null);
@@ -66,7 +69,29 @@ public final class ChatCrypto {
         return b64(pub.getEncoded());
     }
 
-    /** Encrypts a private message for the recipient AND for yourself. */
+    /**
+     * Called right after login: creates this account's chat key on this phone (if needed) and uploads
+     * the PUBLIC half, in the background. From then on others can send this person private messages,
+     * even before they open Chat.
+     */
+    public static void publishInBackground() {
+        final String bearer = Session.bearer();
+        final int accountId = Session.accountId();
+        if (bearer == null) return;
+        new Thread(() -> {
+            try {
+                String publicKey = ensureKeyPair(accountId);
+                ApiClient.getClient().create(ApiService.class)
+                        .publishKey(bearer, new ChatDtos.PublicKeyBody(publicKey)).execute();
+            } catch (Exception ignored) {
+                // Not fatal: Chat tries again when it is opened.
+            }
+        }, "chat-key").start();
+    }
+
+    /**
+     * Encrypts a private message for the recipient AND for yourself.
+     */
     public static ChatDtos.EncryptedPayload encrypt(String text, String recipientPublicKey, String myPublicKey)
             throws Exception {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
@@ -87,7 +112,9 @@ public final class ChatCrypto {
         return p;
     }
 
-    /** Decrypts a private message with this phone's private key. */
+    /**
+     * Decrypts a private message with this phone's private key.
+     */
     public static String decrypt(ChatDtos.EncryptedPayload p, int myAccountId, boolean iSentIt) throws Exception {
         KeyStore ks = KeyStore.getInstance(KEYSTORE);
         ks.load(null);

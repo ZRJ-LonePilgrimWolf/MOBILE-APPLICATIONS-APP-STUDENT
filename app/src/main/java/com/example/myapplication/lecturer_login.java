@@ -72,6 +72,7 @@ public class lecturer_login extends BaseActivity {
                                 return;
                             }
                             Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
+                            ChatCrypto.publishInBackground();   // so others can send private messages straight away
                             Toast.makeText(lecturer_login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(lecturer_login.this, LecturerRosterActivity.class);
                             startActivity(intent);

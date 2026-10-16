@@ -93,6 +93,7 @@ public class MainActivity extends BaseActivity {
                             return;
                         }
                         Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
+                        ChatCrypto.publishInBackground();   // so others can send private messages straight away
                         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(MainActivity.this, FActivity.class);
                         startActivity(intent);
