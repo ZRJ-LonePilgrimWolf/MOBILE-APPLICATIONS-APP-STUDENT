@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">STUDENT COMPANION APP</string>
+    <string name="app_name">Nexa</string>
+    <string name="app_tagline">Where Campus Connects</string>
     <string name="Password">Password</string>
     <string name="Button">Button</string>
     <string name="Username">Username</string>

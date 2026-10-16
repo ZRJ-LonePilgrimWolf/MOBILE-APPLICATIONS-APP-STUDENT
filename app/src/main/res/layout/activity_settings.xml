@@ -228,7 +228,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mulungushi Student Companion v1.0.0"
+                        android:text="Nexa v1.0.0 · Mulungushi University"
                         android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
                 </LinearLayout>
