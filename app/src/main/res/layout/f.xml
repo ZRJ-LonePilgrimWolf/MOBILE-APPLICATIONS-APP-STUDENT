@@ -5,7 +5,7 @@
     android:id="@+id/f_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".FActivity"
     android:padding="0dp">
@@ -52,6 +52,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/badge_bg"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/dashboard"
+                    android:textColor="?attr/accentTextColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/mulungushi_university"
                     android:textColor="#93C5FD"
                     android:textSize="12sp"
@@ -68,19 +80,26 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/badge_bg"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="6dp"
-                android:text="@string/dashboard"
-                android:textColor="#2563EB"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/baseline_format_align_justify_24"
+                    android:contentDescription="@string/settings"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
     </LinearLayout>
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -94,14 +113,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Module Links Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -114,7 +134,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/module_links"
-                        android:textColor="#1E293B"
+                        android:textColor="@color/form_text_color"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -124,7 +144,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="16dp"
                         android:text="Access your semester course modules"
-                        android:textColor="#64748B"
+                        android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
                     <LinearLayout
@@ -138,7 +158,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
                             android:layout_weight="1"
-                            android:backgroundTint="#2563EB"
+                            android:backgroundTint="?attr/colorPrimary"
                             android:text="@string/semester_1"
                             android:textAllCaps="false"
                             android:textColor="@color/white"
@@ -155,11 +175,273 @@
                             android:layout_weight="1"
                             android:text="@string/semester_2"
                             android:textAllCaps="false"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             app:cornerRadius="12dp"
-                            app:strokeColor="#2563EB" />
+                            app:strokeColor="?attr/colorPrimary" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Class Timetable Section Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/card_bg_color"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeColor="@color/card_stroke_color"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Class Timetable"
+                            android:textColor="@color/form_text_color"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/badge_bg"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="4dp"
+                            android:text="Today's Schedule"
+                            android:textColor="?attr/accentTextColor"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Weekly lectures and lab sessions"
+                        android:textColor="@color/form_label_color"
+                        android:textSize="13sp" />
+
+                    <!-- Day Selector Pills -->
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/btnStudentMon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:layout_marginEnd="6dp"
+                                android:backgroundTint="?attr/colorPrimary"
+                                android:text="Mon"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="18dp" />
+
+                            <Button
+                                android:id="@+id/btnStudentTue"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:layout_marginEnd="6dp"
+                                android:text="Tue"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="18dp"
+                                app:strokeColor="?attr/colorPrimary" />
+
+                            <Button
+                                android:id="@+id/btnStudentWed"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:layout_marginEnd="6dp"
+                                android:text="Wed"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="18dp"
+                                app:strokeColor="?attr/colorPrimary" />
+
+                            <Button
+                                android:id="@+id/btnStudentThu"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:layout_marginEnd="6dp"
+                                android:text="Thu"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="18dp"
+                                app:strokeColor="?attr/colorPrimary" />
+
+                            <Button
+                                android:id="@+id/btnStudentFri"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="38dp"
+                                android:text="Fri"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                app:cornerRadius="18dp"
+                                app:strokeColor="?attr/colorPrimary" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                    <!-- Timetable Session 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/p"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="08:00 AM - 10:00 AM"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lab 3"
+                                android:textColor="@color/form_label_color"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="ICT 361 - Mobile Application Development"
+                            android:textColor="@color/form_text_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Timetable Session 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/p"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="11:00 AM - 01:00 PM"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lecture Theatre 2"
+                                android:textColor="@color/form_label_color"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="ICT 351 - Software Engineering"
+                            android:textColor="@color/form_text_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Timetable Session 3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/p"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="02:00 PM - 04:00 PM"
+                                android:textColor="?attr/accentTextColor"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Main IT Lab"
+                                android:textColor="@color/form_label_color"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="ICT 341 - Database Systems"
+                            android:textColor="@color/form_text_color"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -177,7 +459,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/my_courses"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -185,19 +467,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_3_active"
-                    android:textColor="#64748B"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
             </LinearLayout>
 
-
+            <!-- Course Card 1 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -217,7 +499,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_361"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -228,7 +510,7 @@
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
                             android:text="@string/_75_done"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -238,7 +520,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/mobile_application_development"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -255,21 +537,21 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="@string/view_course"
-                        android:textColor="#2563EB"
+                        android:textColor="?attr/accentTextColor"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
+            <!-- Course Card 2 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -289,7 +571,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_351"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -300,7 +582,7 @@
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
                             android:text="@string/_60_done"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -310,7 +592,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/software_engineering"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -327,20 +609,21 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="@string/view_course"
-                        android:textColor="#2563EB"
+                        android:textColor="?attr/accentTextColor"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Course Card 3 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/card_bg_color"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:strokeColor="#E2E8F0"
+                app:strokeColor="@color/card_stroke_color"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -360,7 +643,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/ict_341"
-                            android:textColor="#1E3A5F"
+                            android:textColor="@color/form_text_color"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -371,7 +654,7 @@
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
                             android:text="@string/_90_done"
-                            android:textColor="#2563EB"
+                            android:textColor="?attr/accentTextColor"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -381,7 +664,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="@string/database_systems"
-                        android:textColor="#475569"
+                        android:textColor="@color/form_label_color"
                         android:textSize="14sp" />
 
                     <ProgressBar
@@ -398,7 +681,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="@string/view_course"
-                        android:textColor="#2563EB"
+                        android:textColor="?attr/accentTextColor"
                         android:textSize="13sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -407,12 +690,10 @@
         </LinearLayout>
     </ScrollView>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/white"
+        android:background="@color/card_bg_color"
         android:elevation="8dp"
         android:gravity="center"
         android:orientation="horizontal">
@@ -429,14 +710,14 @@
                 android:layout_height="24dp"
                 android:contentDescription="Home"
                 android:src="@drawable/baseline_home_24"
-                app:tint="#2563EB" />
+                app:tint="?attr/colorPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Home"
-                android:textColor="#2563EB"
+                android:textColor="?attr/accentTextColor"
                 android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -449,6 +730,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/search"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="Search"
@@ -460,7 +742,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="Search"
-                android:textColor="#64748B"
+                android:textColor="@color/form_label_color"
                 android:textSize="11sp" />
         </LinearLayout>
 
@@ -485,7 +767,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:text="@string/profile"
-                android:textColor="#64748B"
+                android:textColor="@color/form_label_color"
                 android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>

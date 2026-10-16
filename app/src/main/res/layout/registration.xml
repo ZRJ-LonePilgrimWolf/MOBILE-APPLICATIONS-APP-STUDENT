@@ -5,54 +5,75 @@
     android:id="@+id/r_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".Registration">
 
-    <!-- Top Header Banner -->
-    <LinearLayout
+    <!-- Top Header Banner (FrameLayout so the back arrow can sit on top of it) -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_bg"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:paddingTop="36dp"
-        android:paddingBottom="28dp">
+        android:background="@drawable/header_bg">
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:cardCornerRadius="36dp"
-            app:cardElevation="6dp"
-            app:strokeWidth="0dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:src="@drawable/mulogo" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:letterSpacing="0.05"
-            android:text="MULUNGUSHI UNIVERSITY"
-            android:textColor="#93C5FD"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingTop="36dp"
+            android:paddingBottom="28dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Student Companion"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/mulogo" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:letterSpacing="0.05"
+                android:text="MULUNGUSHI UNIVERSITY"
+                android:textColor="#93C5FD"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- NEW: back arrow (item 11). Placed last so it is drawn on top and receives taps. -->
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|start"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/back"
+            android:focusable="true"
+            android:padding="12dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white" />
+    </FrameLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -64,10 +85,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/card_bg_color"
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
-            app:strokeColor="#E2E8F0"
+            app:strokeColor="@color/card_stroke_color"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -82,7 +103,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="Student Registration"
                     android:textAlignment="center"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -92,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Role"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -109,8 +130,83 @@
                     android:hint="@string/Select_Role"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
+                <!-- Full Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Full Name"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="12dp"
+                    android:hint="Full Name"
+                    android:inputType="textPersonName|textCapWords"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
+                <!-- Username -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Username"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/baseline_person_24"
+                    android:drawablePadding="12dp"
+                    android:hint="Choose a username"
+                    android:inputType="text"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
+                <!-- Email (the ONLY email field now - item 6) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Email"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:drawableStart="@drawable/baseline_email_24"
+                    android:drawablePadding="12dp"
+                    android:hint="e.g. name@student.mu.ac.zm"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Student Number -->
@@ -119,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Student Number"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -133,9 +229,10 @@
                     android:drawablePadding="12dp"
                     android:hint="@string/Select_Number"
                     android:inputType="number"
+                    android:maxLength="9"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Program -->
@@ -144,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Program"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -161,8 +258,35 @@
                     android:hint="@string/select_Program"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
+                <!-- Lab Group (the ONLY group field now - item 10) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Lab Group"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/labgroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/custom_edittext"
+                    android:cursorVisible="false"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
+                    android:drawablePadding="12dp"
+                    android:focusable="false"
+                    android:hint="Select Lab Group"
+                    android:inputType="none"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Password -->
@@ -171,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Password"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -186,8 +310,8 @@
                     android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Register Button -->
@@ -196,7 +320,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="16dp"
-                    android:backgroundTint="#2563EB"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:text="@string/register"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -215,7 +339,7 @@
                     android:padding="8dp"
                     android:text="@string/if_you_already_have_an_account_click_here"
                     android:textAlignment="center"
-                    android:textColor="#2563EB"
+                    android:textColor="?attr/accentTextColor"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>

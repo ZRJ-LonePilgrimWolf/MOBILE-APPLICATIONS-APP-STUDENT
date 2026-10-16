@@ -1,41 +1,51 @@
 package com.example.myapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+
+    private EditText editTextstudentid;
+    private EditText editTextPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        editTextstudentid = findViewById(R.id.editTextstudentid);
+        editTextPassword = findViewById(R.id.editTextPassword);
+
+        // Coming back from Registration: put the new student number in the box.
+        String fromRegistration = getIntent().getStringExtra("student_number");
+        if (fromRegistration != null) editTextstudentid.setText(fromRegistration);
 
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.Roll);
         if (roleAutoComplete != null) {
             String[] roles = new String[]{"Student", "Lecturer"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
+            roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
             roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.showDropDown();
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
+
             roleAutoComplete.setOnItemClickListener((parent, view, position, id) -> {
                 String selectedRole = (String) parent.getItemAtPosition(position);
                 if ("Lecturer".equalsIgnoreCase(selectedRole)) {
@@ -46,15 +56,61 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Button loginButton = findViewById(R.id.button);
+        EditText etNumber = editTextstudentid;
+        EditText etPassword = editTextPassword;
+
         loginButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, FActivity.class);
-            startActivity(intent);
+            String numberStr = etNumber != null ? etNumber.getText().toString().trim() : "";
+            String passwordStr = etPassword != null ? etPassword.getText().toString().trim() : "";
+
+            if (numberStr.isEmpty() || passwordStr.isEmpty()) {
+                Toast.makeText(this, "Please enter student number and password", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            LoginRequest request = new LoginRequest(numberStr, passwordStr, "Student");
+
+            apiService.login(request).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().isSuccess()) {
+                        if (!"student".equalsIgnoreCase(response.body().getRole())) {
+                            Toast.makeText(MainActivity.this, "This is not a student account. Use the Lecturer login.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                        Session.start(response.body().getToken(), response.body().getAccountId(), response.body().getRole());
+                        ChatCrypto.publishInBackground();   // so others can send private messages straight away
+                        Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, FActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login Failed: Invalid credentials or server error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "Network Error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         });
 
         TextView reg = findViewById(R.id.buttonPanel);
-        reg.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Registration.class);
-            startActivity(intent);
-        });
+        if (reg != null) {
+            reg.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, Registration.class);
+                startActivity(intent);
+            });
+        }
+        TextView forgotPassword = findViewById(R.id.Lec);
+        if (forgotPassword != null) {
+            forgotPassword.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, resetpassword.class);
+                startActivity(intent);
+            });
+        }
     }
+
 }

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FAFC"
+    android:background="@color/p"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -48,10 +48,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="Student Companion"
+            android:text="@string/app_name"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/app_tagline"
+            android:textColor="#93C5FD"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ScrollView
@@ -64,10 +72,10 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
+            app:cardBackgroundColor="@color/card_bg_color"
             app:cardCornerRadius="20dp"
             app:cardElevation="3dp"
-            app:strokeColor="#E2E8F0"
+            app:strokeColor="@color/card_stroke_color"
             app:strokeWidth="1dp">
 
             <LinearLayout
@@ -82,7 +90,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="Student Login"
                     android:textAlignment="center"
-                    android:textColor="#1E293B"
+                    android:textColor="@color/form_text_color"
                     android:textSize="22sp"
                     android:textStyle="bold" />
 
@@ -92,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Role"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
@@ -109,8 +117,8 @@
                     android:hint="@string/Select_Role"
                     android:inputType="none"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Student Number -->
@@ -119,12 +127,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Student Number"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/number"
+                    android:id="@+id/editTextstudentid"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginBottom="16dp"
@@ -135,8 +143,8 @@
                     android:hint="@string/student_number"
                     android:inputType="number"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Password -->
@@ -145,12 +153,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:text="Password"
-                    android:textColor="#475569"
+                    android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/Password"
+                    android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginBottom="24dp"
@@ -161,8 +169,8 @@
                     android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:paddingHorizontal="16dp"
-                    android:textColor="#1E293B"
-                    android:textColorHint="#94A3B8"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
                 <!-- Login Button -->
@@ -171,7 +179,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginBottom="16dp"
-                    android:backgroundTint="#2563EB"
+                    android:backgroundTint="?attr/colorPrimary"
                     android:text="@string/Login"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -179,18 +187,33 @@
                     android:textStyle="bold"
                     app:cornerRadius="12dp" />
 
+                <TextView
+                    android:id="@+id/Lec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="150dp"
+                    android:text="Forgot password?"
+                    android:textAlignment="center"
+                    android:textColor="@color/form_text_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
                 <!-- Register Link -->
                 <TextView
                     android:id="@+id/buttonPanel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="8dp"
                     android:text="@string/if_you_don_t_have_an_account_click_here"
                     android:textAlignment="center"
-                    android:textColor="#2563EB"
+                    android:textColor="?attr/accentTextColor"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </LinearLayout>
