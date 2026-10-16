@@ -72,7 +72,7 @@ router.post('/register/student', async (req, res) => {
                 try {
                     const [a] = await conn.query("INSERT INTO accounts (username, password, email, role) VALUES (?, ?, ?, 'student')", [username, hash, email]);
                     const [r] = await conn.query(
-                        'INSERT INTO students (account_id, student_name, student_number, program_id, lab_group_id) VALUES (?, ?, ?, ?, ?)',
+                                                   "INSERT INTO students (account_id, student_name, student_number, program_id, lab_group_id, approval_status) VALUES (?, ?, ?, ?, ?, 'PENDING')",
                         [a.insertId, student_name, student_number, program_id, lab_group_id]);
                     status = 201;
                     body = { code: 'CREATED', message: 'Student registered successfully', student_id: r.insertId };
