@@ -222,4 +222,57 @@ router.post('/chat/dm/:id/messages', async (req, res) => {
     } catch (e) { send(res, e); }
 });
 
+// ---------------------------------------------------------------- unread counts
+
+// How many unread messages this person has: per room, per private chat, and in total.
+// Unread = messages newer than the last one they marked as read, and not written by them.
+router.get('/chat/unread', async (req, res) => {
+    try {
+        const me = await whoAmI(req);
+        const [roomRows] = await pool.query(
+            `SELECT m.room, COUNT(*) AS n
+               FROM chat_messages m
+               LEFT JOIN chat_reads r ON r.account_id = ? AND r.conv_key = m.room
+              WHERE m.room IS NOT NULL
+                AND m.sender_id <> ?
+                AND m.message_id > COALESCE(r.last_read_id, 0)
+              GROUP BY m.room`, [me.account_id, me.account_id]);
+        const [dmRows] = await pool.query(
+            `SELECT m.sender_id, COUNT(*) AS n
+               FROM chat_messages m
+               LEFT JOIN chat_reads r ON r.account_id = ? AND r.conv_key = CONCAT('dm:', m.sender_id)
+              WHERE m.room IS NULL
+                AND m.recipient_id = ?
+                AND m.message_id > COALESCE(r.last_read_id, 0)
+              GROUP BY m.sender_id`, [me.account_id, me.account_id]);
+
+        const rooms = {};
+        const people = {};
+        let total = 0;
+        roomRows.forEach(r => {
+            if (canUseRoom(me, r.room)) { rooms[r.room] = Number(r.n); total += Number(r.n); }   // only rooms they belong to
+        });
+        dmRows.forEach(r => { people[r.sender_id] = Number(r.n); total += Number(r.n); });
+                   
+        res.json({ total, rooms, people });
+    } catch (e) { send(res, e); }
+});
+
+// "I have now seen up to message N in this chat."  conv = room key, or 'dm:<other account id>'
+router.post('/chat/read', async (req, res) => {
+    try {
+        const me = await whoAmI(req);
+        const conv = String((req.body || {}).conv || '');
+        const lastId = Math.max(0, Number((req.body || {}).last_id) || 0);
+        const isPrivate = /^dm:\d+$/.test(conv);
+        if (!isPrivate && !canUseRoom(me, conv)) throw new Reject(403, 'NOT_ALLOWED', 'You are not a member of this chat');
+        if (!lastId) throw new Reject(400, 'VALIDATION', 'last_id is required');
+        // GREATEST: never move backwards (an older request arriving late cannot "un-read" messages)
+        await pool.query(
+            `INSERT INTO chat_reads (account_id, conv_key, last_read_id) VALUES (?, ?, ?)
+             ON DUPLICATE KEY UPDATE last_read_id = GREATEST(last_read_id, VALUES(last_read_id))`,
+            [me.account_id, conv, lastId]);
+        res.json({ ok: true });
+    } catch (e) { send(res, e); }
+});
 module.exports = router;
