@@ -26,15 +26,15 @@
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:contentDescription="@string/back"
                 android:focusable="true"
-                android:padding="4dp"
+                android:padding="12dp"
                 android:src="@drawable/baseline_arrow_back_24"
                 app:tint="@color/white" />
 
@@ -80,240 +80,40 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvPendingCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:accessibilityLiveRegion="polite"
                 android:background="@drawable/badge_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
-                android:text="@string/_2_items"
+                android:text="…"
                 android:textColor="#D97706"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Scrollable Action Items Area -->
-    <ScrollView
+    <!-- Loading / problem / "all done" message -->
+    <TextView
+        android:id="@+id/tvActionMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:accessibilityLiveRegion="polite"
+        android:padding="24dp"
+        android:text="Loading…"
+        android:textAlignment="center"
+        android:textColor="@color/form_label_color"
+        android:textSize="15sp" />
+
+    <!-- One row per student waiting for approval (rows come from item_pending_student.xml) -->
+    <ListView
+        android:id="@+id/lvPending"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:clipToPadding="false"
-        android:padding="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Item 1: Pending Student Approval -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardPendingApproval"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/card_bg_color"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#FEF3C7"
-                app:strokeWidth="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/registration_approval"
-                            android:textColor="#D97706"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#FEF3C7"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="4dp"
-                            android:text="@string/pending"
-                            android:textColor="#B45309"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/sarah_tembo"
-                        android:textColor="@color/form_text_color"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="@string/student_id_20210004_bsc_it_1st_year"
-                        android:textColor="@color/form_label_color"
-                        android:textSize="13sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="14dp"
-                        android:layout_marginBottom="14dp"
-                        android:background="@color/soft_bg" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnApproveRegistration"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_weight="1"
-                            android:backgroundTint="#16A34A"
-                            android:text="@string/approve"
-                            android:textAllCaps="false"
-                            android:textColor="@color/white"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="10dp" />
-
-                        <Button
-                            android:id="@+id/btnRejectRegistration"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:text="@string/reject"
-                            android:textAllCaps="false"
-                            android:textColor="#DC2626"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            app:cornerRadius="10dp"
-                            app:strokeColor="#DC2626" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Item 2: Unassigned Group Assignment -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardUnassignedGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/card_bg_color"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="3dp"
-                app:strokeColor="#FEE2E2"
-                app:strokeWidth="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Group Assignment"
-                            android:textColor="#DC2626"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#FEE2E2"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="4dp"
-                            android:text="UNASSIGNED"
-                            android:textColor="#991B1B"
-                            android:textSize="11sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="DAVID LUNGU"
-                        android:textColor="@color/form_text_color"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="@string/student_id_20210005_bsc_cs_3rd_year"
-                        android:textColor="@color/form_label_color"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="6dp"
-                        android:text="@string/assign_to_project_group"
-                        android:textColor="@color/form_label_color"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-
-                    <AutoCompleteTextView
-                        android:id="@+id/actvGroupSelect"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="14dp"
-                        android:background="@drawable/custom_edittext"
-                        android:cursorVisible="false"
-                        android:drawableEnd="@drawable/baseline_arrow_drop_down_24"
-                        android:drawablePadding="10dp"
-                        android:focusable="false"
-                        android:hint="@string/select_group_e_g_group_a"
-                        android:inputType="none"
-                        android:paddingHorizontal="14dp"
-                        android:textColor="@color/form_text_color"
-                        android:textColorHint="@color/form_hint_color"
-                        android:textSize="14sp" />
-
-                    <Button
-                        android:id="@+id/btnAssignGroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:backgroundTint="?attr/colorPrimary"
-                        android:text="@string/assign_student_to_group"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        app:cornerRadius="10dp" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-        </LinearLayout>
-    </ScrollView>
+        android:divider="@android:color/transparent"
+        android:dividerHeight="12dp"
+        android:padding="16dp" />
 </LinearLayout>

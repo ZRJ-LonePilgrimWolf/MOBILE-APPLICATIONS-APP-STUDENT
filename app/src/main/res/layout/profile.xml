@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".Profile">
 
-
+    <!-- Header: back, title, edit; then the student's real name, number and status -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,6 @@
         android:paddingEnd="20dp"
         android:paddingBottom="24dp">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,17 +27,17 @@
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/Back"
+                android:contentDescription="@string/back"
                 android:focusable="true"
-                android:padding="4dp"
+                android:padding="12dp"
                 android:src="@drawable/baseline_arrow_back_24"
-                app:tint="@color/white"/>
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -51,14 +50,15 @@
 
             <ImageView
                 android:id="@+id/edit"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="Edit"
+                android:contentDescription="Edit profile"
                 android:focusable="true"
+                android:padding="10dp"
                 android:src="@drawable/baseline_draw_24"
                 app:tint="@color/white" />
         </RelativeLayout>
@@ -72,52 +72,70 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                app:cardBackgroundColor="@color/card_bg_color"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="48dp"
                 app:cardElevation="6dp"
                 app:strokeColor="#93C5FD"
                 app:strokeWidth="3dp">
 
-                <ImageView
+                <!-- First letter of the student's name -->
+                <TextView
+                    android:id="@+id/tvAvatar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="16dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/baseline_person_24"
-                    app:tint="#1E3A5F" />
+                    android:gravity="center"
+                    android:importantForAccessibility="no"
+                    android:text="?"
+                    android:textColor="#1E3A5F"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/tvHeaderName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="@string/john_phiri"
+                android:text="Loading…"
+                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tvHeaderNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@string/t"
                 android:textColor="#93C5FD"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tvHeaderBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/badge_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:text="ACTIVE STUDENT"
-                android:textColor="?attr/accentTextColor"
+                android:textColor="#2563EB"
                 android:textSize="11sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Loading / problem message (hidden when the profile is shown) -->
+    <TextView
+        android:id="@+id/tvProfileMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:accessibilityLiveRegion="polite"
+        android:padding="16dp"
+        android:textAlignment="center"
+        android:textColor="@color/form_label_color"
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -127,9 +145,11 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/profileContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,6 +186,9 @@
                             android:id="@+id/information"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"
                             android:text="Edit"
                             android:textColor="?attr/accentTextColor"
                             android:textSize="14sp"
@@ -175,34 +198,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@color/soft_bg" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Student ID"
-                            android:textColor="@color/form_label_color"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="20210001"
-                            android:textColor="@color/form_text_color"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
+                        android:background="@color/card_stroke_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -213,20 +211,21 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="Program"
+                            android:text="Student Number"
                             android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvStudentNumber"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="BSc. Computer Science"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -237,21 +236,22 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="Department"
+                            android:text="Programme"
                             android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvProgramme"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Computer Science"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Year of Study -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -261,20 +261,21 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="Year of Study"
+                            android:text="Lab Group"
                             android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvLabGroup"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="3rd Year"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -289,18 +290,19 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvStatus"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Active"
-                            android:textColor="#16A34A"
+                            android:text="…"
+                            android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Personal Details Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -337,6 +339,9 @@
                             android:id="@+id/edit2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"
                             android:text="Edit"
                             android:textColor="?attr/accentTextColor"
                             android:textSize="14sp"
@@ -346,11 +351,10 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@color/soft_bg" />
+                        android:background="@color/card_stroke_color" />
 
-                    <!-- Full Name -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -365,16 +369,17 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvFullName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="John Phiri"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Date of Birth -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -384,49 +389,25 @@
                         <TextView
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
-                            android:text="Date of Birth"
+                            android:text="Username"
                             android:textColor="@color/form_label_color"
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvUsername"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="15 Aug 2001"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Gender -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Gender"
-                            android:textColor="@color/form_label_color"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Male"
-                            android:textColor="@color/form_text_color"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Email -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -437,65 +418,20 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tvEmail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="j.phiri@student.mu.ac.zm"
+                            android:text="…"
                             android:textColor="@color/form_text_color"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Phone Number -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Phone Number"
-                            android:textColor="@color/form_label_color"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="+260 971 234 567"
-                            android:textColor="@color/form_text_color"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <!-- Nationality -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="120dp"
-                            android:layout_height="wrap_content"
-                            android:text="Nationality"
-                            android:textColor="@color/form_label_color"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Zambian"
-                            android:textColor="@color/form_text_color"
+                            android:textIsSelectable="true"
                             android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Group Request Card -->
+            <!-- Group change request -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -521,7 +457,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="17dp"
+                            android:layout_height="wrap_content"
                             android:text="Group Change Request"
                             android:textColor="@color/form_text_color"
                             android:textSize="16sp"
@@ -531,16 +467,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Request to switch project group"
+                            android:text="Request to switch lab group"
                             android:textColor="@color/form_label_color"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        app:cardBackgroundColor="#EFF6FF"
-                        app:cardCornerRadius="22dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        app:cardBackgroundColor="@color/soft_bg"
+                        app:cardCornerRadius="24dp"
                         app:cardElevation="0dp"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp">
@@ -549,16 +485,17 @@
                             android:id="@+id/change"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:contentDescription="Request Change"
-                            android:padding="10dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:contentDescription="Request group change"
+                            android:focusable="true"
+                            android:padding="12dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/baseline_add_24"
                             app:tint="?attr/colorPrimary" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

@@ -75,4 +75,20 @@ public interface ApiService {
     @POST("api/chat/read")
     Call<ResponseBody> markRead(@Header("Authorization") String bearer,
                                 @Body ChatDtos.MarkRead body);
+
+    // ---- Student profile + lecturer approvals (approvals.js) ----
+    @GET("api/student/me")
+    Call<StudentDtos.Me> studentMe(@Header("Authorization") String bearer);
+
+    @GET("api/approvals")
+    Call<StudentDtos.ApprovalsResponse> approvals(@Header("Authorization") String bearer);
+
+    @POST("api/approvals/{id}/approve")
+    Call<ResponseBody> approveStudent(@Header("Authorization") String bearer,
+                                      @Path("id") int studentId,
+                                      @Body StudentDtos.ApproveBody body);
+
+    @POST("api/approvals/{id}/reject")
+    Call<ResponseBody> rejectStudent(@Header("Authorization") String bearer,
+                                     @Path("id") int studentId);
 }

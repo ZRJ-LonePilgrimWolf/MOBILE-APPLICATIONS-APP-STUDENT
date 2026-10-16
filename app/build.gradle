@@ -48,3 +48,77 @@ dependencies {
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
 }
+
+// ---------------------------------------------------------------------------
+// USB tunnel for real phones: on every build, run
+//   adb -s <device> reverse tcp:3000 tcp:3000
+// for each connected device, so the phone's 127.0.0.1:3000 reaches this laptop's
+// Node server through the USB cable. Never fails the build.
+// ---------------------------------------------------------------------------
+abstract class AdbReverseTask extends DefaultTask {
+    @Internal
+    abstract RegularFileProperty getAdbExe()
+
+    @javax.inject.Inject
+    abstract ExecOperations getExecOps()
+
+    @TaskAction
+    void reverse() {
+        File adb = adbExe.getOrNull()?.asFile
+        if (adb == null || !adb.exists()) {
+            logger.warn("adbReverse: adb not found, skipping (install Platform-Tools in SDK Manager)")
+            return
+        }
+
+        def out = new ByteArrayOutputStream()
+        try {
+            execOps.exec {
+                commandLine adb.absolutePath, 'devices'
+                standardOutput = out
+                errorOutput = new ByteArrayOutputStream()
+                ignoreExitValue = true
+            }
+        } catch (Exception e) {
+            logger.warn("adbReverse: could not run adb (${e.message}), skipping")
+            return
+        }
+
+        // Lines look like "R58N12ABCDE<TAB>device". Skip "unauthorized" / "offline".
+        List<String> serials = out.toString().readLines()
+                .drop(1)
+                .collect { it.trim() }
+                .findAll { it ==~ /\S+\s+device/ }
+                .collect { it.split(/\s+/)[0] }
+
+        if (serials.isEmpty()) {
+            logger.lifecycle("adbReverse: no device connected (nothing to do)")
+            return
+        }
+
+        serials.each { String serial ->
+            try {
+                def r = execOps.exec {
+                    commandLine adb.absolutePath, '-s', serial, 'reverse', 'tcp:3000', 'tcp:3000'
+                    standardOutput = new ByteArrayOutputStream()
+                    errorOutput = new ByteArrayOutputStream()
+                    ignoreExitValue = true
+                }
+                if (r.exitValue == 0) {
+                    logger.lifecycle("adb reverse tcp:3000 -> laptop OK on ${serial}")
+                } else {
+                    logger.warn("adbReverse: failed on ${serial} (is the phone unlocked and authorised?)")
+                }
+            } catch (Exception e) {
+                logger.warn("adbReverse: error on ${serial}: ${e.message}")
+            }
+        }
+    }
+}
+
+def adbReverse = tasks.register('adbReverse', AdbReverseTask) {
+    group = 'device'
+    description = 'Tunnel phone 127.0.0.1:3000 to this laptop over USB'
+    adbExe.set(androidComponents.sdkComponents.adb)
+}
+
+tasks.named('preBuild') { dependsOn adbReverse }
