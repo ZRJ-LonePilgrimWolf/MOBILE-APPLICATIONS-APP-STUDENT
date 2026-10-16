@@ -68,4 +68,18 @@ public class ChatDtos {
         public int account_id;
         public String public_key;
     }
+
+    // Unread counts: GET /api/chat/unread  ->  { total, rooms: {"uni": 3}, people: {"2389": 1} }
+    public static class UnreadResponse {
+        public int total;
+        public java.util.Map<String, Integer> rooms;
+        public java.util.Map<String, Integer> people;
+    }
+
+    // POST /api/chat/read  body: { conv: "grp:2" or "dm:2389", last_id: 57 }
+    public static class MarkRead {
+        public String conv;
+        public long last_id;
+        public MarkRead(String conv, long lastId) { this.conv = conv; this.last_id = lastId; }
+    }
 }

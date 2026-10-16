@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -42,6 +44,18 @@ public class chatbot extends BaseActivity {
     private final List<ChatDtos.Contact> contacts = new ArrayList<>();
     private final List<Row> shown = new ArrayList<>();
     private final ExecutorService background = Executors.newSingleThreadExecutor();
+
+    // Unread counts from the server, refreshed every few seconds while this screen is open.
+    private ChatDtos.UnreadResponse unread;
+    private static final long UNREAD_REFRESH_MS = 5000;
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable unreadRefresh = new Runnable() {
+        @Override
+        public void run() {
+            loadUnread();
+            handler.postDelayed(this, UNREAD_REFRESH_MS);
+        }
+    };
 
     /** One line in the list: a section header, a room, or a person. */
     private static class Row {
@@ -85,13 +99,47 @@ public class chatbot extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (api != null) load();
+        if (api != null) {
+            load();
+            handler.post(unreadRefresh);   // also loads the counts straight away
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(unreadRefresh);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        handler.removeCallbacks(unreadRefresh);
         background.shutdown();
+    }
+
+    /** Asks the server how many unread messages there are per room and per person. */
+    private void loadUnread() {
+        api.chatUnread(Session.bearer()).enqueue(new Callback<ChatDtos.UnreadResponse>() {
+            @Override
+            public void onResponse(Call<ChatDtos.UnreadResponse> call, Response<ChatDtos.UnreadResponse> response) {
+                if (!response.isSuccessful() || response.body() == null) return;
+                unread = response.body();
+                rebuild();   // people with new messages move to the top, badges update
+            }
+
+            @Override
+            public void onFailure(Call<ChatDtos.UnreadResponse> call, Throwable t) { }
+        });
+    }
+
+    /** Unread count for one line of the list (0 if none or not loaded yet). */
+    private int unreadFor(Row row) {
+        if (unread == null || row.header != null) return 0;
+        Integer n = null;
+        if (row.room != null && unread.rooms != null) n = unread.rooms.get(row.room.room);
+        if (row.contact != null && unread.people != null) n = unread.people.get(String.valueOf(row.contact.account_id));
+        return n == null ? 0 : n;
     }
 
     /** Makes sure this phone has a key pair for private messages and that the server has the PUBLIC half. */
@@ -162,6 +210,9 @@ public class chatbot extends BaseActivity {
             row.contact = c;
             peopleRows.add(row);
         }
+
+        // People who sent you something new go to the top of the private list (stable: keeps the A-Z order otherwise).
+        java.util.Collections.sort(peopleRows, (a, b) -> Integer.compare(unreadFor(b), unreadFor(a)));
 
         shown.clear();
         addSection("GROUP CHATS", groupRows);
@@ -267,6 +318,16 @@ public class chatbot extends BaseActivity {
             }
             tvHeader.setVisibility(View.GONE);
             body.setVisibility(View.VISIBLE);
+
+            TextView tvBadge = v.findViewById(R.id.tvRowBadge);
+            int count = unreadFor(row);
+            if (count > 0) {
+                tvBadge.setText(count > 99 ? "99+" : String.valueOf(count));
+                tvBadge.setContentDescription(count + " unread");
+                tvBadge.setVisibility(View.VISIBLE);
+            } else {
+                tvBadge.setVisibility(View.GONE);
+            }
 
             TextView tvIcon = v.findViewById(R.id.tvRowIcon);
             TextView tvTitle = v.findViewById(R.id.tvRowTitle);

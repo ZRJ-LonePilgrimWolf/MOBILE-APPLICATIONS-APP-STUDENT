@@ -36,7 +36,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/** One conversation: a group room (university / programme / lab group / staff) or a private encrypted chat. */
+/**
+ * One conversation: a group room (university / programme / lab group / staff) or a private encrypted chat.
+ */
 public class ChatRoomActivity extends BaseActivity {
 
     public static final String EXTRA_MODE = "mode";
@@ -86,7 +88,9 @@ public class ChatRoomActivity extends BaseActivity {
         }
     };
 
-    /** A message ready to show. */
+    /**
+     * A message ready to show.
+     */
     private static class Shown {
         boolean mine;
         String name;
@@ -270,6 +274,24 @@ public class ChatRoomActivity extends BaseActivity {
         messages.addAll(ready);
         adapter.notifyDataSetChanged();
         list.setSelection(messages.size() - 1);
+        markRead();   // you are looking at them, so they are read
+    }
+
+    /**
+     * Tells the server "I have seen everything up to lastId in this chat", so the badge clears.
+     */
+    private void markRead() {
+        if (lastId <= 0) return;
+        String conv = isPrivate ? "dm:" + otherId : room;
+        api.markRead(Session.bearer(), new ChatDtos.MarkRead(conv, lastId)).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }   // tried again with the next new message
+        });
     }
 
     // ---------------------------------------------------------------- send
@@ -348,10 +370,25 @@ public class ChatRoomActivity extends BaseActivity {
     // ---------------------------------------------------------------- list adapter
 
     private class MessageAdapter extends BaseAdapter {
-        @Override public int getCount() { return messages.size(); }
-        @Override public Object getItem(int position) { return messages.get(position); }
-        @Override public long getItemId(int position) { return position; }
-        @Override public boolean isEnabled(int position) { return false; }
+        @Override
+        public int getCount() {
+            return messages.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return messages.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return false;
+        }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {

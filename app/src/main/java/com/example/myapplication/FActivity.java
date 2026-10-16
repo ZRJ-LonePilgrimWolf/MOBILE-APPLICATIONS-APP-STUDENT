@@ -17,6 +17,7 @@ public class FActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.f);
+        enableChatBubble();
 
         ImageView reg = findViewById(R.id.profil);
         if (reg != null) {

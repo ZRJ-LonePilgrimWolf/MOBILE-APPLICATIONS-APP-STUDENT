@@ -78,6 +78,21 @@
                     android:textColor="@color/form_label_color"
                     android:textSize="13sp" />
             </LinearLayout>
+
+            <!-- Unread count (hidden when 0) -->
+            <TextView
+                android:id="@+id/tvRowBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/badge_unread"
+                android:gravity="center"
+                android:minWidth="24dp"
+                android:paddingHorizontal="6dp"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

@@ -29,6 +29,7 @@ public class LecturerRosterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecturer_roster);
+        enableChatBubble();
 
         ImageView backButton = findViewById(R.id.back);
         if (backButton != null) backButton.setOnClickListener(v -> finish());

@@ -68,4 +68,11 @@ public interface ApiService {
     Call<ResponseBody> sendDm(@Header("Authorization") String bearer,
                               @Path("id") int otherAccountId,
                               @Body ChatDtos.SendEncrypted body);
+
+    @GET("api/chat/unread")
+    Call<ChatDtos.UnreadResponse> chatUnread(@Header("Authorization") String bearer);
+
+    @POST("api/chat/read")
+    Call<ResponseBody> markRead(@Header("Authorization") String bearer,
+                                @Body ChatDtos.MarkRead body);
 }
