@@ -46,6 +46,7 @@ public class RosterListActivity extends BaseActivity {
     private TextInputEditText etSearch;
     private Spinner spProgramme, spGroup;
     private TextView tvGroupTotals, tvStatus;
+    private RosterDtos.GroupTotals lastTotals;   // kept for the Sharesheet summary
     private RosterAdapter adapter;
 
     // Filter choices (index 0 = "All")
@@ -117,6 +118,17 @@ public class RosterListActivity extends BaseActivity {
         lp.setMargins(0, 0, m, m);
         ((ViewGroup) findViewById(android.R.id.content)).addView(add, lp);
         add.setOnClickListener(v -> startActivity(new Intent(this, AddStudentActivity.class)));
+
+        // "Share summary" button at the bottom left: group labels and counts only - no names or numbers
+        MaterialButton share = new MaterialButton(this);
+        share.setText("Share summary");
+        share.setContentDescription("Share lab group summary");
+        share.setMinHeight((int) (56 * getResources().getDisplayMetrics().density));
+        FrameLayout.LayoutParams lp2 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.START);
+        lp2.setMargins(m, 0, 0, m);
+        ((ViewGroup) findViewById(android.R.id.content)).addView(share, lp2);
+        share.setOnClickListener(v -> shareSummary());
 
         // Opened from the lecturer home search: start with those words in the box
         String fromHome = getIntent().getStringExtra("search");
@@ -215,11 +227,34 @@ public class RosterListActivity extends BaseActivity {
         });
     }
 
+
+    /** Android Sharesheet: shares ONLY group labels and counts (no personal data). Cancelling the sheet does nothing. */
+    private void shareSummary() {
+        if (lastTotals == null || lastTotals.groups == null) {
+            Toast.makeText(this, "Group totals are still loading. Try again in a moment.", Toast.LENGTH_SHORT).show();
+            loadTotals();
+            return;
+        }
+        StringBuilder sb = new StringBuilder("Nexa - lab group summary\n\n");
+        for (StudentDtos.Group g : lastTotals.groups) {
+            sb.append(g.group_name).append(": ").append(g.member_count).append(" / ").append(g.max_members);
+            if (g.member_count >= g.max_members) sb.append(" (full)");
+            sb.append("\n");
+        }
+        sb.append("Unassigned: ").append(lastTotals.unassigned);
+
+        Intent send = new Intent(Intent.ACTION_SEND);
+        send.setType("text/plain");
+        send.putExtra(Intent.EXTRA_TITLE, "Lab group summary");
+        send.putExtra(Intent.EXTRA_TEXT, sb.toString());
+        startActivity(Intent.createChooser(send, "Share group summary"));
+    }
     private void loadTotals() {
         api().groupTotals(Session.bearer()).enqueue(new Callback<RosterDtos.GroupTotals>() {
             @Override
             public void onResponse(Call<RosterDtos.GroupTotals> c, Response<RosterDtos.GroupTotals> r) {
                 if (gone() || !r.isSuccessful() || r.body() == null || r.body().groups == null) return;
+                lastTotals = r.body();
                 StringBuilder sb = new StringBuilder("Group totals:  ");
                 for (StudentDtos.Group g : r.body().groups) {
                     sb.append(g.group_name).append(" ").append(g.member_count).append("/").append(g.max_members);
