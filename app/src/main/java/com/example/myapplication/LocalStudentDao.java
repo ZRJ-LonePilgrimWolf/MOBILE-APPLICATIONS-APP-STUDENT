@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
 import java.util.List;
 
 @Dao
@@ -19,4 +20,8 @@ public interface LocalStudentDao {
 
     @Query("SELECT * FROM local_students WHERE status = 'PENDING'")
     List<LocalStudent> pending();
+
+    // Logout: remove copies that are finished (synced or rejected). Unsent PENDING work is kept.
+    @Query("DELETE FROM local_students WHERE status <> 'PENDING'")
+    void deleteFinished();
 }

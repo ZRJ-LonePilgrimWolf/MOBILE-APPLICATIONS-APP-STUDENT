@@ -51,9 +51,7 @@ public class thursday extends BaseActivity {
                     Intent intent = new Intent(thursday.this, SettingsActivity.class);
                     startActivity(intent);
                 } else if ("LOGOUT".equalsIgnoreCase(selectedItem)) {
-                    Intent intent = new Intent(thursday.this, lecturer_login.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    logout();
                 }
             });
         }
