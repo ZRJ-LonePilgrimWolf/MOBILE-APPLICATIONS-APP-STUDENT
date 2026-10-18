@@ -162,7 +162,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/Passord"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="24dp"
@@ -185,7 +185,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/Passord"
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="24dp"
@@ -208,7 +208,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/Passord"
+                android:id="@+id/Nationality"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginBottom="24dp"
