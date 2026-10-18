@@ -32,6 +32,11 @@ app.use('/api', studentRoutes);
 // =====================================================
 // SERVER
 // =====================================================
-app.listen(3000, () => {
-    console.log('Server running on port 3000');
+// Simple page to check the server is alive (open it in a browser)
+app.get('/', (req, res) => res.send('Nexa API is running'));
+
+// Render gives its own port in process.env.PORT; the laptop uses 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log('Server running on port ' + PORT);
 });
