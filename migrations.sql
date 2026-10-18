@@ -80,3 +80,6 @@ CREATE TABLE IF NOT EXISTS student_requests (
   INDEX idx_req_status (status, type),
   INDEX idx_req_student (student_id, status)
 ) ENGINE=InnoDB;
+
+-- 6) Allow "Unassigned" students (no lab group yet).
+ALTER TABLE students MODIFY lab_group_id INT NULL;
