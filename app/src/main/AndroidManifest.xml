@@ -69,10 +69,7 @@
             android:name=".lecturer_login"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".search"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".changegroup"
             android:exported="false"

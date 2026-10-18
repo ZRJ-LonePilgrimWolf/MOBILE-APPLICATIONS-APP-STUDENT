@@ -140,40 +140,18 @@ public class LecturerRosterActivity extends BaseActivity {
         add.setOnClickListener(v -> startActivity(new Intent(this, RosterListActivity.class)));
     }
 
-    // REAL search: asks the server for the roster, then matches name or number.
+    // Opens the full roster with the search already typed in, so EVERY match is listed
+    // (server-side search with paging), not just the first one.
     private void performStudentSearch() {
-        String q = etStudentSearch.getText().toString().trim().toLowerCase();
+        String q = etStudentSearch.getText().toString().trim();
         if (q.isEmpty()) {
             Toast.makeText(this, "Please enter a student name or number", Toast.LENGTH_SHORT).show();
             return;
         }
-        ApiClient.getClient().create(ApiService.class).getStudents(Session.bearer()).enqueue(new Callback<StudentsResponse>() {
-            @Override
-            public void onResponse(Call<StudentsResponse> call, Response<StudentsResponse> response) {
-                if (!response.isSuccessful() || response.body() == null || response.body().students == null) {
-                    Toast.makeText(LecturerRosterActivity.this, "Server said " + response.code() + " - log in again?", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                for (StudentItem s : response.body().students) {
-                    boolean nameHit = s.student_name != null && s.student_name.toLowerCase().contains(q);
-                    boolean numHit = s.student_number != null && s.student_number.contains(q);
-                    if (nameHit || numHit) {
-                        tvStudentName.setText(s.student_name.toUpperCase());
-                        tvStudentNumber.setText("Student number: " + s.student_number);
-                        tvStudentStatus.setText("Active");
-                        tvStudentProgram.setText(s.program_name);
-                        tvStudentYear.setText("Group " + s.group_name);
-                        tvStudentCourses.setText("");
-                        return;
-                    }
-                }
-                Toast.makeText(LecturerRosterActivity.this, "No student found", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<StudentsResponse> call, Throwable t) {
-                Toast.makeText(LecturerRosterActivity.this, "Offline - cannot search the server: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+        Intent i = new Intent(this, RosterListActivity.class);
+        i.putExtra("search", q);
+        startActivity(i);
     }
-}
+
+    }
+

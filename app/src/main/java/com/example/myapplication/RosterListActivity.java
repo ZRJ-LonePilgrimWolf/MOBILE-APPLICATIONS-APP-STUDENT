@@ -118,6 +118,10 @@ public class RosterListActivity extends BaseActivity {
         ((ViewGroup) findViewById(android.R.id.content)).addView(add, lp);
         add.setOnClickListener(v -> startActivity(new Intent(this, AddStudentActivity.class)));
 
+        // Opened from the lecturer home search: start with those words in the box
+        String fromHome = getIntent().getStringExtra("search");
+        if (savedInstanceState == null && fromHome != null) etSearch.setText(fromHome);
+
         if (savedInstanceState != null) {
             restoreProgramme = savedInstanceState.getInt("programme", 0);
             restoreGroup = savedInstanceState.getInt("group", 0);

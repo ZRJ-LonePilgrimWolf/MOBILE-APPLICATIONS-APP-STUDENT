@@ -27,13 +27,9 @@ public class FActivity extends BaseActivity {
             });
         }
 
+        // Students may only see their own record, so there is no student search.
         ImageView search = findViewById(R.id.search);
-        if (search != null) {
-            search.setOnClickListener(v -> {
-                Intent intent = new Intent(FActivity.this, search.class);
-                startActivity(intent);
-            });
-        }
+        if (search != null) search.setVisibility(android.view.View.GONE);
 
         Button btnStudentTue = findViewById(R.id.btnStudentTue);
         if (btnStudentTue != null) {

@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Wednesday Timetable"
+                android:text="Wednesday Timetable (sample)"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
