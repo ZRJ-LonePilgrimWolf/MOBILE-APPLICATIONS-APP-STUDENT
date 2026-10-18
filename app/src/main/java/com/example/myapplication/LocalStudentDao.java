@@ -1,10 +1,11 @@
 package com.example.myapplication;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
 import java.util.List;
 
 @Dao
@@ -15,13 +16,26 @@ public interface LocalStudentDao {
     @Update
     void update(LocalStudent s);
 
-    @Query("SELECT * FROM local_students")
+    @Delete
+    void delete(LocalStudent s);
+
+    // Everything (used by the migration test)
+    @Query("SELECT * FROM local_students ORDER BY createdAt, operationId")
     List<LocalStudent> all();
 
-    @Query("SELECT * FROM local_students WHERE status = 'PENDING'")
-    List<LocalStudent> pending();
+    // Live list for ONE account - the screen redraws by itself whenever a row changes
+    @Query("SELECT * FROM local_students WHERE ownerAccountId = :accountId ORDER BY createdAt, operationId")
+    LiveData<List<LocalStudent>> watch(int accountId);
 
-    // Logout: remove copies that are finished (synced or rejected). Unsent PENDING work is kept.
-    @Query("DELETE FROM local_students WHERE status <> 'PENDING'")
+    // What the SyncWorker must send for this account, oldest first (order is preserved)
+    @Query("SELECT * FROM local_students WHERE ownerAccountId = :accountId AND status IN ('SAVED','PENDING') ORDER BY createdAt, operationId")
+    List<LocalStudent> pending(int accountId);
+
+    // If the app died while sending, put those rows back in the queue (resending is safe: same operation ID)
+    @Query("UPDATE local_students SET status = 'PENDING' WHERE ownerAccountId = :accountId AND status = 'SYNCING'")
+    void resetStuckSyncing(int accountId);
+
+    // Logout: remove only rows the server has confirmed. Unsent work and "Action required" rows are kept.
+    @Query("DELETE FROM local_students WHERE status = 'SYNCED'")
     void deleteFinished();
 }
