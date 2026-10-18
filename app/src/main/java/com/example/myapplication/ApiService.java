@@ -15,6 +15,13 @@ public interface ApiService {
     @POST("api/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
+
+    @POST("api/forgot-password")
+    Call<PasswordResetDtos.Message> forgotPassword(@Body PasswordResetDtos.ForgotBody body);
+
+    @POST("api/reset-password")
+    Call<PasswordResetDtos.Message> resetPassword(@Body PasswordResetDtos.ResetBody body);
+
     @GET("api/students")
     Call<StudentsResponse> getStudents(@Header("Authorization") String bearer);
 
