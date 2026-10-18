@@ -9,23 +9,32 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
+    // ===== SWITCH =====
+    // true  = ONLINE server (Render + TiDB): works on any phone, anywhere. Use this for the APK.
+    // false = LAPTOP server (node index.js): emulator via 10.0.2.2, phone via USB/Wi-Fi debugging.
+    public static final boolean USE_ONLINE = true;
+
+    private static final String ONLINE_URL = "https://nexa-api-26d7.onrender.com/";
+
     // EMULATOR:   10.0.2.2  = "the laptop the emulator runs on".
-    // REAL PHONE: 127.0.0.1 = the phone itself, but "adb reverse tcp:3000 tcp:3000"
-    //             (run automatically by build.gradle) tunnels it through the USB cable
-    //             to the laptop's port 3000. No Wi-Fi or IP address needed.
+    // REAL PHONE: 127.0.0.1 = tunnelled to the laptop by "adb reverse" (build.gradle does it).
     private static final String EMULATOR_URL = "http://10.0.2.2:3000/";
     private static final String USB_PHONE_URL = "http://127.0.0.1:3000/";
 
-    public static final String BASE_URL = isEmulator() ? EMULATOR_URL : USB_PHONE_URL;
+    public static final String BASE_URL =
+            USE_ONLINE ? ONLINE_URL : (isEmulator() ? EMULATOR_URL : USB_PHONE_URL);
 
     private static Retrofit retrofit = null;
 
     public static synchronized Retrofit getClient() {
         if (retrofit == null) {
+            // Free online server sleeps after 15 min idle and needs ~50 s to wake up,
+            // so allow up to 60 s online. The laptop answers fast, so 15 s is plenty there.
+            int wait = USE_ONLINE ? 60 : 15;
             OkHttpClient http = new OkHttpClient.Builder()
-                    .connectTimeout(10, TimeUnit.SECONDS)   // fail fast if the server is off
-                    .readTimeout(20, TimeUnit.SECONDS)
-                    .writeTimeout(20, TimeUnit.SECONDS)
+                    .connectTimeout(wait, TimeUnit.SECONDS)
+                    .readTimeout(wait, TimeUnit.SECONDS)
+                    .writeTimeout(wait, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .build();
             retrofit = new Retrofit.Builder()
