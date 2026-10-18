@@ -1,431 +1,130 @@
+// Password reset by emailed 6-digit code.
+// Email goes out over HTTPS (Brevo API) because Render's free tier blocks SMTP ports.
+// Safe rules: code tied to the username, stored hashed, expires in 15 min, max 5 wrong tries,
+// deleted accounts cannot be reset, and the answer never reveals whether an account exists.
 const express = require('express');
 const bcrypt = require('bcrypt');
-const nodemailer = require('nodemailer');
-
+const crypto = require('crypto');
 const db = require('./database');
-
 require('dotenv').config();
 
 const router = express.Router();
+const pool = db.promise();
 
+const CODE_MINUTES = 15;
+const MAX_ATTEMPTS = 5;
+const RESEND_SECONDS = 60;
+const GENERIC = 'If that account has an email address, a 6-digit code has been sent to it. Check your inbox and spam folder.';
 
-// =====================================================
-// EMAIL CONFIGURATION
-// =====================================================
+const hashCode = (accountId, code) =>
+    crypto.createHash('sha256').update(`${accountId}:${code}`).digest('hex');
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
+async function sendEmail(to, subject, text) {
+    if (process.env.BREVO_API_KEY && process.env.EMAIL_FROM) {
+        const r = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: { 'api-key': process.env.BREVO_API_KEY, 'Content-Type': 'application/json', accept: 'application/json' },
+            body: JSON.stringify({
+                sender: { name: 'Nexa', email: process.env.EMAIL_FROM },
+                to: [{ email: to }],
+                subject,
+                textContent: text
+            })
+        });
+        if (!r.ok) throw new Error(`Brevo ${r.status}: ${(await r.text()).slice(0, 200)}`);
+        return;
+    }
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {      // Gmail app password (works on a laptop only)
+        const nodemailer = require('nodemailer');
+        const t = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD } });
+        await t.sendMail({ from: `"Nexa" <${process.env.EMAIL_USER}>`, to, subject, text });
+        return;
+    }
+    throw new Error('No email service configured (set BREVO_API_KEY and EMAIL_FROM)');
+}
 
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASSWORD
+// STEP 1: ask for a code
+router.post('/forgot-password', async (req, res) => {
+    const username = String((req.body && req.body.username) || '').trim();
+    if (!username) return res.status(400).json({ code: 'VALIDATION', field: 'username', message: 'Enter your username' });
+    try {
+        const [rows] = await pool.query('SELECT account_id, username, email, password FROM accounts WHERE username = ?', [username]);
+        const a = rows[0];
+        // Unknown user, deleted account or placeholder email: same answer, nothing sent
+        if (!a || !a.email || a.email.endsWith('@pending.local') || String(a.password).startsWith('DISABLED:')) {
+            return res.json({ message: GENERIC });
+        }
+        const [[recent]] = await pool.query(
+            'SELECT COUNT(*) AS n FROM password_reset_codes WHERE account_id = ? AND created_at > NOW() - INTERVAL ? SECOND',
+            [a.account_id, RESEND_SECONDS]);
+        if (recent.n > 0) return res.json({ message: 'A code was sent less than a minute ago. Check your email, or wait a minute and ask again.' });
+
+        const code = String(crypto.randomInt(100000, 1000000));
+        await pool.query('DELETE FROM password_reset_codes WHERE account_id = ?', [a.account_id]);
+        await pool.query(
+            'INSERT INTO password_reset_codes (account_id, reset_code, expires_at, attempts) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL ? MINUTE), 0)',
+            [a.account_id, hashCode(a.account_id, code), CODE_MINUTES]);
+        try {
+            await sendEmail(a.email, 'Your Nexa password reset code',
+                `Hello ${a.username},\n\nYour Nexa password reset code is: ${code}\n\n` +
+                `It expires in ${CODE_MINUTES} minutes. If you did not ask for this, ignore this email - your password stays the same.\n\nNexa`);
+        } catch (e) {
+            await pool.query('DELETE FROM password_reset_codes WHERE account_id = ?', [a.account_id]);
+            console.error('Reset email failed:', e.message);
+            return res.status(503).json({ code: 'EMAIL_FAILED', message: 'Could not send the email right now. Please try again later.' });
+        }
+        res.json({ message: GENERIC });
+    } catch (e) {
+        console.error('forgot-password failed:', e.message);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
+// STEP 2: code + new password
+router.post('/reset-password', async (req, res) => {
+    const b = req.body || {};
+    const username = String(b.username || '').trim();
+    const code = String(b.reset_code || '').trim();
+    const pw = String(b.new_password || '');
+    if (!username) return res.status(400).json({ code: 'VALIDATION', field: 'username', message: 'Enter your username' });
+    if (!/^\d{6}$/.test(code)) return res.status(400).json({ code: 'VALIDATION', field: 'reset_code', message: 'The code has exactly 6 digits' });
+    if (pw.length < 6) return res.status(400).json({ code: 'VALIDATION', field: 'new_password', message: 'Password must be at least 6 characters' });
 
-// =====================================================
-// FORGOT PASSWORD
-// SEND 6-DIGIT RESET CODE BY EMAIL
-// =====================================================
-
-router.post(
-    '/forgot-password',
-    (req, res) => {
-
-        const {
-            username
-        } = req.body;
-
-
-        if (!username) {
-
-            return res.status(400).json({
-                message:
-                    'Username is required'
-            });
+    const conn = await pool.getConnection();
+    try {
+        await conn.beginTransaction();
+        const [rows] = await conn.query(
+            `SELECT r.id, r.account_id, r.reset_code, r.attempts, (r.expires_at > NOW()) AS valid, a.password
+               FROM password_reset_codes r JOIN accounts a ON a.account_id = r.account_id
+              WHERE a.username = ? ORDER BY r.id DESC LIMIT 1 FOR UPDATE`, [username]);
+        const r = rows[0];
+        if (!r || String(r.password).startsWith('DISABLED:')) {
+            await conn.rollback();
+            return res.status(400).json({ code: 'INVALID_CODE', field: 'reset_code', message: 'That code is wrong or has expired. Ask for a new code.' });
         }
-
-
-        const findAccountSql = `
-            SELECT
-                account_id,
-                username,
-                email,
-                role
-            FROM accounts
-            WHERE username = ?
-        `;
-
-
-        db.query(
-            findAccountSql,
-            [username],
-            (err, results) => {
-
-                if (err) {
-
-                    return res.status(500).json({
-                        error:
-                            err.message
-                    });
-                }
-
-
-                if (results.length === 0) {
-
-                    return res.status(404).json({
-                        message:
-                            'Account not found'
-                    });
-                }
-
-
-                const account =
-                    results[0];
-
-
-                if (!account.email) {
-
-                    return res.status(400).json({
-                        message:
-                            'No email address is registered for this account'
-                    });
-                }
-
-
-                // Generate 6-digit code
-                const resetCode =
-                    Math.floor(
-                        100000 +
-                        Math.random() * 900000
-                    ).toString();
-
-
-                // Code expires in 15 minutes
-                const expiresAt =
-                    new Date(
-                        Date.now() +
-                        15 * 60 * 1000
-                    );
-
-
-                // Delete previous codes
-                const deleteOldCodesSql = `
-                    DELETE FROM password_reset_codes
-                    WHERE account_id = ?
-                `;
-
-
-                db.query(
-                    deleteOldCodesSql,
-                    [account.account_id],
-                    (err) => {
-
-                        if (err) {
-
-                            return res.status(500).json({
-                                error:
-                                    err.message
-                            });
-                        }
-
-
-                        // Store new reset code
-                        const insertCodeSql = `
-                            INSERT INTO password_reset_codes
-                            (
-                                account_id,
-                                reset_code,
-                                expires_at
-                            )
-                            VALUES (?, ?, ?)
-                        `;
-
-
-                        db.query(
-                            insertCodeSql,
-                            [
-                                account.account_id,
-                                resetCode,
-                                expiresAt
-                            ],
-                            async (err) => {
-
-                                if (err) {
-
-                                    return res.status(500).json({
-                                        error:
-                                            err.message
-                                    });
-                                }
-
-
-                                try {
-
-                                    await transporter.sendMail({
-
-                                        from:
-                                            `"Student Management System" <${process.env.EMAIL_USER}>`,
-
-                                        to:
-                                            account.email,
-
-                                        subject:
-                                            'Password Reset Code',
-
-                                        text:
-                                            `Hello ${account.username},\n\n` +
-                                            `Your password reset code is: ${resetCode}\n\n` +
-                                            `This code will expire in 15 minutes.\n\n` +
-                                            `If you did not request a password reset, please ignore this email.\n\n` +
-                                            `Student Management System`
-                                    });
-
-
-                                    const maskedEmail =
-                                        account.email.replace(
-                                            /^(.{2}).*(@.*)$/,
-                                            '$1****$2'
-                                        );
-
-
-                                    res.json({
-
-                                        message:
-                                            'Password reset code has been sent to your registered email address.',
-
-                                        email:
-                                            maskedEmail,
-
-                                        expires_in:
-                                            '15 minutes'
-                                    });
-
-
-                                } catch (emailError) {
-
-                                    // Delete code if email failed
-                                    db.query(
-                                        `
-                                            DELETE FROM password_reset_codes
-                                            WHERE account_id = ?
-                                        `,
-                                        [
-                                            account.account_id
-                                        ]
-                                    );
-
-
-                                    return res.status(500).json({
-
-                                        message:
-                                            'Unable to send password reset email',
-
-                                        error:
-                                            emailError.message
-                                    });
-                                }
-                            }
-                        );
-                    }
-                );
-            }
-        );
+        if (!Number(r.valid) || r.attempts >= MAX_ATTEMPTS) {
+            await conn.query('DELETE FROM password_reset_codes WHERE id = ?', [r.id]);
+            await conn.commit();
+            return res.status(400).json({ code: 'CODE_EXPIRED', field: 'reset_code', message: 'That code has expired or was tried too many times. Ask for a new code.' });
+        }
+        if (hashCode(r.account_id, code) !== r.reset_code) {
+            await conn.query('UPDATE password_reset_codes SET attempts = attempts + 1 WHERE id = ?', [r.id]);
+            await conn.commit();
+            const left = MAX_ATTEMPTS - r.attempts - 1;
+            return res.status(400).json({ code: 'INVALID_CODE', field: 'reset_code',
+                message: left > 0 ? `Wrong code. ${left} ${left === 1 ? 'try' : 'tries'} left.` : 'Wrong code. Ask for a new code.' });
+        }
+        await conn.query('UPDATE accounts SET password = ? WHERE account_id = ?', [await bcrypt.hash(pw, 10), r.account_id]);
+        await conn.query('DELETE FROM password_reset_codes WHERE account_id = ?', [r.account_id]);
+        await conn.commit();
+        res.json({ message: 'Password changed. You can now log in with your new password.' });
+    } catch (e) {
+        try { await conn.rollback(); } catch (_) {}
+        console.error('reset-password failed:', e.message);
+        res.status(500).json({ message: 'Server error' });
+    } finally {
+        conn.release();
     }
-);
-
-
-// =====================================================
-// RESET PASSWORD USING 6-DIGIT CODE
-// =====================================================
-
-router.post(
-    '/reset-password',
-    async (req, res) => {
-
-        const {
-            reset_code,
-            new_password
-        } = req.body;
-
-
-        if (
-            !reset_code ||
-            !new_password
-        ) {
-
-            return res.status(400).json({
-                message:
-                    'Reset code and new password are required'
-            });
-        }
-
-
-        if (
-            !/^\d{6}$/.test(reset_code)
-        ) {
-
-            return res.status(400).json({
-                message:
-                    'Reset code must contain exactly 6 digits'
-            });
-        }
-
-
-        try {
-
-            const findCodeSql = `
-                SELECT
-                    reset_id,
-                    account_id,
-                    reset_code,
-                    expires_at
-                FROM password_reset_codes
-                WHERE reset_code = ?
-                ORDER BY created_at DESC
-                LIMIT 1
-            `;
-
-
-            db.query(
-                findCodeSql,
-                [reset_code],
-                async (err, results) => {
-
-                    if (err) {
-
-                        return res.status(500).json({
-                            error:
-                                err.message
-                        });
-                    }
-
-
-                    if (results.length === 0) {
-
-                        return res.status(403).json({
-                            message:
-                                'Invalid reset code'
-                        });
-                    }
-
-
-                    const resetRecord =
-                        results[0];
-
-
-                    // Check expiration
-                    if (
-                        new Date(
-                            resetRecord.expires_at
-                        ) < new Date()
-                    ) {
-
-                        db.query(
-                            `
-                                DELETE FROM password_reset_codes
-                                WHERE reset_id = ?
-                            `,
-                            [
-                                resetRecord.reset_id
-                            ]
-                        );
-
-
-                        return res.status(403).json({
-                            message:
-                                'Password reset code has expired'
-                        });
-                    }
-
-
-                    // Hash new password
-                    const hashedPassword =
-                        await bcrypt.hash(
-                            new_password,
-                            10
-                        );
-
-
-                    const updatePasswordSql = `
-                        UPDATE accounts
-                        SET password = ?
-                        WHERE account_id = ?
-                    `;
-
-
-                    db.query(
-                        updatePasswordSql,
-                        [
-                            hashedPassword,
-                            resetRecord.account_id
-                        ],
-                        (err, result) => {
-
-                            if (err) {
-
-                                return res.status(500).json({
-                                    error:
-                                        err.message
-                                });
-                            }
-
-
-                            if (
-                                result.affectedRows === 0
-                            ) {
-
-                                return res.status(404).json({
-                                    message:
-                                        'Account not found'
-                                });
-                            }
-
-
-                            // Delete reset code
-                            const deleteCodeSql = `
-                                DELETE FROM password_reset_codes
-                                WHERE reset_id = ?
-                            `;
-
-
-                            db.query(
-                                deleteCodeSql,
-                                [
-                                    resetRecord.reset_id
-                                ],
-                                (err) => {
-
-                                    if (err) {
-
-                                        return res.status(500).json({
-                                            error:
-                                                err.message
-                                        });
-                                    }
-
-
-                                    res.json({
-
-                                        message:
-                                            'Password reset successfully'
-                                    });
-                                }
-                            );
-                        }
-                    );
-                }
-            );
-
-        } catch (error) {
-
-            res.status(500).json({
-                error:
-                    error.message
-            });
-        }
-    }
-);
-
+});
 
 module.exports = router;

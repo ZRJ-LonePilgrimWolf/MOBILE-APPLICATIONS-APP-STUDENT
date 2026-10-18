@@ -83,3 +83,7 @@ CREATE TABLE IF NOT EXISTS student_requests (
 
 -- 6) Allow "Unassigned" students (no lab group yet).
 ALTER TABLE students MODIFY lab_group_id INT NULL;
+
+DELETE FROM password_reset_codes;
+ALTER TABLE password_reset_codes MODIFY reset_code VARCHAR(100) NOT NULL;
+ALTER TABLE password_reset_codes ADD COLUMN attempts INT NOT NULL DEFAULT 0;
