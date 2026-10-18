@@ -59,3 +59,24 @@ CREATE TABLE IF NOT EXISTS chat_reads (
   PRIMARY KEY (account_id, conv_key),
   CONSTRAINT fk_chat_read_account FOREIGN KEY (account_id) REFERENCES accounts(account_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- 5) Student requests: group change and student-number correction.
+--    The student asks; only a lecturer's approval changes anything.
+CREATE TABLE IF NOT EXISTS student_requests (
+  request_id          INT AUTO_INCREMENT PRIMARY KEY,
+  student_id          INT NOT NULL,
+  type                ENUM('GROUP_CHANGE','NUMBER_CORRECTION') NOT NULL,
+  requested_group_id  INT NULL,
+  requested_number    VARCHAR(20) NULL,
+  reason              VARCHAR(300) NULL,
+  status              ENUM('PENDING','APPROVED','REJECTED','CANCELLED') NOT NULL DEFAULT 'PENDING',
+  lecturer_note       VARCHAR(300) NULL,
+  decided_by          INT NULL,
+  decided_at          DATETIME NULL,
+  created_at          TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_req_student FOREIGN KEY (student_id)         REFERENCES students(student_id),
+  CONSTRAINT fk_req_group   FOREIGN KEY (requested_group_id) REFERENCES labgroup(lab_group_id),
+  CONSTRAINT fk_req_decider FOREIGN KEY (decided_by)         REFERENCES accounts(account_id),
+  INDEX idx_req_status (status, type),
+  INDEX idx_req_student (student_id, status)
+) ENGINE=InnoDB;

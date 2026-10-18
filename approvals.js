@@ -30,7 +30,7 @@ router.get('/student/me', authenticateToken, async (req, res) => {
     try {
         if (req.user.role !== 'student') throw new Reject(403, 'NOT_STUDENT', 'Only students have a student profile');
         const [rows] = await pool.query(
-            `SELECT s.student_id, s.student_name, s.student_number, s.approval_status, s.is_deleted,
+                        `SELECT s.student_id, s.student_name, s.student_number, s.approval_status, s.is_deleted, s.version, s.program_id,
                     s.lab_group_id, a.username, a.email, p.program_name, g.group_name,
                     (SELECT COUNT(*) FROM students x
                       WHERE x.lab_group_id = s.lab_group_id AND x.is_deleted = 0) AS group_members
