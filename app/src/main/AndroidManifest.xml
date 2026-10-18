@@ -92,6 +92,9 @@
 
         <activity android:name=".AddStudentActivity" />
         <activity android:name=".StudentRequestsActivity" />
+        <activity android:name=".RosterListActivity" />
+        <activity android:name=".StudentEditorActivity" />
+
         <activity
             android:name=".teusday"
             android:exported="false"

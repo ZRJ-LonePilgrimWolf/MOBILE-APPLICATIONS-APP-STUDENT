@@ -135,11 +135,11 @@ public class LecturerRosterActivity extends BaseActivity {
 
         // "+ Add student" button floating at the bottom right (added in code, no XML change needed)
         Button add = new Button(this);
-        add.setText("+ Add student");
+        add.setText("Student roster");
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, Gravity.BOTTOM | Gravity.END);
         lp.setMargins(0, 0, 32, 32);
         ((ViewGroup) findViewById(android.R.id.content)).addView(add, lp);
-        add.setOnClickListener(v -> startActivity(new Intent(this, AddStudentActivity.class)));
+        add.setOnClickListener(v -> startActivity(new Intent(this, RosterListActivity.class)));
     }
 
     // REAL search: asks the server for the roster, then matches name or number.

@@ -1,5 +1,5 @@
 package com.example.myapplication;
-
+import retrofit2.http.DELETE;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -119,4 +119,31 @@ public interface ApiService {
     Call<ResponseBody> rejectRequest(@Header("Authorization") String bearer,
                                      @Path("id") int requestId,
                                      @Body StudentDtos.RejectBody body);
+
+    // ---- Lecturer roster (studentsUpdateSafe.js) ----
+    // Null filters are simply left out of the URL by Retrofit.
+    @GET("api/students")
+    Call<RosterDtos.Page> roster(@Header("Authorization") String bearer,
+                                 @Query("search") String search,
+                                 @Query("program_id") Integer programId,
+                                 @Query("lab_group_id") String labGroupId,   // a number, "unassigned", or null = all
+                                 @Query("page") int page,
+                                 @Query("page_size") int pageSize);
+
+    @GET("api/students/{id}")
+    Call<RosterDtos.Student> rosterStudent(@Header("Authorization") String bearer,
+                                           @Path("id") int studentId);
+
+    @GET("api/labgroups")
+    Call<RosterDtos.GroupTotals> groupTotals(@Header("Authorization") String bearer);
+
+    @PUT("api/students/{id}")
+    Call<RosterDtos.UpdateResponse> updateStudent(@Header("Authorization") String bearer,
+                                                  @Path("id") int studentId,
+                                                  @Body RosterDtos.UpdateStudent body);
+
+    @DELETE("api/students/{id}")
+    Call<ResponseBody> deleteStudent(@Header("Authorization") String bearer,
+                                     @Path("id") int studentId,
+                                     @Query("operation_id") String operationId);
 }
