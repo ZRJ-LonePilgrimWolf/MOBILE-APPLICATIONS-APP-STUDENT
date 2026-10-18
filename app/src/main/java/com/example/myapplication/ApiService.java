@@ -91,4 +91,32 @@ public interface ApiService {
     @POST("api/approvals/{id}/reject")
     Call<ResponseBody> rejectStudent(@Header("Authorization") String bearer,
                                      @Path("id") int studentId);
+    // ---- Student self-service + lecturer request handling (selfService.js) ----
+    @PUT("api/student/me")
+    Call<StudentDtos.UpdateMeResponse> updateMe(@Header("Authorization") String bearer,
+                                                @Body StudentDtos.UpdateMe body);
+
+    @GET("api/student/me/requests")
+    Call<StudentDtos.MyRequestsResponse> myRequests(@Header("Authorization") String bearer);
+
+    @POST("api/student/me/requests")
+    Call<ResponseBody> newRequest(@Header("Authorization") String bearer,
+                                  @Body StudentDtos.NewRequest body);
+
+    @POST("api/student/me/requests/{id}/cancel")
+    Call<ResponseBody> cancelRequest(@Header("Authorization") String bearer,
+                                     @Path("id") int requestId);
+
+    @GET("api/requests")
+    Call<StudentDtos.LecturerRequestsResponse> lecturerRequests(@Header("Authorization") String bearer,
+                                                                @Query("status") String status);
+
+    @POST("api/requests/{id}/approve")
+    Call<ResponseBody> approveRequest(@Header("Authorization") String bearer,
+                                      @Path("id") int requestId);
+
+    @POST("api/requests/{id}/reject")
+    Call<ResponseBody> rejectRequest(@Header("Authorization") String bearer,
+                                     @Path("id") int requestId,
+                                     @Body StudentDtos.RejectBody body);
 }

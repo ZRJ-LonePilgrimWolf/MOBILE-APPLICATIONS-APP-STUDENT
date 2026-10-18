@@ -91,6 +91,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".AddStudentActivity" />
+        <activity android:name=".StudentRequestsActivity" />
         <activity
             android:name=".teusday"
             android:exported="false"

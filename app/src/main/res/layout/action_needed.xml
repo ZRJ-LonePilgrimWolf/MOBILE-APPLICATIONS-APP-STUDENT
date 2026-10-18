@@ -94,6 +94,16 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStudentRequests"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:minHeight="56dp"
+        android:text="Student requests (group changes &amp; number fixes)" />
+
     <!-- Loading / problem / "all done" message -->
     <TextView
         android:id="@+id/tvActionMessage"

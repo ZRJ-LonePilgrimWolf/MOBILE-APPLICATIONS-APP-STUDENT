@@ -58,6 +58,9 @@ public class ActionNeededActivity extends BaseActivity {
 
         findViewById(R.id.back).setOnClickListener(v -> finish());
 
+        findViewById(R.id.btnStudentRequests).setOnClickListener(v ->
+                startActivity(new android.content.Intent(this, StudentRequestsActivity.class)));
+
         adapter = new PendingAdapter();
         lvPending.setAdapter(adapter);
     }
