@@ -87,3 +87,12 @@ ALTER TABLE students MODIFY lab_group_id INT NULL;
 DELETE FROM password_reset_codes;
 ALTER TABLE password_reset_codes MODIFY reset_code VARCHAR(100) NOT NULL;
 ALTER TABLE password_reset_codes ADD COLUMN attempts INT NOT NULL DEFAULT 0;
+
+   -- =====================================================================
+   -- 9. Programmes requested by the lecturer: 4 = Cyber Security, 5 = ICT with Education
+   -- =====================================================================
+   UPDATE program SET program_name = 'ICT with Education (moving)' WHERE program_id = 4;
+   INSERT INTO program (program_id, program_name) VALUES (5, 'ICT with Education')
+   ON DUPLICATE KEY UPDATE program_name = 'ICT with Education';
+   UPDATE students SET program_id = 5, version = version + 1 WHERE program_id = 4;
+   UPDATE program SET program_name = 'Cyber Security' WHERE program_id = 4;
