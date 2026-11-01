@@ -11,6 +11,10 @@ const router = express.Router();
 const pool = db.promise();
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+   // Same words in any order or case: "Mulemwa Muchima" = "MUCHIMA Mulemwa"
+   const nameKey = (n) => String(n || '').toLowerCase().replace(/[^\p{L}\s]/gu, ' ')
+       .split(/\s+/).filter(Boolean).sort().join(' ');
+
 class Reject extends Error {
     constructor(status, body) { super(body.message); this.status = status; this.body = body; }
 }
@@ -55,7 +59,7 @@ router.post('/register/student', async (req, res) => {
                 if (s.is_deleted) throw new Reject(409, { code: 'NUMBER_RESERVED', message: 'This student number is reserved. Ask your lecturer.' });
                 if (!String(s.email).endsWith('@pending.local')) throw new Reject(409, { code: 'ALREADY_REGISTERED', message: 'This student number already has an account. Please log in.' });
                 // Added by the lecturer, not claimed yet: verify ownership by name, then LINK (no second profile, no new place used).
-                if (String(s.student_name).trim().toLowerCase() !== String(student_name).trim().toLowerCase()) {
+                   if (nameKey(s.student_name) !== nameKey(student_name)) {
                     throw new Reject(403, { code: 'OWNERSHIP_FAILED', message: 'Name does not match the record your lecturer entered' });
                 }
                 try {

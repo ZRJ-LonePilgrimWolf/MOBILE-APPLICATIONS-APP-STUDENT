@@ -3,6 +3,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../database').promise();
+const { MAX_LAB_GROUP_MEMBERS: MAX } = require('../middleware');   // 16, same rule as the server
 const API = process.env.API || 'http://localhost:3000/api';
 const token = jwt.sign({ account_id: 1, username: '100000001', role: 'lecturer' }, process.env.JWT_SECRET, { expiresIn: '10m' });
 const call = (path, body, auth) => fetch(`${API}${path}`, {
@@ -20,7 +21,9 @@ async function wipe() {                              // only touches 91xxxxxxx /
 }
 (async () => {
     await wipe();
-    const [[g]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='G02'");
+    // Tests use their own groups, so the real G01-G14 class lists are never touched
+    await db.query("INSERT IGNORE INTO labgroup (group_name) VALUES ('TEST1'),('TEST2')");
+    const [[g]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='TEST1'");
 
     console.log('\nStudent registration');
     const a = next();
@@ -50,12 +53,12 @@ async function wipe() {                              // only touches 91xxxxxxx /
         ok(r.status === 201, 'correct access code -> lecturer created (201)');
     } else console.log('SKIP  set LECTURER_SIGNUP_CODE in .env to test the success case');
 
-    console.log('\nLast place in G03 taken by two REGISTRATIONS at once (10 rounds)');
-    const [[g3]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='G03'");
+    console.log('\nLast place in a test group taken by two REGISTRATIONS at once (10 rounds)');
+    const [[g3]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='TEST2'");
     let bad = 0;
     for (let round = 1; round <= 10; round++) {
         await wipe();
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0; i < MAX - 1; i++) {
             const num = String(920000000 + i);
             const [acc] = await db.query("INSERT INTO accounts (username,password,email,role) VALUES (?,?,?, 'student')", [num, await bcrypt.hash('x', 4), `${num}@t.local`]);
             await db.query('INSERT INTO students (account_id,student_name,student_number,program_id,lab_group_id) VALUES (?,?,?,1,?)', [acc.insertId, 'Seed Student', num, g3.id]);
@@ -65,9 +68,10 @@ async function wipe() {                              // only touches 91xxxxxxx /
         const [[cnt]] = await db.query('SELECT COUNT(*) n FROM students WHERE lab_group_id=? AND is_deleted=0', [g3.id]);
         const st = [r1.status, r2.status].sort().join(',');
         const full = [r1, r2].filter(q => q.body.code === 'GROUP_FULL').length;
-        if (st !== '201,409' || full !== 1 || cnt.n !== 15) { bad++; console.log(`  round ${round}: ${st}, final=${cnt.n}`); }
+        if (st !== '201,409' || full !== 1 || cnt.n !== MAX) { bad++; console.log(`  round ${round}: ${st}, final=${cnt.n}`); }
     }
-    ok(bad === 0, `exactly one registration wins the last place, final count 15 in all 10 rounds (bad: ${bad})`);
+    ok(bad === 0, `exactly one registration wins the last place, final count ${MAX} in all 10 rounds (bad: ${bad})`);
     await wipe();
+    await db.query("DELETE FROM labgroup WHERE group_name IN ('TEST1','TEST2')");
     process.exit();
 })().catch(e => { console.error(e); process.exit(1); });

@@ -4,6 +4,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../database').promise();
+const { MAX_LAB_GROUP_MEMBERS: MAX } = require('../middleware');   // 16, same rule as the server
 
 const API = process.env.API || 'http://localhost:3000/api';
 const token = jwt.sign({ account_id: 1, username: '100000001', role: 'lecturer' }, process.env.JWT_SECRET, { expiresIn: '10m' });
@@ -37,12 +38,14 @@ const count = async (g) => (await db.query('SELECT COUNT(*) n FROM students WHER
 const ok = (c, m) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${m}`); if (!c) process.exitCode = 1; };
 
 (async () => {
-    const [[g]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='G01'");
+    // Tests use their own group, so the real G01-G14 class lists are never touched
+    await db.query("INSERT IGNORE INTO labgroup (group_name) VALUES ('TEST1')");
+    const [[g]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='TEST1'");
 
-    console.log('\nChallenge 1: two requests race for the last place in G01 (20 rounds)');
+    console.log('\nChallenge 1: two requests race for the last place in a test group (20 rounds)');
     let bad = 0;
     for (let round = 1; round <= 20; round++) {
-        await reset(g.id, 14);
+        await reset(g.id, MAX - 1);
         const a = await newAccount(), b = await newAccount();
         const [r1, r2] = await Promise.all([
             post({ account_id: a, student_name: 'Race One', student_number: nextNumber(), program_id: 1, lab_group_id: g.id }),
@@ -51,9 +54,9 @@ const ok = (c, m) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${m}`); if (!c) proc
         const statuses = [r1.status, r2.status].sort().join(',');
         const full = [r1, r2].filter(r => r.body.code === 'GROUP_FULL').length;
         const final = await count(g.id);
-        if (statuses !== '201,409' || full !== 1 || final !== 15) { bad++; console.log(`  round ${round}: ${statuses}, final=${final}`); }
+        if (statuses !== '201,409' || full !== 1 || final !== MAX) { bad++; console.log(`  round ${round}: ${statuses}, final=${final}`); }
     }
-    ok(bad === 0, `Exactly one 201 and one GROUP_FULL, final count 15 in all 20 rounds (bad rounds: ${bad})`);
+    ok(bad === 0, `Exactly one 201 and one GROUP_FULL, final count ${MAX} in all 20 rounds (bad rounds: ${bad})`);
 
     console.log('\nChallenge 2: same operation_id sent twice (response was "lost")');
     await reset(g.id, 3);
@@ -71,5 +74,6 @@ const ok = (c, m) => { console.log(`${c ? 'PASS' : 'FAIL'}  ${m}`); if (!c) proc
     ok(dup.status === 409 && dup.body.code === 'DUPLICATE', 'second student with same number rejected (DUPLICATE)');
 
     await reset(g.id, 0);
+    await db.query("DELETE FROM labgroup WHERE group_name='TEST1'");
     process.exit();
 })().catch(e => { console.error(e); process.exit(1); });

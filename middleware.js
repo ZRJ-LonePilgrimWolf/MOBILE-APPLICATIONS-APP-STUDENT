@@ -19,7 +19,7 @@ const studentNumberRegex = /^\d{9}$/;
 // LAB GROUP CAPACITY
 // =====================================================
 
-const MAX_LAB_GROUP_MEMBERS = 15;
+const MAX_LAB_GROUP_MEMBERS = 16;
 
 function checkLabGroupCapacity(
     labGroupId,

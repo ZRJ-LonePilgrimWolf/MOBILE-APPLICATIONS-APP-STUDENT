@@ -3,6 +3,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const db = require('../database').promise();
+const { MAX_LAB_GROUP_MEMBERS: MAX } = require('../middleware');   // 16, same rule as the server
 const API = process.env.API || 'http://localhost:3000/api';
 const tok = (role, id) => jwt.sign({ account_id: id, username: 'x', role }, process.env.JWT_SECRET, { expiresIn: '10m' });
 const L = tok('lecturer', 1);
@@ -20,8 +21,10 @@ async function mk(group, name = 'Test Person') {
     await db.query("DELETE FROM students WHERE student_number BETWEEN '910000000' AND '919999999'");
     await db.query("DELETE FROM accounts WHERE username LIKE 'U1%' AND role='student'");
     await db.query("DELETE FROM operations WHERE operation_id LIKE 'c3-%'");
-    const [[g1]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='G01'");
-    const [[g2]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='G02'");
+    // Tests use their own groups, so the real G01-G14 class lists are never touched
+    await db.query("INSERT IGNORE INTO labgroup (group_name) VALUES ('TEST1'),('TEST2')");
+    const [[g1]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='TEST1'");
+    const [[g2]] = await db.query("SELECT lab_group_id id FROM labgroup WHERE group_name='TEST2'");
     const body = (s, extra = {}) => ({ student_name: 'Test Person', student_number: s.number, program_id: 1, lab_group_id: g1.id, ...extra });
 
     // Challenge 3: two lecturers edit same version
@@ -48,7 +51,7 @@ async function mk(group, name = 'Test Person') {
 
     // failed transfer keeps old group
     await db.query("DELETE FROM students WHERE student_number BETWEEN '910000000' AND '919999999'");
-    for (let i = 0; i < 15; i++) await mk(g2.id);
+    for (let i = 0; i < MAX; i++) await mk(g2.id);
     const m = await mk(g1);
     const r4 = await call('PUT', `/students/${m.id}`, { student_name: 'Test Person', student_number: m.number, program_id: 1, lab_group_id: g2.id });
     const [[row]] = await db.query('SELECT lab_group_id FROM students WHERE student_id=?', [m.id]);
@@ -76,5 +79,6 @@ async function mk(group, name = 'Test Person') {
     // cleanup
     await db.query("DELETE FROM students WHERE student_number BETWEEN '910000000' AND '919999999'");
     await db.query("DELETE FROM accounts WHERE username LIKE 'U1%' AND role='student'");
+    await db.query("DELETE FROM labgroup WHERE group_name IN ('TEST1','TEST2')");
     process.exit();
 })();
