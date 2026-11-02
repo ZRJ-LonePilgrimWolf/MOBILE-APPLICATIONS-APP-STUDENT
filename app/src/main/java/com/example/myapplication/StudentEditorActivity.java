@@ -45,7 +45,7 @@ public class StudentEditorActivity extends BaseActivity {
     private RosterDtos.Student student;                             // as loaded from the server
     private final List<ReferenceResponse.Program> programs = new ArrayList<>();
     private final List<StudentDtos.Group> groups = new ArrayList<>(); // plus "Unassigned" at the end
-    private int maxMembers = 15;
+    private int maxMembers = 16;
 
     // The same operation ID is reused if the SAME save/delete is retried after a network failure,
     // so the server applies it only once. A new attempt gets a new ID.

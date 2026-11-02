@@ -34,7 +34,7 @@ public class StudentRequestsActivity extends BaseActivity {
     private TextView tvRequestsMessage, tvRequestCount;
     private final List<StudentDtos.LecturerRequest> requests = new ArrayList<>();
     private final Set<Integer> busy = new HashSet<>();
-    private int maxMembers = 15;
+    private int maxMembers = 16;
     private RequestAdapter adapter;
     private ApiService api;
 

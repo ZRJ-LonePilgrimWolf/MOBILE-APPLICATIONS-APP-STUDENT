@@ -59,9 +59,9 @@ public class AddStudentActivity extends BaseActivity {
         name = field("Student name (letters only)", ID_NAME);
         number = field("Student number (9 digits)", ID_NUMBER);
         number.setInputType(InputType.TYPE_CLASS_NUMBER);
-        program = field("Programme: 1=CS 2=IT 3=DS", ID_PROGRAM);
+        program = field("Programme: 1=CS 2=IT 3=DS 4=Cyber Security 5=ICT with Education", ID_PROGRAM);
         program.setInputType(InputType.TYPE_CLASS_NUMBER);
-        group = field("Group: 1=G01 2=G02 3=G03 4=G04", ID_GROUP);
+        group = field("Group number 1-14 (1=G01 … 14=G14)", ID_GROUP);
         group.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         Button save = new Button(this);
