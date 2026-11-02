@@ -18,6 +18,12 @@ public interface ApiService {
     @GET("/")
     Call<okhttp3.ResponseBody> ping();
 
+    @GET("api/lecturer/me")
+    Call<LecturerDtos.Me> lecturerMe(@Header("Authorization") String bearer);
+
+    @PUT("api/lecturer/me")
+    Call<okhttp3.ResponseBody> updateLecturerMe(@Header("Authorization") String bearer, @Body LecturerDtos.UpdateName body);
+
     @POST("api/forgot-password")
     Call<PasswordResetDtos.Message> forgotPassword(@Body PasswordResetDtos.ForgotBody body);
 

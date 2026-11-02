@@ -25,6 +25,8 @@ import retrofit2.Response;
 public class lecture_registration extends BaseActivity {
 
     private EditText numberInput, emailInput, passwordInput, codeInput;
+
+    private EditText fullNameInput;
     private Button registerButton;
 
     @Override
@@ -48,6 +50,8 @@ public class lecture_registration extends BaseActivity {
             });
         }
 
+        fullNameInput = findViewById(R.id.fullName);
+
         numberInput  = findViewById(R.id.number);
         emailInput   = findViewById(R.id.email);
         passwordInput = findViewById(R.id.Password);
@@ -61,22 +65,25 @@ public class lecture_registration extends BaseActivity {
     }
 
     private void attemptRegister() {
+        String fullName = fullNameInput.getText().toString().trim().replaceAll("\\s+", " ");
         String username = numberInput.getText().toString().trim();
         String email    = emailInput.getText().toString().trim();
         String password = passwordInput.getText().toString().trim();
         String code     = codeInput.getText().toString().trim();
 
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty() || code.isEmpty()) {
+        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || code.isEmpty()) {
             toast("Please fill in every field"); return;
         }
+        if (!fullName.matches("\\p{L}[\\p{L}\\p{M} .'\u2019-]{1,99}")) { fullNameInput.setError("Letters only, at least 2"); return; }
+        if (!username.matches("[A-Za-z0-9._-]{3,30}")) { numberInput.setError("3-30 letters/numbers, no spaces"); return; }
         if (!email.contains("@")) { toast("Enter a valid email address"); return; }
-        if (password.length() < 6) { toast("Password must be at least 6 characters"); return; }
+        if (password.length() < 6) { toast("Password must be at least 6 characters"); return; }if (password.length() < 6) { toast("Password must be at least 6 characters"); return; }
 
         registerButton.setEnabled(false);
         registerButton.setText("Registering...");
 
         ApiClient.getClient().create(ApiService.class)
-                .registerLecturer(new RegisterLecturerRequest(username, password, email, code))
+                .registerLecturer(   new RegisterLecturerRequest(fullName, username, password, email, code))
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

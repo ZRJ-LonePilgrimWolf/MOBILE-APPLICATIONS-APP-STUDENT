@@ -113,12 +113,37 @@
                     android:textColorHint="@color/form_hint_color"
                     android:textSize="15sp" />
 
+
+                <!-- Full name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="Full name"
+                    android:textColor="@color/form_label_color"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="16dp"
+                    android:autofillHints="name"
+                    android:background="@drawable/custom_edittext"
+                    android:hint="e.g. Mary Banda"
+                    android:inputType="textPersonName|textCapWords"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="@color/form_text_color"
+                    android:textColorHint="@color/form_hint_color"
+                    android:textSize="15sp" />
+
                 <!-- Lecturer ID -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
-                    android:text="Lecturer ID"
+                    android:text="Username"
                     android:textColor="@color/form_label_color"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -132,8 +157,8 @@
                     android:cursorVisible="true"
                     android:drawableStart="@drawable/baseline_numbers_24"
                     android:drawablePadding="12dp"
-                    android:hint="@string/lecturer_id"
-                    android:inputType="number"
+                    android:hint="Username (letters or numbers)"
+                    android:inputType="text"
                     android:paddingHorizontal="16dp"
                     android:textColor="@color/form_text_color"
                     android:textColorHint="@color/form_hint_color"

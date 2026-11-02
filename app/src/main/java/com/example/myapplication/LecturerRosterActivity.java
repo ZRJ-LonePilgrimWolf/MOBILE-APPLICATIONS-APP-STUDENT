@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
@@ -152,6 +153,50 @@ public class LecturerRosterActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         loadActionCounts();   // refresh every time the lecturer comes back to this screen
+        askNameIfMissing();
+    }
+
+    private boolean nameAsked = false;
+
+    /** Lecturers created before names existed are asked once for their full name. */
+    private void askNameIfMissing() {
+        if (nameAsked || Session.bearer() == null) return;
+        nameAsked = true;
+        ApiService api = ApiClient.getClient().create(ApiService.class);
+        api.lecturerMe(Session.bearer()).enqueue(new Callback<LecturerDtos.Me>() {
+            @Override
+            public void onResponse(Call<LecturerDtos.Me> c, Response<LecturerDtos.Me> r) {
+                if (isFinishing() || isDestroyed() || !r.isSuccessful() || r.body() == null) return;
+                if (r.body().full_name != null && !r.body().full_name.trim().isEmpty()) return;
+
+                EditText input = new EditText(LecturerRosterActivity.this);
+                input.setHint("e.g. Mary Banda");
+                int pad = (int) (20 * getResources().getDisplayMetrics().density);
+                input.setPadding(pad, pad / 2, pad, pad / 2);
+                AlertDialog d = new AlertDialog.Builder(LecturerRosterActivity.this)
+                        .setTitle("Your full name")
+                        .setMessage("Students and other lecturers will see this name instead of your username.")
+                        .setView(input)
+                        .setNegativeButton("Later", null)
+                        .setPositiveButton("Save", null)
+                        .create();
+                d.setOnShowListener(x -> d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                    String name = input.getText().toString().trim().replaceAll("\\s+", " ");
+                    if (!name.matches("\\p{L}[\\p{L}\\p{M} .'\u2019-]{1,99}")) { input.setError("Letters only, at least 2"); return; }
+                    api.updateLecturerMe(Session.bearer(), new LecturerDtos.UpdateName(name)).enqueue(new Callback<okhttp3.ResponseBody>() {
+                        @Override public void onResponse(Call<okhttp3.ResponseBody> c2, Response<okhttp3.ResponseBody> r2) {
+                            Toast.makeText(LecturerRosterActivity.this, r2.isSuccessful() ? "Name saved" : "Could not save the name", Toast.LENGTH_SHORT).show();
+                            if (r2.isSuccessful()) d.dismiss();
+                        }
+                        @Override public void onFailure(Call<okhttp3.ResponseBody> c2, Throwable t) {
+                            Toast.makeText(LecturerRosterActivity.this, "No connection. Try again later.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }));
+                d.show();
+            }
+            @Override public void onFailure(Call<LecturerDtos.Me> c, Throwable t) { }
+        });
     }
 
     /** Real numbers from the server - no sample names. */
