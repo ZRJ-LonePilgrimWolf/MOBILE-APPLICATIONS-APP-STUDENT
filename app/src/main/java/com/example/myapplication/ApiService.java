@@ -15,6 +15,8 @@ public interface ApiService {
     @POST("api/login")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);
 
+    @GET("/")
+    Call<okhttp3.ResponseBody> ping();
 
     @POST("api/forgot-password")
     Call<PasswordResetDtos.Message> forgotPassword(@Body PasswordResetDtos.ForgotBody body);

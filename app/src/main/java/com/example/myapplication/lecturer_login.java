@@ -24,6 +24,8 @@ public class lecturer_login extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lecturer_login);
 
+        ApiClient.wakeServer();   // start waking the server while the lecturer types
+
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.Roll);
         if (roleAutoComplete != null) {
             String[] roles = new String[]{"Student", "Lecturer"};

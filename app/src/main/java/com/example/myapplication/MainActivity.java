@@ -26,6 +26,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ApiClient.wakeServer();   // start waking the server while the user types
+
         editTextstudentid = findViewById(R.id.editTextstudentid);
         editTextPassword = findViewById(R.id.editTextPassword);
 

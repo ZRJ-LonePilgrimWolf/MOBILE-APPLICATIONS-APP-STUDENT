@@ -58,4 +58,13 @@ public class ApiClient {
                 || product.startsWith("sdk") || product.contains("emulator")
                 || hardware.equals("goldfish") || hardware.equals("ranchu");
     }
+
+    /** Wakes the Render server early (free plan sleeps after 15 min). Fire-and-forget. */
+    public static void wakeServer() {
+        if (!USE_ONLINE) return;
+        getClient().create(ApiService.class).ping().enqueue(new retrofit2.Callback<okhttp3.ResponseBody>() {
+            @Override public void onResponse(retrofit2.Call<okhttp3.ResponseBody> c, retrofit2.Response<okhttp3.ResponseBody> r) { }
+            @Override public void onFailure(retrofit2.Call<okhttp3.ResponseBody> c, Throwable t) { }
+        });
+    }
 }
