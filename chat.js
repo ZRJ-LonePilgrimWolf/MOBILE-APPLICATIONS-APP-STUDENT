@@ -134,7 +134,7 @@ router.get('/chat/contacts', async (req, res) => {
     try {
         const me = await whoAmI(req);
         const [rows] = await pool.query(
-            `SELECT a.account_id, a.role, COALESCE(s.student_name, a.username) AS name,
+            `SELECT a.account_id, a.role, COALESCE(s.student_name, a.full_name, a.username) AS name
                     pr.program_name, g.group_name,
                     (k.account_id IS NOT NULL) AS has_key
                FROM accounts a

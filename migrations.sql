@@ -96,3 +96,6 @@ ALTER TABLE password_reset_codes ADD COLUMN attempts INT NOT NULL DEFAULT 0;
    ON DUPLICATE KEY UPDATE program_name = 'ICT with Education';
    UPDATE students SET program_id = 5, version = version + 1 WHERE program_id = 4;
    UPDATE program SET program_name = 'Cyber Security' WHERE program_id = 4;
+
+      -- 10. Lecturers' real names (shown to students and other lecturers)
+   ALTER TABLE accounts ADD COLUMN full_name VARCHAR(100) NULL;

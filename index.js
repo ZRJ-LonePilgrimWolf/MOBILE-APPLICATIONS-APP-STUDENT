@@ -10,6 +10,7 @@ const passwordResetRoutes = require('./passwordReset');
 const studentsSafe = require('./studentsSafe');
 const studentsUpdateSafe = require('./studentsUpdateSafe');
 const studentRoutes = require('./students');
+const lecturerProfile = require('./lecturerProfile');
 const app = express();
 
 // =====================================================
@@ -27,6 +28,7 @@ app.use('/api', registerSafe);
          app.use('/api', selfService);
 app.use('/api', authRoutes);
 app.use('/api', passwordResetRoutes);
+app.use('/api', lecturerProfile);
 app.use('/api', studentsSafe);
 app.use('/api', studentsUpdateSafe);
 app.use('/api', studentRoutes);
