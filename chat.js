@@ -147,7 +147,7 @@ router.get('/chat/contacts', async (req, res) => {
                 AND (a.role = 'lecturer' OR (s.student_id IS NOT NULL AND s.is_deleted = 0))
               ORDER BY a.role, name`, [me.account_id]);
         res.json({ contacts: rows.map(r => ({ ...r, has_key: Number(r.has_key) })) });
-    } catch (e) { send(res, e); }
+       } catch (e) { console.error('contacts failed:', e); res.status(500).json({ code: 'DEBUG', message: String(e && e.message) }); }
 });
 
 // The phone uploads ITS OWN public key (never the private one).
