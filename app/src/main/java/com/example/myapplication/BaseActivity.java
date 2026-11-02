@@ -2,6 +2,14 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +42,29 @@ public class BaseActivity extends AppCompatActivity {
         appliedAccent = ThemeHelper.getAccent(this);
         setTheme(ThemeHelper.styleFor(appliedAccent));   // MUST be before super.onCreate
         super.onCreate(savedInstanceState);
+    }
+
+    /**
+     * Newer Android draws the app under the phone's Back/Home/Recents bar (edge-to-edge).
+     * This pushes every screen's content up by the height of that bar (and above the keyboard
+     * when it is open), so bottom buttons are never hidden. Runs for every screen.
+     */
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        View content = findViewById(android.R.id.content);
+        if (content == null) return;
+        final int baseLeft = content.getPaddingLeft();
+        final int baseRight = content.getPaddingRight();
+        final int baseBottom = content.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
+            Insets nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+            int bottom = Math.max(nav.bottom, ime.bottom);
+            v.setPadding(baseLeft + nav.left, v.getPaddingTop(), baseRight + nav.right, baseBottom + bottom);
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(content);
     }
 
     @Override
