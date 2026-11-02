@@ -119,6 +119,11 @@ public class LecturerRosterActivity extends BaseActivity {
             btnGoToActionNeeded.setOnClickListener(v -> startActivity(new Intent(LecturerRosterActivity.this, ActionNeededActivity.class)));
         }
 
+        Button btnOpenRoster = findViewById(R.id.btnOpenRoster);
+        if (btnOpenRoster != null) {
+            btnOpenRoster.setOnClickListener(v -> startActivity(new Intent(LecturerRosterActivity.this, RosterListActivity.class)));
+        }
+
         etStudentSearch = findViewById(R.id.etStudentSearch);
         Button btnSearchStudent = findViewById(R.id.btnSearchStudent);
         tvStudentName = findViewById(R.id.tvStudentName);
@@ -142,6 +147,74 @@ public class LecturerRosterActivity extends BaseActivity {
 
     // Opens the full roster with the search already typed in, so EVERY match is listed
     // (server-side search with paging), not just the first one.
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadActionCounts();   // refresh every time the lecturer comes back to this screen
+    }
+
+    /** Real numbers from the server - no sample names. */
+    private void loadActionCounts() {
+        TextView summary = findViewById(R.id.tvActionSummary);
+        TextView badge = findViewById(R.id.tvActionNeededBadge);
+        if (summary == null || Session.bearer() == null) return;
+        summary.setText("Loading…");
+
+        ApiService api = ApiClient.getClient().create(ApiService.class);
+        final int[] n = {-1, -1, -1};          // registrations, requests, unassigned
+        final boolean[] failed = {false};
+
+        Runnable show = () -> {
+            if (isFinishing() || isDestroyed()) return;
+            if (failed[0]) {
+                summary.setText("Could not load the numbers. Check your connection, then reopen this screen.");
+                if (badge != null) badge.setText("…");
+                return;
+            }
+            if (n[0] < 0 || n[1] < 0 || n[2] < 0) return;   // wait for all three answers
+            summary.setText("• Registrations waiting for approval: " + n[0]
+                    + "\n• Group / number change requests: " + n[1]
+                    + "\n• Students not in any lab group: " + n[2]);
+            int action = n[0] + n[1];
+            if (badge != null) badge.setText(action == 0 ? "All clear" : action + " Action Needed");
+        };
+
+        api.approvals(Session.bearer()).enqueue(new Callback<StudentDtos.ApprovalsResponse>() {
+            @Override
+            public void onResponse(Call<StudentDtos.ApprovalsResponse> c, Response<StudentDtos.ApprovalsResponse> r) {
+                if (r.isSuccessful() && r.body() != null)
+                    n[0] = r.body().pending != null ? r.body().pending.size() : r.body().count;
+                else failed[0] = true;
+                show.run();
+            }
+            @Override
+            public void onFailure(Call<StudentDtos.ApprovalsResponse> c, Throwable t) { failed[0] = true; show.run(); }
+        });
+
+        api.lecturerRequests(Session.bearer(), "PENDING").enqueue(new Callback<StudentDtos.LecturerRequestsResponse>() {
+            @Override
+            public void onResponse(Call<StudentDtos.LecturerRequestsResponse> c, Response<StudentDtos.LecturerRequestsResponse> r) {
+                if (r.isSuccessful() && r.body() != null)
+                    n[1] = r.body().requests != null ? r.body().requests.size() : 0;
+                else failed[0] = true;
+                show.run();
+            }
+            @Override
+            public void onFailure(Call<StudentDtos.LecturerRequestsResponse> c, Throwable t) { failed[0] = true; show.run(); }
+        });
+
+        api.groupTotals(Session.bearer()).enqueue(new Callback<RosterDtos.GroupTotals>() {
+            @Override
+            public void onResponse(Call<RosterDtos.GroupTotals> c, Response<RosterDtos.GroupTotals> r) {
+                if (r.isSuccessful() && r.body() != null) n[2] = r.body().unassigned;
+                else failed[0] = true;
+                show.run();
+            }
+            @Override
+            public void onFailure(Call<RosterDtos.GroupTotals> c, Throwable t) { failed[0] = true; show.run(); }
+        });
+    }
     private void performStudentSearch() {
         String q = etStudentSearch.getText().toString().trim();
         if (q.isEmpty()) {

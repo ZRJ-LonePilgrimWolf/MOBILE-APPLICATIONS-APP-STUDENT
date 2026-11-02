@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Weekly Teaching Schedule"
+                    android:text="Weekly Teaching Schedule (sample)"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -108,7 +108,7 @@
                 android:background="@drawable/badge_bg"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
-                android:text="3 Classes Today"
+                android:text="Sample timetable"
                 android:textColor="?attr/accentTextColor"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -280,6 +280,7 @@
 
                     <LinearLayout
                         android:id="@+id/studentResultLayout"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -473,7 +474,7 @@
                             android:focusable="true"
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp"
-                            android:text="2 Action Needed"
+                            android:text="…"
                             android:textColor="#D97706"
                             android:textSize="11sp"
                             android:textStyle="bold" />
@@ -488,120 +489,31 @@
                         android:textColor="@color/form_label_color"
                         android:textSize="13sp" />
 
-                    <!-- Student Item 1: Pending Student -->
-                    <LinearLayout
+                    <!-- Real numbers from the server, filled in by LecturerRosterActivity.loadActionCounts() -->
+                    <TextView
+                        android:id="@+id/tvActionSummary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:accessibilityLiveRegion="polite"
                         android:background="#FEF3C7"
-                        android:orientation="vertical"
+                        android:lineSpacingExtra="4dp"
                         android:padding="14dp"
-                        android:layout_marginBottom="12dp">
+                        android:text="Loading…"
+                        android:textColor="#78350F"
+                        android:textSize="14sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="SARAH TEMBO"
-                                    android:textColor="#92400E"
-                                    android:textSize="15sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="ID: 20210004 • BSc. IT"
-                                    android:textColor="#B45309"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="#FDE68A"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp"
-                                android:text="PENDING"
-                                android:textColor="#92400E"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Status: Pending Registration Approval"
-                            android:textColor="#78350F"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <!-- Student Item 2: Unassigned Student -->
-                    <LinearLayout
+                    <Button
+                        android:id="@+id/btnOpenRoster"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#FEE2E2"
-                        android:orientation="vertical"
-                        android:padding="14dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="DAVID LUNGU"
-                                    android:textColor="#991B1B"
-                                    android:textSize="15sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="ID: 20210005 • BSc. CS"
-                                    android:textColor="#B91C1C"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="#FECACA"
-                                android:paddingHorizontal="8dp"
-                                android:paddingVertical="3dp"
-                                android:text="UNASSIGNED"
-                                android:textColor="#991B1B"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Status: Unassigned to Project Group"
-                            android:textColor="#7F1D1D"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                        android:layout_height="48dp"
+                        android:layout_marginTop="12dp"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:text="Open student roster"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="10dp" />
 
                     <Button
                         android:id="@+id/btnGoToActionNeeded"
@@ -609,7 +521,7 @@
                         android:layout_height="48dp"
                         android:layout_marginTop="16dp"
                         android:backgroundTint="#D97706"
-                        android:text="View Action Needed (2 Requests)"
+                        android:text="View registrations &amp; requests"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="14sp"
