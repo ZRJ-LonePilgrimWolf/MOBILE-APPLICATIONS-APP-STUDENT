@@ -134,7 +134,7 @@ router.get('/chat/contacts', async (req, res) => {
     try {
         const me = await whoAmI(req);
         const [rows] = await pool.query(
-            `SELECT a.account_id, a.role, COALESCE(s.student_name, a.full_name, a.username) AS name
+            `SELECT a.account_id, a.role, COALESCE(s.student_name, a.full_name, a.username) AS name,
                     pr.program_name, g.group_name,
                     (k.account_id IS NOT NULL) AS has_key
                FROM accounts a
@@ -147,7 +147,7 @@ router.get('/chat/contacts', async (req, res) => {
                 AND (a.role = 'lecturer' OR (s.student_id IS NOT NULL AND s.is_deleted = 0))
               ORDER BY a.role, name`, [me.account_id]);
         res.json({ contacts: rows.map(r => ({ ...r, has_key: Number(r.has_key) })) });
-       } catch (e) { console.error('contacts failed:', e); res.status(500).json({ code: 'DEBUG', message: String(e && e.message) }); }
+                  } catch (e) { send(res, e); }
 });
 
 // The phone uploads ITS OWN public key (never the private one).
