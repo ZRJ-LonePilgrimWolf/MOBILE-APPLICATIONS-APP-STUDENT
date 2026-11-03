@@ -48,25 +48,42 @@ router.post('/register/student', async (req, res) => {
             const [p] = await conn.query('SELECT program_id FROM program WHERE program_id = ?', [program_id]);
             if (p.length === 0) throw new Reject(400, { code: 'PROGRAM_NOT_FOUND', message: 'Programme not found' });
 
-            // 2. Does this student number already exist?
-            const [ex] = await conn.query(
-                `SELECT s.student_id, s.student_name, s.is_deleted, a.account_id, a.email
-                 FROM students s JOIN accounts a ON a.account_id = s.account_id
-                 WHERE s.student_number = ? FOR UPDATE`, [student_number]);
+                            // 2. Does this student number already exist?
+                //    LEFT JOIN: students imported from the official list may have no account yet.
+                const [ex] = await conn.query(
+                    `SELECT s.student_id, s.student_name, s.is_deleted, s.account_id, a.email, a.username
+                       FROM students s LEFT JOIN accounts a ON a.account_id = s.account_id
+                      WHERE s.student_number = ? FOR UPDATE`, [student_number]);
 
-            if (ex.length > 0) {
-                const s = ex[0];
-                if (s.is_deleted) throw new Reject(409, { code: 'NUMBER_RESERVED', message: 'This student number is reserved. Ask your lecturer.' });
-                if (!String(s.email).endsWith('@pending.local')) throw new Reject(409, { code: 'ALREADY_REGISTERED', message: 'This student number already has an account. Please log in.' });
-                // Added by the lecturer, not claimed yet: verify ownership by name, then LINK (no second profile, no new place used).
-                   if (nameKey(s.student_name) !== nameKey(student_name)) {
-                    throw new Reject(403, { code: 'OWNERSHIP_FAILED', message: 'Name does not match the record your lecturer entered' });
-                }
-                try {
-                    await conn.query('UPDATE accounts SET username = ?, password = ?, email = ? WHERE account_id = ?', [username, hash, email, s.account_id]);
-                } catch (e) { if (e.code === 'ER_DUP_ENTRY') throw dupToReject(e); throw e; }
-                status = 200;
-                body = { code: 'LINKED', message: 'Account linked to your existing student record', student_id: s.student_id };
+                if (ex.length > 0) {
+                    const s = ex[0];
+                    const selfDeleted = String(s.username || '').startsWith('deleted_');
+                    if (s.is_deleted && !selfDeleted) {
+                        throw new Reject(409, { code: 'NUMBER_RESERVED', message: 'This student number is reserved. Ask your lecturer.' });
+                    }
+                    if (s.account_id && !String(s.email || '').endsWith('@pending.local')) {
+                        throw new Reject(409, { code: 'ALREADY_REGISTERED', message: 'This student number already has an account. Please log in.' });
+                    }
+                    // On the official list (or the student deleted their old account):
+                    // verify ownership by name, then link. It keeps its group, so no new place is used.
+                    if (nameKey(s.student_name) !== nameKey(student_name)) {
+                        throw new Reject(403, { code: 'OWNERSHIP_FAILED', message: 'Name does not match the record your lecturer entered' });
+                    }
+                    try {
+                        if (s.account_id) {
+                            await conn.query('UPDATE accounts SET username = ?, password = ?, email = ? WHERE account_id = ?',
+                                [username, hash, email, s.account_id]);
+                        } else {
+                            const [a] = await conn.query("INSERT INTO accounts (username, password, email, role) VALUES (?, ?, ?, 'student')",
+                                [username, hash, email]);
+                            await conn.query('UPDATE students SET account_id = ? WHERE student_id = ?', [a.insertId, s.student_id]);
+                        }
+                        if (s.is_deleted) {
+                            await conn.query('UPDATE students SET is_deleted = 0, version = version + 1 WHERE student_id = ?', [s.student_id]);
+                        }
+                    } catch (e) { if (e.code === 'ER_DUP_ENTRY') throw dupToReject(e); throw e; }
+                    status = 200;
+                    body = { code: 'LINKED', message: 'Account linked to your existing student record', student_id: s.student_id };
             } else {
                 // 3. Brand-new student: count AFTER the lock, deleted students do not take a place.
                 const [[{ n }]] = await conn.query('SELECT COUNT(*) AS n FROM students WHERE lab_group_id = ? AND is_deleted = 0', [lab_group_id]);
