@@ -139,12 +139,7 @@ public class Registration extends BaseActivity {
             String label = (String) parent.getItemAtPosition(position);
             ReferenceResponse.Group g = groupByLabel.get(label);
             if (g == null) { selectedGroupId = -1; return; }
-            if (g.member_count >= g.max_members) {
-                selectedGroupId = -1;
-                acGroup.setText("", false);
-                toast(g.group_name + " is full (" + g.max_members + " students). Choose another group.");
-                return;
-            }
+
             selectedGroupId = g.lab_group_id;
             acGroup.setError(null);
         });

@@ -41,10 +41,10 @@ public class MainActivity extends BaseActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
-            roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
+            roleAutoComplete.setOnClickListener(v -> adapter.getFilter().filter(null, c -> roleAutoComplete.showDropDown()));
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) adapter.getFilter().filter(null, c -> roleAutoComplete.showDropDown()); });
                 }
             });
 
