@@ -31,6 +31,7 @@ public interface ApiService {
     @retrofit2.http.DELETE("api/lecturer/groups/{id}") Call<okhttp3.ResponseBody> deleteLabGroup(@Header("Authorization") String bearer, @retrofit2.http.Path("id") int id);
     @POST("api/lecturer/programs") Call<okhttp3.ResponseBody> addProgram(@Header("Authorization") String bearer, @Body java.util.Map<String, String> body);
     @retrofit2.http.DELETE("api/lecturer/programs/{id}") Call<okhttp3.ResponseBody> deleteProgram(@Header("Authorization") String bearer, @retrofit2.http.Path("id") int id);
+    @GET("api/chat/contacts") Call<okhttp3.ResponseBody> contactsRaw(@Header("Authorization") String bearer);
 
     @POST("api/forgot-password")
     Call<PasswordResetDtos.Message> forgotPassword(@Body PasswordResetDtos.ForgotBody body);

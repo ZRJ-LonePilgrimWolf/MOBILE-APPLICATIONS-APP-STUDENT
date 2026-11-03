@@ -27,9 +27,14 @@ public class FActivity extends BaseActivity {
             });
         }
 
-        // Students may only see their own record, so there is no student search.
-        ImageView search = findViewById(R.id.search);
-        if (search != null) search.setVisibility(android.view.View.GONE);
+        // Search tab: opens the student search (names, groups, programmes, courses, timetable).
+        android.view.View searchIcon = findViewById(R.id.search);
+        if (searchIcon != null) {
+            android.view.View.OnClickListener openSearch =
+                    v -> startActivity(new Intent(FActivity.this, SearchActivity.class));
+            searchIcon.setOnClickListener(openSearch);
+            ((android.view.View) searchIcon.getParent()).setOnClickListener(openSearch);
+        }
 
         Button btnStudentTue = findViewById(R.id.btnStudentTue);
         if (btnStudentTue != null) {
