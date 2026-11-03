@@ -107,6 +107,7 @@ router.post('/register/lecturer', async (req, res) => {
     if (lecturer_code !== secret) return res.status(403).json({ code: 'BAD_CODE', message: 'Wrong lecturer access code' });
     if (!user || !password || !email || !full_name) return res.status(400).json({ code: 'VALIDATION', message: 'Full name, username, password and email are required' });
     if (!nameRegex.test(full_name)) return res.status(400).json({ code: 'VALIDATION', field: 'full_name', message: 'Name must be 2-100 letters (spaces, hyphens and apostrophes allowed)' });
+           if (full_name.split(' ').length < 2) return res.status(400).json({ code: 'VALIDATION', field: 'full_name', message: 'Enter at least two names, e.g. Mary Banda' });
     if (!/^[A-Za-z0-9._-]{3,30}$/.test(user)) return res.status(400).json({ code: 'VALIDATION', field: 'username', message: 'Username: 3-30 letters, numbers, dot, dash or underscore (no spaces)' });
     if (!emailRegex.test(email)) return res.status(400).json({ code: 'VALIDATION', field: 'email', message: 'Enter a valid email address' });
     if (String(password).length < 6) return res.status(400).json({ code: 'VALIDATION', field: 'password', message: 'Password must be at least 6 characters' });

@@ -23,6 +23,11 @@ router.put('/lecturer/me', authenticateToken, requireRole('lecturer'), async (re
     if (!nameRegex.test(full_name)) {
         return res.status(400).json({ code: 'VALIDATION', field: 'full_name', message: 'Name must be 2-100 letters (spaces, hyphens and apostrophes allowed)' });
     }
+
+       if (full_name.split(' ').length < 2) {
+           return res.status(400).json({ code: 'VALIDATION', field: 'full_name', message: 'Enter at least two names, e.g. Mary Banda' });
+       }
+
     try {
         await pool.query('UPDATE accounts SET full_name = ? WHERE account_id = ?', [full_name, req.user.account_id]);
         res.json({ message: 'Name saved', full_name });
