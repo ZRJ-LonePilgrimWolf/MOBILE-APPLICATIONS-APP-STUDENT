@@ -12,6 +12,7 @@ const studentsUpdateSafe = require('./studentsUpdateSafe');
 const studentRoutes = require('./students');
 const lecturerProfile = require('./lecturerProfile');
    const accountDelete = require('./accountDelete');
+      const labAdmin = require('./labAdmin');
 const app = express();
 
 // =====================================================
@@ -31,6 +32,7 @@ app.use('/api', authRoutes);
 app.use('/api', passwordResetRoutes);
 app.use('/api', lecturerProfile);
    app.use('/api', accountDelete);
+      app.use('/api', labAdmin);
 app.use('/api', studentsSafe);
 app.use('/api', studentsUpdateSafe);
 app.use('/api', studentRoutes);
