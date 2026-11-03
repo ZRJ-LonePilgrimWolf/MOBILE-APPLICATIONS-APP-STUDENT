@@ -38,13 +38,31 @@ public class MainActivity extends BaseActivity {
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.Roll);
         if (roleAutoComplete != null) {
             String[] roles = new String[]{"Student", "Lecturer"};
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, roles) {
+                @Override
+                public android.widget.Filter getFilter() {
+                    // Never filter: always offer both roles, whatever is already in the box.
+                    return new android.widget.Filter() {
+                        @Override
+                        protected FilterResults performFiltering(CharSequence c) {
+                            FilterResults r = new FilterResults();
+                            r.values = roles;
+                            r.count = roles.length;
+                            return r;
+                        }
+                        @Override
+                        protected void publishResults(CharSequence c, FilterResults r) {
+                            notifyDataSetChanged();
+                        }
+                    };
+                }
+            };
             roleAutoComplete.setAdapter(adapter);
             roleAutoComplete.setDropDownBackgroundDrawable(new ColorDrawable(androidx.core.content.ContextCompat.getColor(this, R.color.card_bg_color)));
-            roleAutoComplete.setOnClickListener(v -> adapter.getFilter().filter(null, c -> roleAutoComplete.showDropDown()));
+            roleAutoComplete.setOnClickListener(v -> roleAutoComplete.showDropDown());
             roleAutoComplete.setOnFocusChangeListener((v, hasFocus) -> {
                 if (hasFocus) {
-                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) adapter.getFilter().filter(null, c -> roleAutoComplete.showDropDown()); });
+                    roleAutoComplete.post(() -> { if (roleAutoComplete.getWindowToken() != null) roleAutoComplete.showDropDown(); });
                 }
             });
 
