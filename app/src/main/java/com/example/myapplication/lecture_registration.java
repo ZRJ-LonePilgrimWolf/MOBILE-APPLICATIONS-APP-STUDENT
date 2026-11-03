@@ -75,6 +75,7 @@ public class lecture_registration extends BaseActivity {
             toast("Please fill in every field"); return;
         }
         if (!fullName.matches("\\p{L}[\\p{L}\\p{M} .'\u2019-]{1,99}")) { fullNameInput.setError("Letters only, at least 2"); return; }
+        if (fullName.split(" ").length < 2) { fullNameInput.setError("Enter at least two names, e.g. Mary Banda"); fullNameInput.requestFocus(); return; }
         if (!username.matches("[A-Za-z0-9._-]{3,30}")) { numberInput.setError("3-30 letters/numbers, no spaces"); return; }
         if (!email.contains("@")) { toast("Enter a valid email address"); return; }
         if (password.length() < 6) { toast("Password must be at least 6 characters"); return; }if (password.length() < 6) { toast("Password must be at least 6 characters"); return; }

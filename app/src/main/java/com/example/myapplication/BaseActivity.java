@@ -137,7 +137,7 @@ public class BaseActivity extends AppCompatActivity {
                                                        retrofit2.Response<okhttp3.ResponseBody> r) {
                                     if (isFinishing() || isDestroyed()) return;
                                     v.setEnabled(true);
-                                    if (r.isSuccessful()) {
+                                    if (r.isSuccessful() || r.code() == 404) {
                                         d.dismiss();
                                         android.widget.Toast.makeText(BaseActivity.this,
                                                 "Your account has been deleted", android.widget.Toast.LENGTH_LONG).show();

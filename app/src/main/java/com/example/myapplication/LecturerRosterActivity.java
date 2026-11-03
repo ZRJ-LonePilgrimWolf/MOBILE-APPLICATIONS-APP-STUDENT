@@ -171,7 +171,7 @@ public class LecturerRosterActivity extends BaseActivity {
             @Override
             public void onResponse(Call<LecturerDtos.Me> c, Response<LecturerDtos.Me> r) {
                 if (isFinishing() || isDestroyed() || !r.isSuccessful() || r.body() == null) return;
-                if (r.body().full_name != null && !r.body().full_name.trim().isEmpty()) return;
+                if (r.body().full_name != null && r.body().full_name.trim().split("\\s+").length >= 2) return;
 
                 EditText input = new EditText(LecturerRosterActivity.this);
                 input.setHint("e.g. Mary Banda");
@@ -187,6 +187,7 @@ public class LecturerRosterActivity extends BaseActivity {
                 d.setOnShowListener(x -> d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
                     String name = input.getText().toString().trim().replaceAll("\\s+", " ");
                     if (!name.matches("\\p{L}[\\p{L}\\p{M} .'\u2019-]{1,99}")) { input.setError("Letters only, at least 2"); return; }
+                    if (name.split(" ").length < 2) { input.setError("Enter at least two names, e.g. Mary Banda"); return; }
                     api.updateLecturerMe(Session.bearer(), new LecturerDtos.UpdateName(name)).enqueue(new Callback<okhttp3.ResponseBody>() {
                         @Override public void onResponse(Call<okhttp3.ResponseBody> c2, Response<okhttp3.ResponseBody> r2) {
                             Toast.makeText(LecturerRosterActivity.this, r2.isSuccessful() ? "Name saved" : "Could not save the name", Toast.LENGTH_SHORT).show();
