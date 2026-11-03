@@ -47,6 +47,21 @@ public class Profile extends BaseActivity {
         // Buttons — same destinations as before
         findViewById(R.id.back).setOnClickListener(v -> finish());
 
+        // "Delete my account" button, added at the bottom of the profile content.
+        android.widget.Button deleteBtn = new android.widget.Button(this);
+        deleteBtn.setText("Delete my account");
+        deleteBtn.setAllCaps(false);
+        deleteBtn.setTextColor(0xFFD32F2F);
+        deleteBtn.setOnClickListener(v -> confirmDeleteAccount());
+        android.view.View host = profileContent;
+        if (host instanceof android.widget.ScrollView
+                || host instanceof androidx.core.widget.NestedScrollView) {
+            host = ((android.view.ViewGroup) host).getChildAt(0);
+        }
+        if (host instanceof android.view.ViewGroup) {
+            ((android.view.ViewGroup) host).addView(deleteBtn);
+        }
+
         ImageView change = findViewById(R.id.change);
         change.setOnClickListener(v -> startActivity(new Intent(this, changegroup.class)));
 

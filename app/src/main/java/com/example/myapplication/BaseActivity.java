@@ -103,6 +103,65 @@ public class BaseActivity extends AppCompatActivity {
         return !PUBLIC_SCREENS.contains(getClass());
     }
 
+    /** Delete my own account (students and lecturers), confirmed with the password. */
+    protected void confirmDeleteAccount() {
+        if (Session.bearer() == null) { logout(); return; }
+        final android.widget.EditText pw = new android.widget.EditText(this);
+        pw.setHint("Your password");
+        pw.setInputType(android.text.InputType.TYPE_CLASS_TEXT
+                | android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        int pad = (int) (20 * getResources().getDisplayMetrics().density);
+        pw.setPadding(pad, pad / 2, pad, pad / 2);
+
+        final androidx.appcompat.app.AlertDialog d = new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Delete my account")
+                .setMessage("This permanently deletes your account. You will be logged out and "
+                        + "cannot log in with it again. Enter your password to confirm.")
+                .setView(pw)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Delete", null)
+                .create();
+
+        d.setOnShowListener(x -> d.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE)
+                .setOnClickListener(v -> {
+                    String password = pw.getText().toString();
+                    if (password.isEmpty()) { pw.setError("Enter your password"); return; }
+                    v.setEnabled(false);
+                    java.util.Map<String, String> body = new java.util.HashMap<>();
+                    body.put("password", password);
+                    ApiClient.getClient().create(ApiService.class)
+                            .deleteMyAccount(Session.bearer(), body)
+                            .enqueue(new retrofit2.Callback<okhttp3.ResponseBody>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<okhttp3.ResponseBody> c,
+                                                       retrofit2.Response<okhttp3.ResponseBody> r) {
+                                    if (isFinishing() || isDestroyed()) return;
+                                    v.setEnabled(true);
+                                    if (r.isSuccessful()) {
+                                        d.dismiss();
+                                        android.widget.Toast.makeText(BaseActivity.this,
+                                                "Your account has been deleted", android.widget.Toast.LENGTH_LONG).show();
+                                        logout();
+                                    } else if (r.code() == 401) {
+                                        pw.setError("Password is incorrect");
+                                    } else {
+                                        android.widget.Toast.makeText(BaseActivity.this,
+                                                "Could not delete the account (" + r.code() + ")",
+                                                android.widget.Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(retrofit2.Call<okhttp3.ResponseBody> c, Throwable t) {
+                                    if (isFinishing() || isDestroyed()) return;
+                                    v.setEnabled(true);
+                                    android.widget.Toast.makeText(BaseActivity.this,
+                                            "No connection. Try again.", android.widget.Toast.LENGTH_LONG).show();
+                                }
+                            });
+                }));
+        d.show();
+    }
+
     /**
      * Log out: forget the token (it only lives in memory), clear this account's finished local copies,
      * and open the right login screen with the back stack wiped, so Back cannot return to account data.

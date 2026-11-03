@@ -24,6 +24,8 @@ public interface ApiService {
     @PUT("api/lecturer/me")
     Call<okhttp3.ResponseBody> updateLecturerMe(@Header("Authorization") String bearer, @Body LecturerDtos.UpdateName body);
 
+    @POST("api/me/delete") Call<okhttp3.ResponseBody> deleteMyAccount(@Header("Authorization") String bearer, @Body java.util.Map<String, String> body);
+
     @POST("api/forgot-password")
     Call<PasswordResetDtos.Message> forgotPassword(@Body PasswordResetDtos.ForgotBody body);
 
