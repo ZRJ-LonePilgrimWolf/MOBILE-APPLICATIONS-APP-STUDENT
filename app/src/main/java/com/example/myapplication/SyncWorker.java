@@ -39,6 +39,7 @@ public class SyncWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        ApiClient.load(getApplicationContext());
         String bearer = Session.bearer();
         int account = Session.accountId();
         if (bearer == null || account <= 0) return Result.retry();          // session paused: wait for a login

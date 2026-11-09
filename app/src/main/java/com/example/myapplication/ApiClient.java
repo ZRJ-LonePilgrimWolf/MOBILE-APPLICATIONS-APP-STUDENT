@@ -9,20 +9,19 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    // ===== SWITCH =====
-    // true  = ONLINE server (Render + TiDB): works on any phone, anywhere. Use this for the APK.
-    // false = LAPTOP server (node index.js): emulator via 10.0.2.2, phone via USB/Wi-Fi debugging.
-    public static final boolean USE_ONLINE = true;
+    // ===== SERVER =====
+    // false = LAPTOP server on the local Wi-Fi (XAMPP + node index.js), as the lecturer asked.
+    // true  = old ONLINE server (Render + TiDB), kept as a backup.
+    public static final boolean USE_ONLINE = false;
 
     private static final String ONLINE_URL = "https://nexa-api-26d7.onrender.com/";
+    // The laptop's Wi-Fi IPv4 address (ipconfig -> Wireless LAN adapter Wi-Fi).
+    // It can be changed inside the app: login screen -> "Server address".
+    private static final String DEFAULT_LOCAL_URL = "http://172.26.44.97:3000/";
 
-    // EMULATOR:   10.0.2.2  = "the laptop the emulator runs on".
-    // REAL PHONE: 127.0.0.1 = tunnelled to the laptop by "adb reverse" (build.gradle does it).
-    private static final String EMULATOR_URL = "http://10.0.2.2:3000/";
-    private static final String USB_PHONE_URL = "http://127.0.0.1:3000/";
+    private static final String PREFS = "nexa_server", KEY_URL = "server_url";
 
-    public static final String BASE_URL =
-            USE_ONLINE ? ONLINE_URL : (isEmulator() ? EMULATOR_URL : USB_PHONE_URL);
+    public static String BASE_URL = USE_ONLINE ? ONLINE_URL : DEFAULT_LOCAL_URL;
 
     private static Retrofit retrofit = null;
 
@@ -44,6 +43,54 @@ public class ApiClient {
                     .build();
         }
         return retrofit;
+    }
+
+    /** Call at the start of each screen: uses the server address saved on this phone. */
+    public static synchronized void load(android.content.Context c) {
+        if (USE_ONLINE) return;
+        String saved = c.getApplicationContext().getSharedPreferences(PREFS, 0).getString(KEY_URL, null);
+        String url = saved != null ? saved : DEFAULT_LOCAL_URL;
+        if (!url.equals(BASE_URL)) { BASE_URL = url; retrofit = null; }
+    }
+
+    /** Saves an address like "192.168.1.45" or "http://192.168.1.45:3000". Returns false if invalid. */
+    public static synchronized boolean setServer(android.content.Context c, String input) {
+        String s = input == null ? "" : input.trim();
+        if (s.isEmpty()) return false;
+        if (!s.startsWith("http://") && !s.startsWith("https://")) s = "http://" + s;
+        String scheme = s.substring(0, s.indexOf("://"));
+        String host = s.substring(s.indexOf("://") + 3);
+        int slash = host.indexOf('/');
+        if (slash >= 0) host = host.substring(0, slash);
+        if (host.isEmpty()) return false;
+        if (!host.contains(":")) host = host + ":3000";
+        String url = scheme + "://" + host + "/";
+        if (okhttp3.HttpUrl.parse(url) == null) return false;
+        c.getApplicationContext().getSharedPreferences(PREFS, 0).edit().putString(KEY_URL, url).apply();
+        BASE_URL = url;
+        retrofit = null;   // rebuild the client with the new address
+        return true;
+    }
+
+    /** Dialog to view or change the server address (used on the login screen). */
+    public static void showServerDialog(android.app.Activity a) {
+        final android.widget.EditText in = new android.widget.EditText(a);
+        in.setText(BASE_URL);
+        in.setSingleLine(true);
+        new androidx.appcompat.app.AlertDialog.Builder(a)
+                .setTitle("Server address")
+                .setMessage("The laptop's Wi-Fi IPv4 address (from ipconfig), e.g. 192.168.1.45. "
+                        + "The phone and the laptop must be on the same Wi-Fi.")
+                .setView(in)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Save", (d, w) -> {
+                    if (setServer(a, in.getText().toString())) {
+                        android.widget.Toast.makeText(a, "Server set to " + BASE_URL, android.widget.Toast.LENGTH_LONG).show();
+                    } else {
+                        android.widget.Toast.makeText(a, "That address is not valid", android.widget.Toast.LENGTH_LONG).show();
+                    }
+                })
+                .show();
     }
 
     /** True on the Android Studio emulator, false on a real phone. */

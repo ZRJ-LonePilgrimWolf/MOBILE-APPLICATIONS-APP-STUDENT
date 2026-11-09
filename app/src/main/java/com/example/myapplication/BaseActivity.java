@@ -42,6 +42,7 @@ public class BaseActivity extends AppCompatActivity {
         appliedAccent = ThemeHelper.getAccent(this);
         setTheme(ThemeHelper.styleFor(appliedAccent));   // MUST be before super.onCreate
         super.onCreate(savedInstanceState);
+        ApiClient.load(this);
     }
 
     /**

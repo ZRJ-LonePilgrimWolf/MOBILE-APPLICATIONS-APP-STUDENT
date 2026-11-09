@@ -24,7 +24,11 @@ public class MainActivity extends BaseActivity {
 
 
         super.onCreate(savedInstanceState);
+        ApiClient.load(this);
         setContentView(R.layout.activity_main);
+
+        android.view.View server = findViewById(R.id.serverAddress);
+        if (server != null) server.setOnClickListener(v -> ApiClient.showServerDialog(this));
 
         ApiClient.wakeServer();   // start waking the server while the user types
 
