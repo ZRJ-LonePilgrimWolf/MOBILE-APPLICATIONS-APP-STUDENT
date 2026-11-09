@@ -37,7 +37,7 @@ public class LecturerRosterActivity extends BaseActivity {
 
         AutoCompleteTextView roleAutoComplete = findViewById(R.id.rol);
         if (roleAutoComplete != null) {
-            String[] roles = new String[]{"CHAT", "THEME", "SETTINGS", "MANAGE GROUPS", "LOGOUT", "DELETE ACCOUNT"};
+            String[] roles = new String[]{"CHAT", "THEME", "SETTINGS", "MANAGE GROUPS", "EXPORT / IMPORT", "LOGOUT", "DELETE ACCOUNT"};
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, roles);
             roleAutoComplete.setAdapter(adapter);
 
@@ -72,6 +72,8 @@ public class LecturerRosterActivity extends BaseActivity {
                     startActivity(intent);
                 } else if ("MANAGE GROUPS".equalsIgnoreCase(selectedItem)) {
                     startActivity(new Intent(LecturerRosterActivity.this, ManageLabActivity.class));
+                } else if ("EXPORT / IMPORT".equalsIgnoreCase(selectedItem)) {
+                    startActivity(new Intent(LecturerRosterActivity.this, TransferActivity.class));
                 } else if ("LOGOUT".equalsIgnoreCase(selectedItem)) {
                     logout();
                 } else if ("DELETE ACCOUNT".equalsIgnoreCase(selectedItem)) {

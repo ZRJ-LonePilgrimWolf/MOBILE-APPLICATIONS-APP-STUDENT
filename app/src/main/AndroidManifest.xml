@@ -54,6 +54,12 @@
             android:name=".SearchActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".TransferActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".chatbot"
             android:exported="false" />
