@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config();
 const registerSafe = require('./registerSafe');
    const reference = require('./reference');
-      const chat = require('./chat');
+   const chat = require('./chat');
          const approvals = require('./approvals');
          const selfService = require('./selfService');
 const authRoutes = require('./auth');
@@ -13,6 +13,7 @@ const studentRoutes = require('./students');
 const lecturerProfile = require('./lecturerProfile');
    const accountDelete = require('./accountDelete');
       const labAdmin = require('./labAdmin');
+         const labTransfer = require('./labTransfer');
 const app = express();
 
 // =====================================================
@@ -33,6 +34,7 @@ app.use('/api', passwordResetRoutes);
 app.use('/api', lecturerProfile);
    app.use('/api', accountDelete);
       app.use('/api', labAdmin);
+         app.use('/api', labTransfer);
 app.use('/api', studentsSafe);
 app.use('/api', studentsUpdateSafe);
 app.use('/api', studentRoutes);
