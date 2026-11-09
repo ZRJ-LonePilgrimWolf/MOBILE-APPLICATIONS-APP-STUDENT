@@ -30,7 +30,9 @@ public class SyncWorker extends Worker {
     /** Schedule a sync now (or as soon as there is internet). Also used by the "Sync now" button. */
     public static void enqueue(Context c) {
         OneTimeWorkRequest req = new OneTimeWorkRequest.Builder(SyncWorker.class)
-                .setConstraints(new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                .setConstraints(new Constraints.Builder()
+                        .setRequiredNetworkType(ApiClient.USE_ONLINE ? NetworkType.CONNECTED : NetworkType.NOT_REQUIRED)
+                        .build())
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, 30, TimeUnit.SECONDS)
                 .build();
         WorkManager.getInstance(c).enqueueUniqueWork(UNIQUE_NAME, ExistingWorkPolicy.REPLACE, req);

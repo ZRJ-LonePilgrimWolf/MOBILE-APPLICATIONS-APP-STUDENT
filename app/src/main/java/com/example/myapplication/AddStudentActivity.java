@@ -110,11 +110,11 @@ public class AddStudentActivity extends BaseActivity {
             }
             name.setText("");
             number.setText("");
-            Toast.makeText(this, "Saved on this phone. It will sync when online.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Saved on this phone. Tap SYNC NOW to send it to the server.", Toast.LENGTH_SHORT).show();
         });
         sync.setOnClickListener(v -> {
             vm.syncNow();
-            Toast.makeText(this, "Sync started (waits for internet if offline)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sync started. Sending to the server…", Toast.LENGTH_SHORT).show();
         });
 
         vm.syncNow();   // try to send anything left from before
